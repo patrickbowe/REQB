@@ -1,0 +1,18 @@
+-if !@defs.nil?
+     -@defs.each do |d|
+          -form_tag edit_def_url(d.id) do
+               %div{:class=>"Row wid660"}
+               =text_field_tag "term_#{d.id}",d.term
+               =text_field_tag "definition_#{d.id}",d.definition
+               -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
+               %div{:id=>"save_def_#{d.id}",:style => "display:none;"}
+                    =submit_tag "Save"
+                    =link_to "Cancel","#",:id=>"cancel_def_#{d.id}"
+               -if @user.privilige=="Admin" or @user.id==d.user_id
+                    =link_to "Delete",delete_def_url(d.id)
+               -else
+                    =link_to "Delete",delete_def_url(d.id),:href=>"#"
+               %br
+               %br
+          %br
+          %hr{:style=>"width:400px;color:green;"}

@@ -1,0 +1,12 @@
+development:
+  bucket: REQB
+  access_key_id: AKIAITYDGZ5GIXN7N6EA
+  secret_access_key: 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
+test:
+  bucket: REQB
+  access_key_id: AKIAITYDGZ5GIXN7N6EA
+  secret_access_key: 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
+production:
+  bucket: REQB
+  access_key_id: AKIAITYDGZ5GIXN7N6EA
+  secret_access_key: 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

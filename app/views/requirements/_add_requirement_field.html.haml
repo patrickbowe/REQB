@@ -1,0 +1,10 @@
+%span.strong
+  ="Add New Requirements:"
+  -if !session[:project_id].nil? and @user.privilige!="Read" and @user.privilige!="Approve"
+    =text_field_tag :req_name,"<< Add requirement",:size=>"50",:style=>"text-align:right",:class=>"inp"
+    &nbsp;
+    =add_require "+ 10 Reqs"
+  -else
+    =text_field_tag :req_name,"<< Add requirement",:size=>"50",:style=>"text-align:right",:disabled=>true,:class=>"inp"
+    &nbsp;
+    =link_to "+ 10 Reqs",:href=>"#"

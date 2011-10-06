@@ -1,0 +1,7 @@
+-form_for :object, :url=>change_email_url do |f|
+ %p
+  = f.label :email
+  %br
+  = f.email_field :email
+  = f.submit "Change Email"
+  =link_to "Cancel",account_details_url

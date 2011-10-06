@@ -1,0 +1,54 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"tabbed_area"}
+   %ul{:class=>"tabs"}
+    %li=link_to "Pre-conditions",use_case_details_path(:id=>@use_case.id),{:title=>"Pre-conditions"}
+    %li=link_to "Post Conditions",post_conditions_url(:id=>@use_case.id),{:title=>"Post Conditions"}
+    %li=link_to "Success Conditions",success_conditions_url(:id=>@use_case.id),:title=>"Success Conditions"
+    %li=link_to "Triggers",triggers_url(:id=>@use_case.id),:title=>"Triggers"
+    %li=link_to "Actors",actors_url(:id=>@use_case.id),{:title=>"Actors"}
+    %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
+    %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages",:class=>"active"}
+    %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:title=>"Basic Flow"}
+   %span{:class=>"line"}
+   %div{:class=>"dwnContainer"}
+    %div{:id=>"project",:align=>"middle"}
+    %b="Use Case Details"
+    %br
+    %div{:id=>"add_message"}
+     -if @user.privilige!="Read" and @user.privilige!="Approve"
+      =text_field_tag "use_message","<< Add message",:size=>"50",:style=>"text-align:right"
+      %br
+      %br
+      %div{:id=>"add_use_case_detail"}
+       -if !@messages.nil?
+        -@messages.each do |msg|
+         -form_tag edit_url(msg.id) do
+          ="BR-#{@use_case.id}-#{msg.id}"
+          =text_field_tag "message_#{msg.id}",msg.title
+          =text_field_tag :content,msg.content
+          %div{:id=>"show_save_cancel_#{msg.id}",:style => "display:none;"}
+           =submit_tag "Edit"
+           =link_to "Cancel",message_url(:id=>session[:use_case_id])
+          =link_to "Delete",delete_message_url(msg.id)
+         %br
+         %br
+     -else
+      =text_field_tag "use_message","<< Add message",:size=>"50",:style=>"text-align:right",:disabled=>true
+      %br
+      %br
+      %div{:id=>"add_use_case_detail"}
+       -if !@messages.nil?
+        -@messages.each do |msg|
+         ="MSG-#{@use_case.id}-#{msg.id}"
+         =text_field_tag "message_#{msg.id}",msg.title,:disabled=>true
+         =text_field_tag :content,msg.title,:disabled=>true
+         %div{:id=>"show_save_cancel_#{msg.id}",:style => "display:none;"}
+          =link_to "Edit",edit_url(msg.id),:href=>'#'
+          =link_to "Cancel",message_url(:id=>session[:use_case_id])
+         =link_to "Delete",delete_message_url(msg.id),:href=>'#'
+         %br
+         %br
+
+    %hr{:style=>"width:400px;color:green;"}
+    =link_to "<< Back to use case list",use_cases_path      

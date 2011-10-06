@@ -1,0 +1,36 @@
+%div{:class=>"container"}
+ %div{:id=>"tracker",:class=>"leftPanel"}
+  %h1="Tracker"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_tracker_text"}
+    -if !session[:project_id].nil?
+     =text_field_tag :tracker_req_name,"<< Link requirement to a tracker",:size=>"50",:style=>"text-align:right"
+    -else
+     =text_field_tag :tracker_req_name,"<< Link requirement to a tracker",:size=>"50",:style=>"text-align:right",:disabled=>true
+    %br
+    %div{:id=>"match_req_usecase"}
+    %br
+   %div{:id=>"add_tracker",:align=>"middle"}
+    -if !@tracker_reqs.nil?
+     -@tracker_reqs.each do |tracker|
+      %div{:class=>"Row wid660"}
+       =tracker.title
+       |
+       ="Assigned" if tracker.assigned.nil? or tracker.assigned.empty?
+       =tracker.assigned if !tracker.assigned.nil?
+       |
+       =tracker.category
+       |
+       ="Due" if tracker.due.nil?
+       =tracker.due if !tracker.due.nil?
+       -if tracker.flag_tracker==true
+        =check_box_tag "track_flag_#{tracker.id}","",true
+       -else
+        =check_box_tag "track_flag_#{tracker.id}","",false
+       =add_edit_tracker_req_field "Edit",tracker
+       =link_to "Delete",delete_tracker_req_url(tracker.id)
+       -#=link_to "Add/Show Usecase",:controller=>"requirements",:action=>"show_use_case",:req=>req
+       %div{:id=>"edit_#{tracker.id}"}
+       %hr{:style=>"width:400px;color:green;"}
+       %br
+   =link_to "<<Return to requirement list",requirements_path

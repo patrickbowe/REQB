@@ -1,0 +1,16 @@
+-if !@tracker_use.nil?
+ =@tracker_use.title
+ |
+ ="Assigned" if @tracker_use.assigned.nil? or @tracker_use.assigned.empty?
+ =@tracker_use.assigned if !@tracker_use.assigned.nil?
+ |
+ =@tracker_use.category 
+ |
+ ="Due" if @tracker_use.due.nil?
+ =@tracker_use.due if !@tracker_use.due.nil?
+ =check_box_tag "track_flag_#{@tracker_use.id}","",false
+ =add_edit_tracker_use_field "Edit",@tracker_use
+ =link_to "Delete",delete_tracker_use_url(@tracker_use.id)
+ %div{:id=>"edit_#{@tracker_use.id}"}
+ %hr{:style=>"width:400px;color:green;"}
+ %br

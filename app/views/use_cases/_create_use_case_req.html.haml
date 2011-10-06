@@ -1,0 +1,15 @@
+-#=find_user_name_use(@project_use)
+-if !@project_use.nil?
+ =@project_use.name
+ |
+ =@project_use.category
+ |
+ =@project_use.status
+ |
+ =add_use_req_edit_field "Edit",@project_use
+ =link_to "Delete",:controller => "use_cases", :action => "destroy_req_usecase", :id => @project_use.id
+ %br
+ %div{:style=>"width:350px;text-align:left;",:align=>"center"}
+ %div{:id=>"edit_#{@project_use.id}"}
+ %br
+ %hr{:style=>"width:400px;color:green;"}

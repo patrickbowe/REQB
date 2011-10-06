@@ -1,0 +1,20 @@
+%div{:align=>"left",:style=>"width:445px"}
+  -form_tag edit_project_file_path(f.id) do
+    ="TR_#{f.id}"
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    ="Entered " + f.created_at.strftime("%d %B %Y")
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    -first_name=find_user_name_of_file(f)
+    -if !first_name.empty?
+      ="By " + first_name
+      %br
+    %hr{:style=>"width:400px;color:gray;"}
+    =label_tag "Type"
+    =text_field_tag :type,f.type1
+    %br
+    %br
+    =label_tag "Description"
+    =text_area_tag :des,f.description
+    %br
+    =submit_tag "Save"
+    =remove_file_edit_field "Cancel",f

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>3D Projects Dashboard</title>
+  <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css"%>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :all%>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js" %>
+  <%= javascript_include_tag "http://ajax.microsoft.com/ajax/jquery.validate/1.5.5/jquery.validate.min.js"%>
+  <%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"%>
+  <%= csrf_meta_tag %>
+  
+  <script>
+  $(document).ready(function(){
+      $('.mySelectBoxClass').customStyle();
+  });
+  </script>
+  <!--<script language="javascript" src="jquery-latest.js"></script>-->
+  <script>
+  $("li").hover(
+    function () {
+      $(this).append($("<span> ***</span>"));
+    },
+    function () {
+      $(this).find("span:last").remove();
+    }
+  );
+  </script>
+
+
+</head>
+<body>
+<div id="mainDiv">
+    <% if !current_member.nil? || !current_user.nil? %>
+	<div class="headerBg">
+		<div class="left">
+        	<div class="projectBox">
+              <div id="project_select">
+                <%if !current_user.nil?%>
+                  <%= select("project_name","project_id",Project.find(:all,:conditions=>["user_id=?",current_user.id]).collect {|p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"})%>
+                <%elsif !current_member.nil?%>
+                  <%=select "project_name","project_id",Project.find(:all,:conditions=>["user_id=?",session[:admin_id]]).collect {  |p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"}%>
+                <%end%>
+              </div>  
+        	</div>
+            <div id="menu">
+            	<div class="leftCor"></div>
+                <div class="mid">
+                	<ul>
+                    <li><%= link_to "Dashboard",dashboard_url%></li>
+                    <li class="spacer"></li>
+                    <li><%= link_to "Requirements",requirements_path%></li>
+                    <li class="spacer"></li>
+                    <li><%= link_to "Use Cases",use_cases_path%></li>
+                    <li class="spacer"></li>
+                    <li><%= link_to "Trackers",trackers_path%></li>
+                    <li class="spacer"></li>
+                    <li><%= link_to "Files",project_files_path%></li>
+                    <li class="spacer"></li>
+                    <li><%= link_to "Definitions",definitions_path%></li>
+                    </ul>
+                </div>
+                <div class="rightCor"></div>
+           </div>
+		</div>
+		<div class="right">
+			<div class="topLink">
+			<a href="#">People</a> | <a href="#">Account</a> | <%=link_to "Setting",account_details_url%> | <%=link_to "Get Help",get_help_url%> | <% if !current_user.nil? or !current_member.nil?%><%=link_to "Logout", logout_path%> <%else%> <%=link_to "Sign in",new_user_session_path%><%end%>
+			</div>
+			<div class="searchBg">
+			  <div class="searchBox">
+                <%form_tag search_path do%>
+                  <%=text_field_tag "search_text","Type Your Text"%>
+                  <input type="submit" name="button" id="button" value="" class="button" />
+                <%end%>
+			  </div>
+              <div class="printBox"><img src="images/printer-icon.jpg" width="32" height="32" /></div>
+			</div>
+		</div>
+	</div>
+      
+    <%end%>  
+     <div class="clear"></div>                
+      <% if !flash[:notice].nil?%>
+        <div>
+         <%= flash[:notice]%>
+        </div>
+      <%end%>
+
+
+
+
+
+<%= yield %>
+
+</div>
+<div class="copyright">All text and design is copyright &copy; 1999-2011</div>
+</body>
+</html>

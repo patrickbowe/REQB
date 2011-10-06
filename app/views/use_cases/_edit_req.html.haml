@@ -1,0 +1,28 @@
+%div{:align=>"left",:style=>"width:445px"}
+                      %hr{:style=>"width:350px;"}
+                      ="UC_" + u.id.to_s
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      ="Entered " + u.created_at.strftime("%d %B %Y")
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -first_name=find_user_name_use(u)
+                      -if !first_name.empty?
+                                            ="By " + first_name 
+                      %br
+                      %br
+                      -form_tag :controller=>"use_cases",:action=>"edit_req_usecase",:id=>u.id do |f|
+                                            %div{:style=>"display:inline-block;float:left;width:220px;"}
+                                                                  =label_tag "Description"
+                                                                  =text_field_tag "description",u.name,:maxlength=>"50"
+                                                                  %br
+                                                                                        
+                                                                  =label_tag "Status"
+                                                                  =select "status","",options_for_select(["Draft","Under Review","Reviewed","Approved","Rejected","To be modified"],u.status)
+                                                                  %br
+                                                                  =label_tag "Category"
+                                                                  =select "category","",options_for_select(["Configuration","Expenses","Invoicing","User admin"],u.category)
+                                                                  %br
+                                                                  =label_tag "Goal"
+                                                                  =text_area_tag :goal,"#{u.goal}",:rows => 2, :cols => 20
+                                                                  %br
+                                                                  =submit_tag "Save"
+                                                                  =remove_use_req_edit_field "Cancel",u

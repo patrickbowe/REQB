@@ -1,0 +1,30 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Definitions"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_definition",:align=>"middle"}
+    -if !@def.nil?
+     -form_tag edit_def_url(@def.id) do
+      %div{:class=>"Row wid660"}
+       =text_field_tag "term_#{@def.id}",@def.term
+       =text_field_tag "definition_#{@def.id}",@def.definition
+       -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
+       %div{:id=>"save_def_#{@def.id}",:style => "display:none;"}
+        =submit_tag "Save"
+        =link_to "Cancel","#",:id=>"cancel_def_#{@def.id}"
+       -if @user.privilige=="Admin" or @user.id==@def.user_id
+        =link_to "Delete",delete_def_url(@def.id)
+       -else
+        =link_to "Delete",delete_def_url(@def.id),:href=>"#"
+       %br
+       %br
+     %br
+     %hr{:style=>"width:400px;color:green;"}
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_definition"}
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+
+
+

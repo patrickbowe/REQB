@@ -1,0 +1,9 @@
+- form_for :member, :url => change_email_member_url do |f|
+ =f.error_messages
+ %br
+ %p
+  = f.label :email
+  %br
+  = f.email_field :email
+  = f.submit "Change Email"
+  =link_to "Cancel",account_details_url

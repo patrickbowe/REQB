@@ -1,0 +1,33 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="File Uploads"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_req_file"}
+    =text_field_tag :add_req_file1,"<< Link a file to requirement",:size=>"50",:style=>"text-align:right"
+    %br
+    %div{:id=>"match_file1"}
+    %br
+   %div{:id=>"add_file_name",:align=>"middle"}
+    -if !@file_reqs.nil?
+     -@file_reqs.each do |f|
+      %div{:class=>"Row wid660"}
+       =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
+       |
+       ="REQ#{session[:req_id]}"
+       =add_file_edit_req_field "Edit",f
+       -if @user.privilige!="Read" && @user.privilige!="Approve"
+        -att_flag=check_attachment_file(f.id)
+        -if att_flag=="true"
+         =link_to "Delete",project_file_path(f.id),:method=> :delete,:confirm => 'Are you sure you want to delete?'
+        -else
+         =link_to "Delete",project_file_path(f.id),:method=> :delete
+       -else
+        =link_to "Delete",destroy_file_req_url(f.id),:href=>"#"
+       
+       %br
+       %br
+       %div{:id=>"edit_#{f.id}"}
+       %br
+       %div{:id=>"comment_#{f.id}"}
+        %hr{:style=>"width:400px;color:green;"}
+   =link_to "<<Return to requirements list",requirements_path

@@ -1,0 +1,55 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="File Uploads"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_file"}
+    =render "new"
+    %br
+    %br
+   %div{:id=>"add_file_name",:align=>"middle"}
+    -if !@files.nil?
+     -@files.each do |f|
+      %div{:class=>"Row wid660"}
+       =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
+       |
+       -if !f.requirements.empty?
+        ="REQ"+ f.requirements[0].id.to_s
+       -elsif !f.use_cases.empty?
+        ="UC"+f.use_cases[0].id.to_s
+       -elsif !f.trackers.empty?
+        ="TR"+f.tracker[0].id.to_s
+       -else    
+        ="Not link"
+       =add_file_edit_field "Edit",f
+       -if @user.privilige!="Read" && @user.privilige!="Approve"
+        -att_flag=check_attachment_file(f.id)
+        -if att_flag=="true"
+         =link_to "Delete",project_file_path(f.id),:method=> :delete,:confirm => 'Are you sure you want to delete?'
+        -else
+         =link_to "Delete",project_file_path(f.id),:method=> :delete
+       -else
+        =link_to "Delete",project_file_path(f.id),:href=>"#"
+       =add_comment_file_field "Add Comments",f,@user
+       %br
+       %br
+       %br
+       %div{:id=>"edit_#{f.id}"}
+       %br
+       %div{:id=>"comment_#{f.id}"}
+        %hr{:style=>"width:400px;color:green;"}
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_file"}
+   %h1="Sort Files"
+   =radio_button_tag :sort,"type1"
+   =label_tag "Type"
+   %br
+   =radio_button_tag :sort,"file_file_name"
+   =label_tag "Name"
+   %br
+   =radio_button_tag :sort,"created_at"
+   =label_tag "Date Entered"
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+
+       

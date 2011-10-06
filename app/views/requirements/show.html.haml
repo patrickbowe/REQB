@@ -1,0 +1,53 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Requirement"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_require",:align=>"middle"}
+    -if !@req.nil?
+     %div{:class=>"Row wid660"}
+      =@req.name
+      |
+      =@req.category
+      |
+      =@req.status
+      |
+      =@req.type1
+      -if @user.privilige!="Read" and @user.privilige!="Approve"
+       =add_edit_field "Edit",@req
+       -att_flag=check_attachment_req(@req.id)
+       -if @user.privilige=="Admin"
+        -if att_flag=="true"
+         =link_to "Delete",delete_req_url(@req.id)
+        -else
+         =link_to "Delete",delete_req_url(@req.id),:confirm => 'Are you sure you want to delete?'
+       -elsif @user.privilige!="Admin" and @req.status!="Approved"
+        -if att_flag=="true"
+         =link_to "Delete",delete_req_url(@req.id)
+        -else
+         =link_to "Delete",delete_req_url(@req.id),:confirm => 'Are you sure you want to delete?'
+       -else
+       =link_to "Delete",delete_req_url(@req.id),:href=>"#"
+       =link_to "Add/Show Usecase",show_usecases_url(:req=>@req.id),:title=>@req.use_cases.count
+       =link_to "Add/Show Tracker",show_trackers_url(:req=>@req.id),:title=>@req.trackers.count
+       =link_to "Add/Show File",show_files_url(:req=>@req.id),:title=>@req.project_files.count
+       =add_comment_req_field "Add Comments",@req,@user
+       %div{:id=>"edit_#{@req.id}"}
+       %br
+       %div{:id=>"comment_#{@req.id}"}
+       %hr{:style=>"width:400px;color:green;"}
+
+        %br
+       -else
+        =link_to "Edit",edit_requirement_path(@req.id),:href=>"#"
+        =link_to "Delete",delete_req_url(@req.id),:href=>"#"
+        =link_to "Add/Show Usecase",:href=>"#"
+        =add_comment_req_field "Add Comments",@req,@user
+        %div{:id=>"edit_#{@req.id}"}
+        %br
+        %div{:id=>"comment_#{@req.id}"}
+        %hr{:style=>"width:400px;color:green;"}
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage(@user).to_s + "mb from " + find_total_storage(@user) + " used"
+

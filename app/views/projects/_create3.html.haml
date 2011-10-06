@@ -1,0 +1,1 @@
+=select "project_name","project_id",Project.find(:all,:conditions=>["user_id=?",current_user.id]).collect {  |p| [p.project_name,p.id] },:selected=>session[:project_id]

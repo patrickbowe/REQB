@@ -1,0 +1,20 @@
+%h1="Enter your password."
+-form_for @member, :url => member_activation_url do |f|
+ -if !@member.nil?
+  -if @member.errors.any?
+   -@member.errors.full_messages.each do |error|
+    =error
+    %br
+ %p
+  = f.label :email
+  %br
+  = f.email_field :email,:disabled=>true
+ %p
+  = f.label :password
+  %br
+  = f.password_field :password
+ %p
+  = f.label :password_confirmation
+  %br
+  = f.password_field :password_confirmation
+ = f.submit "Submit password and Log in"

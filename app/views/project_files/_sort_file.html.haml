@@ -1,0 +1,44 @@
+-if !@files.nil?
+     -@files.each do |f|
+          %div{:class=>"Row wid660"}
+               =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
+               |
+               -if !f.requirements.empty?
+                    ="REQ"+ f.requirements[0].id.to_s
+               -elsif !f.use_cases.empty?
+                    ="UC"+f.use_cases[0].id.to_s
+               -elsif !f.trackers.empty?
+                    ="TR"+f.tracker[0].id.to_s
+               -else
+                    ="Not link"
+               =link_to "Edit","#",:id=>"edit_file_#{f.id}"
+               %div{:id=>"save_file_#{f.id}",:style => "display:none;"}
+                    -form_tag edit_project_file_path(f.id) do
+                         ="TR_#{f.id}"
+                         &nbsp;&nbsp;&nbsp;&nbsp;
+                         ="Entered " + f.created_at.strftime("%d %B %Y")
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         -first_name=find_user_name_of_file(f)
+                         -if !first_name.empty?
+                              ="By " + first_name
+                         %br
+                         %hr{:style=>"width:400px;color:gray;"}
+                         =label_tag "Type"
+                         =text_field_tag :type,f.type1
+                         %br
+                         %br
+                         =label_tag "Description"
+                         =text_area_tag :des,f.description
+                         %br
+                         =submit_tag "Save"
+                         =link_to "Cancel","#",:id=>"cancel_file_#{f.id}"
+               -if @user.privilige!="Read" && @user.privilige!="Approve"
+                    =link_to "Delete",project_file_path(f.id),:method=> :delete
+               -else
+                    =link_to "Delete",project_file_path(f.id),:href=>"#"
+               =add_comment_file_field "Add Comments",f,@user
+               %br
+               %br
+               %br
+               %div{:id=>"comment_#{f.id}"}
+               %hr{:style=>"width:400px;color:green;"}

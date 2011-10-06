@@ -1,0 +1,23 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Get Help"
+  %div{:class=>"fcontainer"}
+   -form_for @help_request,:url=>{:controller=>"homes",:action=>"create"} do |f|
+    = f.error_messages
+    %br
+    %b=f.label "Your Email"
+    =f.text_field :sender_email
+    %br
+    %br 
+    %b=f.label "Request"
+    =f.text_area :email_content,:size=>"50",:style=>"text-align:right"
+    %br
+    =f.submit :submit
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_definition"}
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+
+
+

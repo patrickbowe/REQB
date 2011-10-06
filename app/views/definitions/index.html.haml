@@ -1,0 +1,48 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Definitions"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_term"}
+    =text_field_tag "term","<< Add term",:size=>"50",:style=>"text-align:right"
+    =text_field_tag "definition","<< Add definition",:size=>"50",:style=>"text-align:right"
+    %br
+    %br
+   %div{:id=>"alphabetic",:align=>"middle"}
+    =render "alphabetic"
+   %div{:id=>"add_definition",:align=>"middle"}
+    -if !@defs.nil?
+     -@defs.each do |d|
+      -form_tag edit_def_url(d.id) do
+       %div{:class=>"Row wid660"}
+        =text_field_tag "term_#{d.id}",d.term
+        =text_field_tag "definition_#{d.id}",d.definition
+        -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
+        %div{:id=>"save_def_#{d.id}",:style => "display:none;"}
+         =submit_tag "Save"
+         =link_to "Cancel","#",:id=>"cancel_def_#{d.id}"
+        -if @user.privilige=="Admin" or @user.id==d.user_id
+         =link_to "Delete",delete_def_url(d.id)
+        -else
+         =link_to "Delete",delete_def_url(d.id),:href=>"#"
+        %br
+        %br
+      %br
+      %hr{:style=>"width:400px;color:green;"}
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_definition"}
+   %h1="Sort Definition"
+   =radio_button_tag :sort,"term"
+   =label_tag "Term"
+   %br
+   =radio_button_tag :sort,"definition"
+   =label_tag "Definition"
+   %br
+   =radio_button_tag :sort,"created_at"
+   =label_tag "Date Entered"
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+
+        
+
+      

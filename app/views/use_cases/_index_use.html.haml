@@ -1,0 +1,70 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Use Cases"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"use_case",:align=>"middle"}
+    -if ( @user.privilige!="Read" and @user.privilige!="Approve" and !session[:project_id].nil? )
+     =text_field_tag :use_case_name,"<< Add use case",:size=>"50",:style=>"text-align:right"
+    -else
+     =text_field_tag :use_case_name,"<< Add use case",:size=>"50",:style=>"text-align:right",:disabled=>true
+    %br
+    %br
+    %div{:id=>"add_use_case",:align=>"middle"}
+     -if !@use_cases.nil?
+      -@use_cases.each do |u|
+       =u.name
+       |
+       =u.category
+       |
+       =u.status
+       -if @user.privilige!="Read" and @user.privilige!="Approve"
+        =add_use_edit_field "Edit",u,@user
+        -att_flag=check_attachment_use(u.id)
+        -if @user.privilige=="Admin"
+         -if att_flag=="true"
+          =link_to "Delete",use_case_path(u.id),:method=>:delete
+         -else
+          =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
+        -elsif @user.privilige!="Admin" and u.status!="Approved"
+         -if att_flag=="true"
+          =link_to "Delete",use_case_path(u.id),:method=>:delete
+         -else
+          =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
+        -else
+         =link_to "Delete",use_case_path(u.id),:href=>"#"
+        =link_to "Add/Show Requirements",show_requirements_url(u.id),:title=>u.requirements.count
+        =link_to "Add/Show Trackers",show_trackers_use_url(:use=>u.id),:title=>u.trackers.count
+        =link_to "Add/Show File",show_files_use_url(:use=>u.id),:title=>u.project_files.count
+        =link_to "Usecase Details",use_case_details_path(:id=>u.id)
+        =add_comment_use_field "Add Comments",u,@user
+        %div{:id=>"edit_#{u.id}"}
+        %br
+        %br
+        %div{:id=>"comment_#{u.id}"}
+        %hr{:style=>"width:400px;color:green;"}
+       -else
+        =add_use_edit_field "Edit",u,@user
+        =link_to "Delete",use_case_path(u.id),:href=>'#'
+        =link_to "Add/Show Requirements",show_requirements_url(u.id),:title=>u.requirements.count,:href=>"#"
+        =link_to "Add/Show Trackers",show_trackers_use_url(:use=>u.id),:title=>u.trackers.count,:href=>"#"
+        =link_to "Add/Show File",show_files_use_url(:use=>u.id),:title=>u.project_files.count,:href=>"#"
+        =link_to "Usecase Details",use_case_details_path(:id=>u.id),:href=>"#"
+        =add_comment_use_field "Add Comments",u,@user
+        %br
+        %div{:id=>"comment_#{u.id}"}
+        %hr{:style=>"width:400px;color:green;"}
+        %br
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_use"}
+   %h1="Sort Usecases"
+   =radio_button_tag :sort,"category"
+   =label_tag "Category"
+   %br
+   =radio_button_tag :sort,"name"
+   =label_tag "Name"
+   %br
+   =radio_button_tag :sort,"created_at"
+   =label_tag "Date Entered"
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"

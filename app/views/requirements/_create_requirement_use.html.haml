@@ -1,0 +1,16 @@
+-if !@usecase_req.nil?
+ =@usecase_req.name
+ |
+ =@usecase_req.category
+ |
+ =@usecase_req.status
+ |
+ =@usecase_req.type1
+ -if @user.privilige!="Read" and @user.privilige!="Approve"
+  =add_requirement_usecase "Edit",@usecase_req,@user
+  =link_to "Delete",delete_req_use_url(@usecase_req.id)
+ %br
+ %div{:id=>"edit_requirement_#{@usecase_req.id}"}
+ %br
+ %hr{:style=>"width:400px;color:green;"}
+

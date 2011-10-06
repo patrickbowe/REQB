@@ -1,0 +1,65 @@
+%div{:class=>"container"}
+ %div{:class=>"leftPanel"}
+  %h1="Search Results"
+  %div{:class=>"fcontainer"}
+   -if @reqs.nil? || @uses.nil? || @trackers.nil? || @files.nil? || @defs.nil?
+    ="Result is not found"
+   -if @reqs.empty? || @uses.empty? || @trackers.empty? || @files.empty? || @defs.empty?
+    ="Result is not found"
+   -else
+    -if !@reqs.empty?
+     %b="Requirements"
+     %br
+     -@reqs.each do |req|
+      ="REQ#{req.id}:"
+      =link_to req.name,requirement_path(req.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@uses.empty?
+     %b="UseCases"
+     %br
+     -@uses.each do |use|
+      ="UC#{use.id}:"
+      =link_to use.name,use_case_path(use.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@trackers.empty?
+     %b="Trackers"
+     %br
+     -@trackers.each do |t|
+      ="TR#{t.id}:"
+      =link_to t.title,tracker_path(t.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@defs.empty?
+     %b="Definitions"
+     %br
+     -@defs.each do |d|
+      ="DEF#{d.id}:"
+      =link_to d.term,definition_path(d.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+   
+    -if !@files.empty?
+     %b="Files"
+     %br
+     -@files.each do |f|
+      ="FILE#{f.id}:"
+      =link_to f.file_file_name,project_file_path(f.id)
+      %br
+     %hr{:style=>"color:green;"}
+
+
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage(@user).to_s + "mb from " + find_total_storage(@user) + " used"
+

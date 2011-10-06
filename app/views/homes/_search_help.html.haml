@@ -1,0 +1,10 @@
+%div{:id=>"show_faq"}
+ %b="Search Results"
+ %br
+ -if !@helps.nil?
+  -@helps.each do |h|
+   %div{:id=>"faq"}
+    =link_to h.faq,"#",:id=>"faq_#{h.id}"
+    %div{:id=>"faq_answer_#{h.id}",:style => "display:none;"}
+     =h.result
+    %br

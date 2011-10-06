@@ -1,0 +1,30 @@
+%div{:id=>"use_case",:align=>"middle"}
+ %b="Linked Use Cases"
+ %br
+ -if @user.privilige!="Read" and @user.privilige!="Approve"
+  =text_field_tag :req_use_case_name,"<< Link requirement to an use case",:size=>"50",:style=>"text-align:right"
+ -else
+  =text_field_tag :req_use_case_name,"<< Link requirement to an use case",:size=>"50",:style=>"text-align:right",:disabled=>true 
+ %br
+ %div{:id=>"match_req_usecase"} 
+ %br
+ %div{:id=>"add_req_use_case",:align=>"middle"}
+  -if !@req_use_cases.nil?
+   -@req_use_cases.each do |u|
+    -#=find_user_name_use(u)
+    =u.name
+    |
+    =u.category
+    |
+    =u.status
+    -if @user.privilige!="Read" and @user.privilige!="Approve"
+     =add_use_req_edit_field "Edit",u
+     =link_to "Delete",:controller => "use_cases", :action => "destroy_req_usecase", :id => u.id
+     %div{:id=>"edit_#{u.id}"}
+     %hr{:style=>"width:400px;color:green;"}
+     %br
+    -else
+     =link_to "Edit",:href=>'#'
+     =link_to "Delete",:href=>"#"
+
+ =link_to "<<Return to requirements list",requirements_path     

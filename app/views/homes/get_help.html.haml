@@ -1,0 +1,32 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Get Help"
+  %div{:class=>"fcontainer"}
+   =link_to "REQB Tutorial","example.pdf"
+   =link_to "Help Request",new_home_path
+   %br
+   %br
+   =text_field_tag :search_help,"<< Search for help",:size=>"50",:style=>"text-align:right",:class=>"inp"
+   %div{:id=>"back_faq",:style => "display:none;"}
+    =link_to "<<Back to FAQs",get_help_url
+   %br
+   %br
+   %div{:id=>"show_faq"}
+    %b="FAQs"
+    %br
+    -if !@helps.nil?
+     -@helps.each do |h|
+      %div{:id=>"faq"}
+       =link_to h.faq,"#",:id=>"faq_#{h.id}"
+       %div{:id=>"faq_answer_#{h.id}",:style => "display:none;"}
+        =h.result
+       %br
+
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_definition"}
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+
+
+

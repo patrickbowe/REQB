@@ -1,0 +1,20 @@
+=@tracker.title
+|
+="Assigned" if @tracker.assigned.nil?
+|
+=@tracker.category
+|
+="Due" if @tracker.due.nil?
+=check_box_tag "track_flag_#{@tracker.id}","",false 
+=add_edit_tracker_field "Edit",@tracker
+-att_flag=check_attachment_tracker(@tracker)
+-if att_flag=="true"
+ =link_to "Delete",tracker_url(@tracker.id),:method => :delete
+-else
+ =link_to "Delete",tracker_url(@tracker.id),:confirm => 'Are you sure you want to delete?',:method => :delete
+=add_comment_tracker_field "Add Comments",@tracker,@user
+%div{:id=>"edit_#{@tracker.id}"}
+%br
+%div{:id=>"comment_#{@tracker.id}"}
+%hr{:style=>"width:400px;color:green;"}
+%br

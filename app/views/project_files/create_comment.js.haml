@@ -1,0 +1,2 @@
+$('#file_comment_#{@file.id}').attr('value','');
+$('#comment_show_#{@file.id}').append('#{escape_javascript(render(:partial=>'project_files/comment_field'))}');

@@ -1,0 +1,9 @@
+%h1="Your account is not activated yet!!!"
+="Please enter the email address to resend the activation link "
+%br
+
+-form_tag resend_activation_url do
+  =label_tag "Email:"
+  = text_field_tag "email"
+  %br
+  = submit_tag "Reset my activation link"

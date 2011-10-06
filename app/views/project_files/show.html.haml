@@ -1,0 +1,41 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Files"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"add_file_name",:align=>"middle"}
+    -if !@file.nil?
+     %div{:class=>"Row wid660"}
+      =link_to @file.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{@file.id}/#{@file.file_file_name}"
+      |
+      -if !@file.requirements.empty?
+       ="REQ"+ @file.requirements[0].id.to_s
+      -elsif !@file.use_cases.empty?
+       ="UC"+@file.use_cases[0].id.to_s
+      -elsif !@file.trackers.empty?
+       ="TR"+@file.tracker[0].id.to_s
+      -else
+       ="Not link"
+      =add_file_edit_field "Edit",@file
+      -if @user.privilige!="Read" && @user.privilige!="Approve"
+       -att_flag=check_attachment_file(@file.id)
+       -if att_flag=="true"
+        =link_to "Delete",project_file_path(@file.id),:method=> :delete,:confirm => 'Are you sure you want to delete?'
+       -else
+        =link_to "Delete",project_file_path(@file.id),:method=> :delete
+      -else
+       =link_to "Delete",project_file_path(@file.id),:href=>"#"
+      =add_comment_file_field "Add Comments",@file,@user
+      %br
+      %br
+      %br
+      %div{:id=>"edit_#{@file.id}"}
+      %br
+      %div{:id=>"comment_#{@file.id}"}
+       %hr{:style=>"width:400px;color:green;"}
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_file"}
+   %h1="Sort Files"
+   %div{:id=>"storage"}
+   %h1="Storage"
+   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+

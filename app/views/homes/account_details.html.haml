@@ -1,0 +1,22 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"tabbed_area"}
+   %ul{:class=>"tabs"}
+    %li=link_to "Contact Details",:title=>"Contact Details"
+    %li=link_to "Account Details",account_details_url,{:class=>"active",:title=>"Account Details"}
+    %li=link_to "People",members_path,:title=>"People"
+    %li=link_to "Notifications",:title=>"Notifications"
+    %li=link_to "Projects",projects_path,{:title=>"Projects"}
+    %li=link_to "Attributes",:title=>"Attributes"
+   %div{:id=>"content_5" ,:class=>"content"}
+    %div{:id=>"change_password"}
+     -if !current_user.nil?
+      =add_change_password_field "Change Password",current_user
+     -else
+      =add_change_password_field "Change Password",current_member
+    =link_to "Forget Password",:controller=>"password_resets",:action=>"new"
+    %div{:id=>"change_email"}
+     -if !current_user.nil?
+      =add_change_email_field "Change Email",current_user
+     -else
+      =add_change_email__member_field "Change Email",current_member

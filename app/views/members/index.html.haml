@@ -1,0 +1,20 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"innerContainer"}
+   %div{:class=>"nav"}
+    %ul
+     %li=link_to "Contact Details",:title=>"Contact Details"
+     %li=link_to "Account Details",account_details_url,{:class=>"active",:title=>"Account Details"}
+     %li=link_to "People",members_path,:title=>"People"
+     %li=link_to "Notifications",:title=>"Notifications"
+     %li=link_to "Projects",projects_path,{:title=>"Projects"}
+     %li=link_to "Attributes",:title=>"Attributes"
+
+   %span{:class=>"line"}
+   %div{:class=>"dwnContainer"}
+    %div{:id=>"member",:align=>"middle"}
+     %br
+     -#-form_tag('members/create',:remote=>true) do
+     %div{:id=>"email_error"}
+      =render :partial=>"form1"
+     =render :partial=>"create"

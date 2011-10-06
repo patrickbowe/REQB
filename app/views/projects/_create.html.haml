@@ -1,0 +1,10 @@
+-form_tag edit_project_path(@project.id) do 
+     =text_field_tag :project_name,"#{@project.project_name}"
+     =text_field_tag :description,"#{@project.description}"
+     =submit_tag "Edit"
+     -att_flag=check_attachment(@project.id)
+     -if att_flag=="true"
+          =link_to "Delete",delete_url(@project.id)
+     -else
+          =link_to "Delete",delete_url(@project.id),:confirm => 'Are you sure you want to delete?'
+           

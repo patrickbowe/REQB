@@ -1,0 +1,2 @@
+$('#req_comment_#{@req.id}').attr('value','');
+$('#comment_show_#{@req.id}').append('#{escape_javascript(render(:partial=>'requirements/comment_field'))}');

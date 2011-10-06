@@ -1,0 +1,16 @@
+-if !@tracker_req.nil?
+ =@tracker_req.title
+ |
+ ="Assigned" if @tracker_req.assigned.nil? or @tracker_req.assigned.empty?
+ =@tracker_req.assigned if !@tracker_req.assigned.nil?
+ |
+ =@tracker_req.category
+ |
+ ="Due" if @tracker_req.due.nil?
+ =@tracker_req.due if !@tracker_req.due.nil?
+ =check_box_tag "track_flag_#{@tracker_req.id}","",false
+ =add_edit_tracker_req_field "Edit",@tracker_req
+ =link_to "Delete",delete_tracker_req_url(@tracker_req.id)
+ %div{:id=>"edit_#{@tracker_req.id}"}
+ %hr{:style=>"width:400px;color:green;"}
+ %br

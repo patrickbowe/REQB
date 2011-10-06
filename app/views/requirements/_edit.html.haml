@@ -1,0 +1,42 @@
+%div{:align=>"left",:style=>"width:445px"}
+                      %hr{:style=>"width:350px;"}
+                      ="Req_" + req.id.to_s
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      ="Entered " + req.created_at.strftime("%d %B %Y")
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      -first_name=find_user_name(req)
+                      -if !first_name.empty?
+                                            ="By " + first_name 
+                      -form_tag edit_requirement_path(req.id) do |f|
+                                            %hr{:style=>"width:400px;"}
+                                            %br
+                                            =label_tag "Description"
+                                            =text_field_tag "description",req.name,:size=>"50"
+                                            %br
+                                            %br                      
+                                            %div{:style=>"display:inline-block;float:left;width:220px;"}
+                                                                  =label_tag "Status"
+                                                                  =select "status","",options_for_select(["Draft","Under Review","Reviewed","Approved","Rejected","To be modified"],req.status)
+                                                                  %br
+                                                                  =label_tag "Category"
+                                                                  =select "category","",options_for_select(["Configuration","Expenses","Invoicing","User admin"],req.category)
+                                                                  %br
+                                                                  =label_tag "Type"
+                                                                  =select "type1","",options_for_select(["Functional","Non Functional","Classified"],req.type1)
+                                            %div{:style=>"display:inline-block;float:right;width:185px;"}
+                                                                  =label_tag "Importance"
+                                                                  =select "importance","",options_for_select(["Essential","Useful","Interesting","Luxury"],req.importance)
+                                                                  %br
+                                                                  =label_tag "Priority"
+                                                                  =select "priority","",options_for_select(["High","Medium","Low"],req.priority)
+                                                                  %br
+                                                                  =label_tag "Verification"
+                                                                  =select "verification","",options_for_select(["Test","Demonstration","Simulation"],req.verification)
+                                            %br
+                                            %br
+                                            %br
+                                            %br                                                                  
+                                            =submit_tag "Save"
+                                            =remove_edit_field "Cancel",req
+                                            %br
+                                                                                

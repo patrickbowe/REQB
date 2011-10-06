@@ -1,0 +1,11 @@
+-form_for @file,:html=>{:multipart => true}  do |f|
+    -if @flag=="true"
+        =f.file_field :file
+        %div{:id=>"file_form",:style => "display:none;"}
+            =f.submit "Upload"
+            =link_to "Cancel","#",:id=>"cancel_file_form"
+    -else
+        =f.file_field :file,:disabled=>true    
+        
+%br    
+%hr{:style=>"width:400px;color:green;"}   

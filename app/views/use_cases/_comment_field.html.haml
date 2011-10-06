@@ -1,0 +1,7 @@
+=text_area_tag :use_comment,@comment.title,:size=>"50",:style=>"text-align:right",:readonly=>true
+-if @user.privilige=="Admin"
+    =link_to "Delete",delete_comment_usecase_url(@comment.id)
+-else
+    =link_to "Delete",delete_comment_usecase_url(@comment.id),:href=>"#"
+%br
+%br

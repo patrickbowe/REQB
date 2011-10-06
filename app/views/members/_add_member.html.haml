@@ -1,0 +1,37 @@
+-if !@member.id.nil?
+     -form_tag (edit_member_path(@member.id)) do
+          -if @member.active?
+               =text_field_tag :status,"Active",:disabled=>true
+          -else
+          =text_field_tag :status,"In-active",:disabled=>true
+          =text_field_tag :first_name,"#{@member.first_name}"
+          =text_field_tag :last_name,"#{@member.last_name}"
+          =text_field_tag :email,"#{@member.email}"
+          -if !current_user.nil?
+               =select "privilige","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve/","Admin"],@member.privilige)
+               =submit_tag "Edit"
+               =link_to "Delete",member_path(@member.id),:confirm => 'Are you sure you want to delete?',:method=>:delete
+               -if @member.notify?
+                    =link_to "Re-notify",notify_url(@member.id)
+               -else
+                    =link_to "Notify",notify_url(@member.id)
+               %br
+               %br
+          -else
+               =select "privilige","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve/","Admin"],@member.privilige),{},{:disabled=>true}
+               -if !current_member.nil? and @current_member.privilige=="Admin" and @current_member.id!=@member.id
+                    =submit_tag "Edit"
+                    =link_to "Delete",member_path(@member.id),:confirm => 'Are you sure you want to delete?',:method=>:delete
+                    -if @member.notify?
+                         =link_to "Re-notify",notify_url(@member.id)
+                    -else
+                         =link_to "Notify",notify_url(@member.id)
+               -else
+                    =submit_tag "Edit",:disabled=>true
+                    =link_to "Delete",member_path(@member.id),:href => '#'
+                    -if @member.notify?
+                         =link_to "Re-notify",notify_url(@member.id),:href => '#'
+                    -else
+                         =link_to "Notify",notify_url(@member.id),:href => '#'
+               %br
+               %br

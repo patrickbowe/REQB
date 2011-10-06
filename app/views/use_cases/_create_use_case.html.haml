@@ -1,0 +1,22 @@
+-#=find_user_name_use(@project_use)
+=@project_use.name
+|
+=@project_use.category
+|
+=@project_use.status
+|
+=add_use_edit_field "Edit",@project_use,@user
+=link_to "Delete",use_case_path(@project_use.id),:method=>:delete
+=link_to "Add/Show Requirements",show_requirements_url(@project_use.id),:title=>@project_use.requirements.count
+=link_to "Add/Show Trackers",show_trackers_use_url(:use=>@project_use.id),:title=>@project_use.trackers.count
+=link_to "Add/Show File",show_files_use_url(:use=>@project_use.id),:title=>@project_use.project_files.count
+=link_to "Usecase Details",use_case_details_path(:id=>@project_use.id)
+=add_comment_use_field "Add Comments",@project_use,@user
+%br
+%div{:style=>"width:350px;text-align:left;",:align=>"center"}
+-# =@project_use.name
+%div{:id=>"edit_#{@project_use.id}"}
+%br
+%br
+%div{:id=>"comment_#{@project_use.id}"}
+%hr{:style=>"width:400px;color:green;"}

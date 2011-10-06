@@ -1,0 +1,17 @@
+<div class="rows">
+  <%= form.label :email %><br />
+  <span><%= form.email_field :email %><br /></span>
+</div>
+<div id="checkEmail"></div><br />
+<div class="rows">
+    <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
+    <span><%= form.password_field :password %><br /></span>
+</div>
+<div id="checkPassword"></div><br />
+<div class="rows">
+  <span><%= form.label :password_confirmation %><br /></span>
+</div>
+<div class="rows">
+  <span><%= form.password_field :password_confirmation %><br /></span>
+</div>  
+<div id="checkPasswordCon"></div>

@@ -1,0 +1,6 @@
+-if @flag=="true" and @user.privilige=="Admin" 
+    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:style=>"text-align:right"
+    -#=submit_tag "Submit"
+-else
+    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:style=>"text-align:right",:disabled=>true
+    -#=submit_tag "Submit",:disabled=>true    

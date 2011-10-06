@@ -1,0 +1,8 @@
+-if !@member.nil?
+      -if @member.errors.any?
+            -@member.errors.full_messages.each do |error|
+                  =error
+                  %br
+      -elsif @flag_email_check!=nil
+            =@flag_email_check
+            %br

@@ -1,0 +1,2 @@
+$('#use_comment_#{@use.id}').attr('value','');
+$('#comment_show_#{@use.id}').append('#{escape_javascript(render(:partial=>'use_cases/comment_field'))}');

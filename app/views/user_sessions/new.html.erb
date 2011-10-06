@@ -1,0 +1,55 @@
+<%if current_user.nil? && current_member.nil?%>
+<div class="log_con wid880">
+	 <h1>businessanalysthq.com</h1>
+     <div class="signUp_menu">
+     	<a href="#">Home</a> | <a href="#">Tour</a> | <a href="#">Blog</a> | <a href="#">Pricing</a> | <%=link_to "Sign In", new_user_session_path%>
+     </div>
+     <div class="clear"></div>
+<div class="log_con_Box wid820">
+
+<div>
+	 
+     <div class="log_con_Box">
+     <h3>Please enter your login details</h3>
+     <div class="loginForm">
+         <% form_for @user_session, :url => {:controller=>"user_sessions",:action=>"create"} do |f| %>
+            <% if @flag_error=="true" %>
+              <%= "Username/Email and password do not match."%>
+              <br />
+            <%end%>
+            <% if @flag_active=="true" %>
+               <%= "Account is not activated yet."%>
+               <br />
+            <%end%>
+            <div class="rows">
+                 <%= f.label :email %><br />
+                 <span><%= f.text_field :email %><br /></span>
+            </div>
+            <div id=checkEmail></div>
+
+            <div class="rows">
+                <%= f.label :password %><br />
+                <span><%= f.password_field :password %><br /></span>
+            </div>
+            <div id=checkPassword></div>
+
+            <div class="rows">
+               <label><%= f.check_box :remember_me %> Remember me</label><br />
+            </div>
+            <br />
+            <div class="rows">
+                <label><%= f.submit "Login" %></label>
+            </div>
+         <% end %>
+         <div class="rows">
+           <span><%= link_to "Forgotten your password?",:controller=>"password_resets",:action=>"new" %></span>
+         </div>
+         <br>
+         <div class="rows">
+           <span><%="Do not have account?"%><%= link_to "Sign up today?",:controller=>"users",:action=>"new" %>   </span></div>
+         </div>
+      </div>
+    </div>
+</div>
+</div>
+<%end%>

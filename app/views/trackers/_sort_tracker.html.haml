@@ -1,0 +1,29 @@
+-if !@trackers.nil?
+     -@trackers.each do |tracker|
+          %div{:class=>"Row wid660"}
+               =tracker.title
+               |
+               ="Assigned" if tracker.assigned.nil? or tracker.assigned.empty?
+               =tracker.assigned if !tracker.assigned.nil?
+               |
+               ="Category" if tracker.category.nil?
+               =tracker.category if !tracker.category.nil?
+               |
+               ="Due" if tracker.due.nil?
+               =tracker.due if !tracker.due.nil?
+               -if tracker.flag_tracker==true
+                    =check_box_tag "track_flag_#{tracker.id}","",true
+               -else
+                    =check_box_tag "track_flag_#{tracker.id}","",false
+               =add_edit_tracker_field "Edit",tracker
+               -att_flag=check_attachment_tracker(tracker)
+               -if att_flag=="true"
+                    =link_to "Delete",tracker_path(tracker.id),:method => :delete
+               -else
+                    =link_to "Delete",tracker_path(tracker.id),:confirm => 'Are you sure you want to delete?',:method => :delete
+               =add_comment_tracker_field "Add Comments",tracker,@user
+               %div{:id=>"edit_#{tracker.id}"}
+               %br
+               %div{:id=>"comment_#{tracker.id}"}
+               %hr{:style=>"width:400px;color:green;"}
+               %br

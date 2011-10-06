@@ -1,0 +1,40 @@
+-if !@use_cases.nil?
+   -@use_cases.each do |u|
+      =u.name
+      |
+      =u.category
+      |
+      =u.status
+      -if @user.privilige!="Read" and @user.privilige!="Approve"
+         =add_use_edit_field "Edit",u,@user
+         -att_flag=check_attachment_use(u.id)
+         -if @user.privilige=="Admin"
+            -if att_flag=="true"
+               =link_to "Delete",use_case_path(u.id),:method=>:delete
+            -else
+               =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
+         -elsif @user.privilige!="Admin" and u.status!="Approved"
+            -if att_flag=="true"
+               =link_to "Delete",use_case_path(u.id),:method=>:delete
+            -else
+               =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
+         -else
+            =link_to "Delete",use_case_path(u.id),:href=>"#"
+         =link_to "Add/Show Requirements",show_requirements_url(u.id),:title=>u.requirements.count
+         =link_to "Add/Show Trackers",show_trackers_use_url(:use=>u.id),:title=>u.trackers.count
+         =link_to "Usecase Details",use_case_details_path(:id=>u.id)
+         =add_comment_use_field "Add Comments",u,@user
+         %div{:id=>"edit_#{u.id}"}
+         %br
+         %br
+         %div{:id=>"comment_#{u.id}"}
+         %hr{:style=>"width:400px;color:green;"}
+      -else
+         =add_use_edit_field "Edit",u,@user
+         =link_to "Delete",use_case_path(u.id),:href=>'#'
+         =link_to "Usecase Details",use_case_details_path(:id=>u.id),:href=>"#"
+         =add_comment_use_field "Add Comments",u,@user
+         %br
+         %div{:id=>"comment_#{u.id}"}
+         %hr{:style=>"width:400px;color:green;"}
+         %br

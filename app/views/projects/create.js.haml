@@ -1,0 +1,12 @@
+-if @flag=="true"
+ :plain
+  $('#project_name1').attr('value','');
+-else
+ :plain
+  $('#project_name1').attr('value','<< Add a new project');
+  $('#project_name1').attr('disabled',true);
+$('#add_project').prepend('#{escape_javascript(render(:partial=>'create'))}');
+$('#project_name_project_id').append('<option value=#{escape_javascript(@project.id.to_s)}>#{escape_javascript(@project.project_name)}</option>');
+
+
+

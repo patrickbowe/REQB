@@ -1,0 +1,32 @@
+-if !@file.nil?
+ =link_to @file.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{@file.id}/#{@file.file_file_name}"
+ |
+ ="REQ#{session[:req_id]}"
+ =link_to "Edit","#",:id=>"edit_file_#{@file.id}"
+ %div{:id=>"save_file_#{@file.id}",:style => "display:none;"}
+  -form_tag edit_file_req_url(@file.id) do
+   ="TR_#{@file.id}"
+   &nbsp;&nbsp;&nbsp;&nbsp;
+   ="Entered " + @file.created_at.strftime("%d %B %Y")
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   -first_name=find_user_name_of_file(@file)
+   -if !first_name.empty?
+    ="By " + first_name
+    %br
+    %hr{:style=>"width:400px;color:gray;"}
+    =label_tag "Type"
+    =text_field_tag :type,@file.type1
+    %br
+    %br
+    =label_tag "Description"
+    =text_area_tag :des,@file.description
+    %br
+    =submit_tag "Save"
+    =link_to "Cancel","#",:id=>"cancel_file_#{@file.id}"
+ -if @user.privilige!="Read" && @user.privilige!="Approve"
+  =link_to "Delete",destroy_file_req_url(@file.id),:method=> :delete
+ -else
+  =link_to "Delete",destroy_file_req_url(@file.id),:href=>"#"
+ %br
+ %br
+ %br

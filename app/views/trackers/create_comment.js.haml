@@ -1,0 +1,2 @@
+$('#tracker_comment_#{@tracker.id}').attr('value','');
+$('#comment_show_#{@tracker.id}').append('#{escape_javascript(render(:partial=>'trackers/comment_field'))}');

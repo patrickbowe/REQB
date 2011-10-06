@@ -1,0 +1,22 @@
+%div{:align=>"middle",:style=>"width:600px;"}
+                                            %b="Requirements"
+                                            %br
+                                            %div{:style=>"text-align:left;width:580px;padding-left:100px;"}
+                                                                                        ="Requirements"
+                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                        ="Category"
+                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                        ="Type"
+                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                        ="Status"
+                                            -form_tag :controller=>"requirements",:action=>"create_requirements" do |f|
+                                                                                        -(1..10).each do |f|
+                                                                                                                                    =text_field_tag "name[#{f}]"
+                                                                                                                                    =select "category[#{f}]","",["Configuration","Expenses","Invoicing","User admin"]
+                                                                                                                                    =select "type1[#{f}]","",["Functional","Non Functional","Classified"]
+                                                                                                                                    =select "status[#{f}]","",["Draft","Under Review","Reviewed","Approved","Rejected","To be modified"]
+                                                                                                                                    %br
+                                                                                                                                    %br                                                                                                                                                                                
+                                                                                        =submit_tag "Save"
+                                                                                        =link_to "Cancel"
+                                                                                

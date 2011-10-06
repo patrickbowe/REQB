@@ -1,0 +1,53 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"tabbed_area"}
+   %ul{:class=>"tabs"}
+    %li=link_to "Pre-conditions",use_case_details_path(:id=>@use_case.id),{:title=>"Pre-conditions"}
+    %li=link_to "Post Conditions",post_conditions_url(:id=>@use_case.id),{:title=>"Post Conditions"}
+    %li=link_to "Success Conditions",success_conditions_url(:id=>@use_case.id),{:title=>"Success Conditions"}
+    %li=link_to "Triggers",triggers_url(:id=>@use_case.id),{:title=>"Triggers",:class=>"active"}
+    %li=link_to "Actors",actors_url(:id=>@use_case.id),{:title=>"Actors"}
+    %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
+    %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages"}
+    %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:title=>"Basic Flow"}
+   %span{:class=>"line"}
+   %div{:class=>"dwnContainer"}
+    %div{:id=>"project",:align=>"middle"}
+    %b="Use Case Details"
+    %br
+    %div{:id=>"add_trigger"}
+     -if @user.privilige!="Read" and @user.privilige!="Approve"
+      =text_field_tag "trigger","<< Add trigger",:size=>"50",:style=>"text-align:right"
+      %br
+      %br
+      %div{:id=>"add_use_case_detail",:align=>"middle"}
+       -if !@triggers.nil?
+        -@triggers.each do |trigger|
+         -form_tag edit_trigger_url(trigger.id) do
+          =text_field_tag "trigger_#{trigger.id}",trigger.title
+          %div{:id=>"show_save_cancel_#{trigger.id}",:style => "display:none;"}
+           =submit_tag "Save"
+           =link_to "Cancel",triggers_url(:id=>session[:use_case_id])
+          =link_to "Delete",delete_trigger_url(trigger.id)
+          %br
+          %br
+     -else
+      =text_field_tag "trigger","<< Add post-condition",:size=>"50",:style=>"text-align:right",:disabled=>true
+      %br
+      %br
+      %div{:id=>"add_use_case_detail",:align=>"middle"}
+       -if !@triggers.nil?
+        -@triggers.each do |trigger|
+         -form_tag edit_trigger_url(trigger.id) do
+          =text_field_tag "trigger_#{trigger.id}",trigger.title
+          %div{:id=>"show_save_cancel_#{trigger.id}",:style => "display:none;"}
+           =submit_tag "Save",:disabled=>true
+           =link_to "Cancel",triggers_url(:id=>session[:use_case_id])
+          =link_to "Delete",delete_trigger_url(trigger.id),:href=>"#"
+         %br
+         %br
+    %hr{:style=>"width:400px;color:green;"}
+    =link_to "<< Back to use case list",use_cases_path
+    %br
+    =link_to "Actors>>",actors_url(:id=>@use_case.id)
+       

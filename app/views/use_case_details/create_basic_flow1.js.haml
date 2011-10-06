@@ -1,0 +1,4 @@
+$('#use_basic_action').attr('value','<< Add an user action');
+$('#use_basic_response').attr('value','<< Add an user response');
+$('#use_basic_action').focus();
+$('#add_use_case_detail').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
