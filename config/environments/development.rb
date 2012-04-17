@@ -13,7 +13,6 @@ Project2::Application.configure do
   config.consider_all_requests_local       = true
   config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
-
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
@@ -24,8 +23,11 @@ Project2::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
+  #config.action_view.cache_template_loading = true
+    
 end
 module REQBEnv
+  DEFAULT_HOST="http://localhost:3000"
   DEFAULT_HOST_WITH_PORT = "localhost:3000"
   DEFAULT_S3_PROFILE_IMAGE_URL = "http://s3.amazonaws.com/REQB/original"
 end

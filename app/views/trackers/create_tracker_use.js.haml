@@ -1,2 +1,18 @@
-$('#tracker_use_name').attr('value','');
-$('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker_use'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @use.nil?
+ :plain
+  window.location.replace("/use_cases");
+
+-elsif session[:use_case_id].nil?
+ :plain
+  window.location.replace("/use_cases");
+-elsif @tracker_use.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_tracker)}</div>');
+
+-else
+ :plain
+  $('#tracker_use_name').attr('value','');
+  $('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker_use'))}');

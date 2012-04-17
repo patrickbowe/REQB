@@ -1,22 +1,24 @@
--#=find_user_name_use(@project_use)
-=@project_use.name
-|
-=@project_use.category
-|
-=@project_use.status
-|
-=add_use_edit_field "Edit",@project_use,@user
-=link_to "Delete",use_case_path(@project_use.id),:method=>:delete
-=link_to "Add/Show Requirements",show_requirements_url(@project_use.id),:title=>@project_use.requirements.count
-=link_to "Add/Show Trackers",show_trackers_use_url(:use=>@project_use.id),:title=>@project_use.trackers.count
-=link_to "Add/Show File",show_files_use_url(:use=>@project_use.id),:title=>@project_use.project_files.count
-=link_to "Usecase Details",use_case_details_path(:id=>@project_use.id)
-=add_comment_use_field "Add Comments",@project_use,@user
-%br
-%div{:style=>"width:350px;text-align:left;",:align=>"center"}
--# =@project_use.name
+%div{:class=>"rows reqList",:id=>"span_images_use_#{@project_use.id}"}
+ %div{:class=>"upper"}
+  %span{:class=>"cols w30px noBdr actionItems1"}
+   =add_use_edit_field image_tag("edit.gif",:id=>"edit_images_#{@project_use.id}",:title=>"Edit Use Case attributes"),@project_use,@user
+  -first_name=find_user_name_use_email(@project_use)
+  -if !first_name.empty?
+   %span{:class=>"cols w180px noBdr"}=first_name
+  -if @project_use.category.nil?
+   %span{:class=>"cols w80px"}="Category"
+  -else
+   %span{:class=>"cols w80px"}=@project_use.category 
+
+  %span{:class=>"cols w80px"}=@project_use.status
+  %span{:class=>"cols w190px noBdr actionItems1"}
+   =link_to image_tag("add-show-icon.gif",:id=>"add_show_icon_images_#{@project_use.id}",:title=>"Add / view conditions, messages, triggers, rules and flows"),use_case_details_path(:id=>@project_use.id)
+   =link_to image_tag("link.gif",:id=>"link_images_#{@project_use.id}",:alt=>"Add / show requirements"),show_requirements_url(@project_use.id),:title=>"Link a requirement"
+   =link_to image_tag("trackers.gif",:id=>"tracker_images_#{@project_use.id}",:alt=>"Add / show trackers"),show_trackers_use_url(:use=>@project_use.id),:title=>"Link a tracker"
+   =add_comment_use_field image_tag("comments.gif",:id=>"comment_images_#{@project_use.id}",:alt=>"Add / show comments"),@project_use,@user
+   =link_to image_tag("upload.gif",:id=>"upload_images_#{@project_use.id}",:alt=>"Add / show uploaded files"),show_files_use_url(:use=>@project_use.id),:title=>"Upload a file"
+   =link_to image_tag("delete.gif",:id=>"delete_images_#{@project_use.id}",:title=>"Delete use case"),delete_use_url(@project_use.id),:method=>:delete
+ %div{:class=>"lower"}
+  =@project_use.name
 %div{:id=>"edit_#{@project_use.id}"}
-%br
-%br
 %div{:id=>"comment_#{@project_use.id}"}
-%hr{:style=>"width:400px;color:green;"}

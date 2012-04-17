@@ -1,0 +1,39 @@
+-if current_user.nil? && current_member.nil?
+ %div{:id=>"header"}
+  %nav
+   %ul{:class=>"nav"}
+    %li=link_to "Sign In",sign_in_url
+    %li=link_to "Pricing","pricing.html"
+    %li=link_to "Blog","http://blog.requirementbox.com"
+    %li=link_to "Home",root_url
+  %div{:id=>"note"}
+   %blockquote
+    ="A cloud based requirements tool that is easy to use and simple to implement"
+  =link_to image_tag("requirementbox_small.png",:alt=>"requirementbox.com logo",:width=>400,:height=>71),"/"
+ %div{:id=>"confirmation"}
+  %h2="Thanks!."
+  %p="Thanks for getting in touch.  We'll respond to your query as soon as we possibly can."
+ #footer.fixed
+  %hr
+   %ul.footer_left
+    %li
+     ="&copy;#{Time.now.strftime('%Y')}".html_safe
+     =link_to 'elementcha b.v.','http://www.elementcha.com'
+     ="All rights reserved."
+    %li
+     %span.reqb="requirementbox"
+     ="is a service of elementcha b.v."
+   %ul.footer_right
+    %li.right
+     %a{:alt => "twitter", :href => "http://twitter.com/requirementbox"}
+      =image_tag "twitter.png"
+     %a{:alt => "linkedin", :href => "http://linkedin.com/company/requirementbox-com"}
+      =image_tag "linkedin.png"
+     %a{:alt => "Requirementbox Blog", :href => "http://blog.requirementbox.com"}
+      =image_tag "rssfeed.png"
+    %li.right
+     e:
+     %a{:href => "mailto:info@requirementbox.com"} info@requirementbox.com
+    %li.right t: +31 6 485 30 767
+    %li.right
+     =link_to "Submit a query",contact_url

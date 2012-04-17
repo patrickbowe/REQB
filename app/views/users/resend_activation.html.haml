@@ -1,9 +1,27 @@
-%h1="Your account is not activated yet!!!"
-="Please enter the email address to resend the activation link "
-%br
+-if current_user.nil? && current_member.nil?
 
--form_tag resend_activation_url do
-  =label_tag "Email:"
-  = text_field_tag "email"
-  %br
-  = submit_tag "Reset my activation link"
+ %div{:id=>"signin"}
+  -form_tag resend_activation_url do
+   %fieldset
+    -if !flash[:notice].nil?
+     %p=flash[:notice]
+    -else
+     %p="Your account is not activated yet!!!" 
+    %h2="Please enter the email address to resend the activation link"
+    =label_tag :email
+    %br
+    =text_field_tag "email",'',:tabindex=>"1"
+    %div{:id=>"checkEmail",:class=>"signin_div"}
+    %label
+     %br
+     =submit_tag "Reset my activation link",:id=>"reset_button",:tabindex=>"2"
+    %br
+    %label
+     =link_to "Forgotten your password?",:controller=>"password_resets",:action=>"new",:tabindex=>"5"
+ %div{:id=>"signin_logo"}
+  %ul{:class=>"signin_left"}
+   %li
+    = link_to "Don't have an account?  Sign up today!",sign_up_url
+  %ul{:class=>"signin_right"}
+   %li
+    =link_to image_tag("requirementbox_footer.png"),root_url

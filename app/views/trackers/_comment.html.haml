@@ -1,18 +1,23 @@
-%hr{:style=>"width:400px;color:green;"}
-%br
-%br
-=text_area_tag "tracker_comment_#{tracker.id}","<< Add comment",:size=>"50",:style=>"text-align:right"
-%br
-%br
-%div{:id=>"comment_show_#{tracker.id}"}
- -comments=tracker.comments.find :all
- -if !comments.empty?
-  -comments.each do |comment|
-   =text_area_tag :req_comment,comment.title,:size=>"50",:style=>"text-align:right",:readonly => true
+%div{:class=>"rows aRow ctr"}
+ =text_area_tag "tracker_comment_#{tracker.id}","<< Add comment",:cols=>"50",:class=>"inpTxt rgt w400px"
+%div{:class=>"gap"}
+%div{:id=>"comment_comment_#{tracker.id}",:class=>"rows aRow ctr",:style=>"display:none;"}
+ -form_tag update_tracker_comment_url do
+  %div{:id=>"comment_show_#{tracker.id}"}
+  %div{:id=>"comment_save_#{tracker.id}",:style=>"display:none;"}
+   %div{:class=>"buttons"}
+    =submit_tag "Save",:class=>"btn"
+    =submit_tag "Cancel",:class=>"btn"
+%div{:class=>"gap"}    
+-comments=tracker.comments.find :all
+-if !comments.empty?
+ -comments.each do |comment|
+  %div{:id=>"comment_info_#{comment.id}",:class=>"rows aRow ctr"}
+   %div{:class=>"ctrBox w412px"}
+    %span{:class=>"fl"}="Entered " + comment.created_at.strftime("%d %B %Y %H:%M:%S")
+    -first_name=find_user_name_comment(comment)
+    -if !first_name.empty?
+     %span{:class=>"fr"}="By " + first_name
+   =text_area_tag :req_comment,comment.title,:cols=>"50",:class=>"inpTxt rgt w400px",:readonly => true
    -if @user.privilige=="Admin"
-    =link_to "Delete",delete_comment_tracker_url(comment.id)
-   -else
-    =link_to "Delete",delete_comment_tracker_url(comment.id),:href=>"#"
-   %br
-   %br
-
+    =link_to "Delete",delete_comment_tracker_url(comment.id),:remote=>true

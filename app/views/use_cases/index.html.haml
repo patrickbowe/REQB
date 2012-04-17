@@ -1,4 +1,12 @@
 -if !@use_cases.nil?
+ -@section = 'use cases'
  =render :partial=>'use_cases/index_use'
 -elsif !@req_use_cases.nil?
+ -@section = 'requirements'
  =render :partial=>'use_cases/index_req'
+-elsif !@tracker_use_cases.nil?
+ -@section = 'trackers'
+ =render :partial=>'use_cases/index_tracker'
+-elsif !@file_use_cases.nil?
+ -@section = 'files'
+ =render :partial=>'use_cases/index_file'

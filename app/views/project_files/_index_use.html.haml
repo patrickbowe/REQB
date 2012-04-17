@@ -1,33 +1,67 @@
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
-  %h1="File Uploads"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_use_file"}
-    =text_field_tag :add_use_file1,"<< Link a file to usecase",:size=>"50",:style=>"text-align:right"
-    %br
-    %div{:id=>"match_file1"}
-    %br
-   %div{:id=>"add_file_name",:align=>"middle"}
-    -if !@file_uses.nil?
-     -@file_uses.each do |f|
-      %div{:class=>"Row wid660"}
-       =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
-       |
-       ="UC#{session[:use_case_id]}"
-       =add_file_edit_use_field "Edit",f
-       -if @user.privilige!="Read" && @user.privilige!="Approve"
-        -att_flag=check_attachment_file(f.id)
-        -if att_flag=="true"
-         =link_to "Delete",project_file_path(f.id),:method=> :delete,:confirm => 'Are you sure you want to delete?'
-        -else
-         =link_to "Delete",project_file_path(f.id),:method=> :delete
+  %h1="Use Cases"
+  %div{:class=>"fl w685px"}
+   %div{:class=>"tabFormat"}
+    %div{:class=>"rows aRow ctr",:id=>"add_use_file"}
+     -if !flash[:message].nil?
+      =flash[:message]
+     -form_for @file_use1,:url=>create_use_file_url,:html=>{:multipart => true}  do |f|
+      -if @flag=="true"
+       ="Upload a file"
+       -if @user.privilige!="Read"
+        =f.file_field :file,:class=>"inpTxt rgt"
        -else
-        =link_to "Delete",destroy_file_use_url(f.id),:href=>"#"
+        =f.file_field :file,:class=>"inpTxt rgt",:disabled=>true 
+       %span{:id=>"file_form",:style => "display:none;"}
+        =f.submit "Upload",:class=>"cButtonGrey"
+        %span{:class=>"smLink"}=link_to "Cancel","#",:id=>"cancel_file_form"
+      -else
+       ="You cannot upload the file as you do not have enough storage space left.  For more storage, please click here to upgrade."
+       %span{:class=>"smLink"}=link_to "Upgrade Storage","#"
+       =f.file_field :file,:class=>"inpTxt rgt",:disabled=>true
+    %div{:class=>"gap"}
+    %div{:id=>"add_file_name",:align=>"middle"}
+     -if !@file_uses.nil?
+      -@file_uses.each do |f|
+       %div{:class=>"rows reqList",:id=>"span_images_file_#{f.id}"}
+        %div{:class=>"upper"}
+         %span{:class=>"cols w30px noBdr actionItems1"}
+          =add_file_edit_use_field image_tag("edit.gif",:id=>"edit_images_#{f.id}",:title=>"Edit File attributes"),f
 
-       %br
-       %br
+         %span{:class=>"cols w150px noBdr"}="UC#{session[:use_case_id]}"
+         %span{:class=>"cols w150px"}=f.type1
+         %span{:class=>"cols w50px noBdr actionItems"}
+          -att_flag=check_attachment_file(f.id)
+          -if @user.privilige=="Admin"
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete,:confirm => t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete
+          -elsif !current_user.nil? and @user.id==f.user_id and @user.privilige!="Read"
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete,:confirm => t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete
+          -elsif !current_member.nil? and @user.id==f.member_id and @user.privilige!="Read"
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete,:confirm => t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),destroy_file_use_url(f.id),:method=> :delete
+          -elsif !current_member.nil? and @user.id==f.member_id and @user.privilige=="Read"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),"#",:confirm=>t(:file_remove_message_with_out_permisson)
+          -elsif !current_user.nil? and @user.id==f.user_id and @user.privilige=="Read"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),"#",:confirm=>t(:file_remove_message_with_out_permisson)
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:alt=>"Delete file"),"#",:confirm=>t(:file_no_user)
+         
+        %div{:class=>"lower"}
+         =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
        %div{:id=>"edit_#{f.id}"}
-       %br
        %div{:id=>"comment_#{f.id}"}
-        %hr{:style=>"width:400px;color:green;"}
-   =link_to "<<Return to usecases list",use_cases_path
+   %div{:class=>"rows reqList"}
+    =link_to "<<Return to usecases list",use_cases_path
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"

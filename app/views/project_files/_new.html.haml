@@ -1,11 +1,20 @@
--form_for @file,:html=>{:multipart => true}  do |f|
-    -if @flag=="true"
-        =f.file_field :file
-        %div{:id=>"file_form",:style => "display:none;"}
-            =f.submit "Upload"
-            =link_to "Cancel","#",:id=>"cancel_file_form"
-    -else
-        =f.file_field :file,:disabled=>true    
-        
-%br    
-%hr{:style=>"width:400px;color:green;"}   
+%div{:class=>"rows aRow ctr"}
+
+ -if !flash[:message].nil?
+  =flash[:message]
+ -form_for @file,:html=>{:multipart => true}  do |f|
+  -if @flag=="true"
+   ="Upload a file"
+   -if @user.privilige!="Read" and !session[:project_id].nil?
+    =f.file_field :file,:class=>"inpTxt rgt"
+   -else
+    =f.file_field :file,:class=>"inpTxt rgt",:disabled=>true
+   %span{:id=>"file_form",:style => "display:none;"}
+    =f.submit "Upload",:class=>"cButtonGrey"
+    %span{:class=>"smLink"}=link_to "Cancel","#",:id=>"cancel_file_form"
+  -else
+   ="You cannot upload the file as you do not have enough storage space left.  For more storage, please click here to upgrade."
+   %span{:class=>"smLink"}=link_to "Upgrade Storage","#"
+   %br
+   =f.file_field :file,:class=>"inpTxt rgt",:disabled=>true
+%div{:class=>"gap"}

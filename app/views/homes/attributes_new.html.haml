@@ -1,0 +1,82 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"tabbed_area"}
+   %ul{:class=>"tabs"}
+    %li=link_to "Notifications",notification_url,{:title=>"Notifications"}
+    %li=link_to "Attributes",attributes_url,{:class=>"active",:title=>"Attributes"}
+   %div{:id=>"content_5" ,:class=>"content",:style=>"overflow:hidden;"}
+    %div{:style=>"float:left;width:350px;"}
+     =render :partial=>"req_attributes"
+     %br{:class=>"clr"}
+     %br
+     %br
+     %div{:class=>"fl w350px"}
+      %h3="Categories"
+      %div{:class=>"rows aRow"}
+       -if @user.privilige=="Admin" or @user.privilige=="Read/Write" or @user.privilige=="Read/Write/Approve/"
+        =text_field_tag :category_name,"<< Add new category",:size=>"50",:class=>"inpTxt_ad rgt w300px"
+        %span{:id=>"loading"}=image_tag "spinner.gif"
+       -else
+        =text_field_tag :category_name,"<< Add new category",:size=>"50",:class=>"inpTxt_ad rgt w300px",:disabled=>true
+     %div{:class=>"gap"}
+     %div{:class=>"fl w350px"}
+      %div{:id=>"show_category"}
+       -if !@categories.nil?
+        -@categories.each do |c|
+         -form_tag update_category_url do
+          %div{:class=>"rows"}
+           =text_field_tag "category_#{c.id}",c.title,:size=>"50",:class=>"inpTxt rgt w300px"
+           =hidden_field_tag :id,c.id
+           -if @user.privilige=="Admin"
+            %span.smLink
+             =link_to "Delete",destroy_category_url(c.id)
+             %span{:id=>"category_save_#{c.id}",:style=>"display:none;"}
+              -if @user.privilige=="Admin" or @user.privilige=="Read/Write" or @user.privilige=="Read/Write/Approve/"
+               %span.smLink=submit_tag "Save",:class=>"cButton"
+               %span.smLink=link_to "Cancel","#",:id=>"category_cancel_#{c.id}"
+
+     %div{:class=>"fl w350px"}
+      %h3="Delivery period"
+      %div{:class=>"rows aRow"}
+       -if @user.privilige=="Admin" or @user.privilige=="Read/Write" or @user.privilige=="Read/Write/Approve/"
+        =text_field_tag :delivery_name,"<< Add new delivery period",:size=>"50",:class=>"inpTxt_ad rgt w300px"
+        %span{:id=>"loading1"}=image_tag "spinner.gif"
+       -else
+        =text_field_tag :delivery_name,"<< Add new delivery period",:size=>"50",:class=>"inpTxt_ad rgt w300px",:disabled=>true
+      %div{:class=>"gap"}
+     %div{:class=>"fl w350px"}
+      %div{:id=>"show_delivery"}
+       -if !@deliveries.nil?
+        -@deliveries.each do |c|
+         -form_tag update_delivery_url(c.id) do
+          %div{:class=>"rows"}
+           =text_field_tag "delivery_#{c.id}",c.title,:size=>"50",:class=>"inpTxt rgt w300px"
+           -if @user.privilige=="Admin"
+            %span.smLink
+             =link_to "Delete",destroy_delivery_url(c.id)
+             %span{:id=>"delivery_save_#{c.id}",:style=>"display:none;"}
+              -if @user.privilige=="Admin" or @user.privilige=="Read/Write" or @user.privilige=="Read/Write/Approve/"
+               %span.smLink=submit_tag "Save",:class=>"cButton"
+               %span.smLink=link_to "Cancel","#",:id=>"delivery_cancel_#{c.id}"
+
+    %div{:style=>"float:right;width:300px;"}
+     =render :partial=>"use_attributes"
+     %br{:class=>"clr"}
+     %br
+     %br
+     %div{:class=>"fr w300px"}
+      %h3="Actors"
+      %div{:class=>"rows"}
+       -if !@actors.nil?
+        -@actors.each do |actor|
+         -if @user.privilige=="Admin"
+          =button_to "#{actor.title}",destroy_actor_url(actor),:class=>"button_actor"
+         -else
+          =button_to "#{actor.title}","#",:class=>"button_actor",:disabled=>true
+         %br{:class=>"clr"}
+         %br
+         %br
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage(@user).to_s + "mb from " + find_total_storage(@user) + "mb used"

@@ -10,66 +10,59 @@
     %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
     %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages"}
     %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:class=>"active",:title=>"Basic Flow"}
-   %span{:class=>"line"}
-   %div{:class=>"dwnContainer"}
-    %div{:id=>"project",:align=>"middle"}
-    %b="Use Case : " +  @use_case.name.capitalize
-    %br
-    %div{:id=>"add_basic_flow"}
-     -if @user.privilige!="Read" and @user.privilige!="Approve"
-      =text_field_tag "alternate_flow","<< Add an alternate flow",:size=>"50",:style=>"text-align:right"
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@alternate_flows.nil?
-        -@alternate_flows.each do |alternate|
+   %span{:class=>"content"}
+    %div{:class=>"fl w685px1",:id=>"project"}
+    %h4="Alternate flows starting at basic flow step #{@basic_flow.seq_number}"
+    %div{:class=>"tabFormat"}
+     %div{:id=>"add_basic_flow",:class=>"rows aRow ctr"}
+      -if @user.privilige!="Read"
+       =text_field_tag "alternate_flow","<< Add a title for the alternate flow",:size=>"50",:class=>"inpTxt_ad rgt w400px"
+       %span{:id=>"loading"}=image_tag "spinner.gif"
+      -else
+       =text_area_tag "alternate_flow","<< Add a title for the alternate flow",:size=>"50",:class=>"inpTxt_ad rgt w400px",:disabled=>true
+     %div{:class=>"gap"}
+     %div{:id=>"add_use_case_detail1"}
+      -if !@alternate_flows.nil?
+       -@alternate_flows.each do |alternate|
+        %div{:class=>"rows ctr reqList"}
          -form_tag edit_alternate_url(alternate.id) do
-          =text_field_tag "alternate_flow_#{alternate.id}",alternate.title
-          =link_to "Edit",'#',:id=>"alter_save_cancel_#{alternate.id}"
-          =link_to "Delete",delete_alternate_url(alternate.id)
-          %div{:id=>"show_alter_#{alternate.id}",:style => "display:none;"}
-           =submit_tag "Save"
-           =link_to "Cancel",'#',:id=>"alter_hide_save_cancel_#{alternate.id}"
+          =text_field_tag "alternate_flow_#{alternate.id}",alternate.title,:cols=>"50",:class=>"inpTxt rgt w400px marT2",:title=>"Click to add or view alternate flow steps"
+          %br
+          %br
+          %span{:id=>"add_alternate_#{alternate.id}",:style => "display:none;"}
+           =text_area_tag "alter_use_basic_action_#{alternate.id}","<< Add a user action",:cols=>"50",:class=>"inpTxt rgt w190px"
+           =text_area_tag "alter_use_basic_response_#{alternate.id}","<< Add a system response",:cols=>"50",:class=>"inpTxt rgt w190px"
+           %span{:id=>"loading1"}=image_tag "spinner.gif"
            %br
-           %div{:id=>"add_alternate",:align=>"middle"}
-            =text_area_tag "use_alter_basic_action_#{alternate.id}","<< Add an user action",:size=>"50",:style=>"text-align:right"
-            =text_area_tag "use_alter_basic_response_#{alternate.id}","<< Add an user response",:size=>"50",:style=>"text-align:right"
-         %div{:id=>"edit_alternate_#{alternate.id}",:align=>"middle",:style => "display:none;"}
-          -alter_basics=find_alternate_basic_flow(alternate)
-          -if !alter_basics.nil?
-           -i=1
-           -alter_basics.each do |alter_basic|
-            -form_tag edit_alter_basic_flow_url(alter_basic.id) do
-             ="Step #{i}"
-             =text_area_tag "alter_basic_action_#{alter_basic.id}",alter_basic.action,:readonly=>true
-             =text_area_tag "alter_basic_response_#{alter_basic.id}",alter_basic.response,:readonly=>true
-             =link_to "Edit",'#',:id=>"alter_basic_edit_#{alter_basic.id}"
-             =link_to "Delete",delete_alter_basic_flow_url(alter_basic.id)
-             -i=i+1
-             %div{:id=>"show_alter_basic_#{alter_basic.id}",:style => "display:none;"}
-              =submit_tag "Save"
-              =link_to "Cancel",'#',:id=>"alter_basic_hide_#{alter_basic.id}"
+          %span{:id=>"edit_alternate_#{alternate.id}",:align=>"middle",:style => "display:none;"}
+           -alter_basics=find_alternate_basic_flow(alternate)
+           -if !alter_basics.nil?
+            -i=1
+            %div{:class=>"rows_alter ctr"}
+             %ul{:class=>"sortable",:id=>"add_alternate_#{alternate.id}"}
+              -alter_basics.each do |alter_basic|
+               %li{:id=>"li_#{alter_basic.id}"}
+                %span{:id=>"step1_alter_#{alter_basic.id}"}
+                 =link_to "Step #{i}","#",:title=>"Click and drag to change step sequence"
+                =text_area_tag "alter_basic_action_#{alter_basic.id}",alter_basic.action,:cols=>"50",:class=>"inpTxt lft w190px"
+                =text_area_tag "alter_basic_response_#{alter_basic.id}",alter_basic.response,:cols=>"50",:class=>"inpTxt lft w190px"
+                %span{:class=>"smLink"}=link_to "Delete",delete_alter_basic_flow_url(alter_basic.id)
+                -i=i+1
+                %span{:id=>"show_alter_basic_#{alter_basic.id}",:style => "display:none;"}
+                 %span{:class=>"smLink"}=link_to "Save",'#',:id=>"save_alter_basic_flow1_#{alter_basic.id}"
+                 %span{:class=>"smLink"}=link_to "Cancel",'#',:id=>"alter_basic_hide_#{alter_basic.id}"
+                %br
+          %div{:class=>"clear"}
+           %span{:class=>"smLink"}=link_to "Delete",delete_alternate_url(alternate.id)
+           %span{:id=>"show_alter_#{alternate.id}",:style => "display:none;"}
+            %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+            %span{:class=>"smLink"}=link_to "Cancel",'#',:id=>"alter_hide_save_cancel_#{alternate.id}"
+            %br
 
 
-          %br
-          %br
-         %hr{:style=>"width:400px;color:green;"}
-         %br   
-     -else
-      =text_area_tag "alternate_flow","<< Add an alternate flow",:size=>"50",:style=>"text-align:right",:disabled=>true
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@alternate_flows.nil?
-        -@alternate_flows.each do |alternate|
-         -form_tag edit_alternate_url(alternate.id) do
-          =text_field_tag "alternate_flow",alternate.title
-          %div{:id=>"show_alter_#{alternate.id}",:style => "display:none;"}
-           =submit_tag "Save",:disabled=>true
-           =link_to "Cancel",alternate_flow_url(:id=>alternate.basic_flow.id)
-          =link_to "Edit",'#',:href=>"#"
-          =link_to "Delete",delete_alternate_url(alternate.id),:href=>"#"
-         %br
-         %br
-    =link_to "<< Return to use case detail",basic_flow_url(:id=>@use_case.id)
+    %span{:class=>"smLink fl"}=link_to "<< Return to basic flow",basic_flow_url(:id=>@use_case.id)
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"
        

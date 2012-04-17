@@ -2,9 +2,9 @@
  %div{:class=>"leftPanel"}
   %h1="Search Results"
   %div{:class=>"fcontainer"}
-   -if @reqs.nil? || @uses.nil? || @trackers.nil? || @files.nil? || @defs.nil?
+   -if @reqs.nil? || @uses.nil? || @trackers.nil? || @files.nil? || @defs.nil? || @pre.nil? || @basic_flows.nil? || @alter_flows.nil? || @helps.nil?
     ="Result is not found"
-   -if @reqs.empty? || @uses.empty? || @trackers.empty? || @files.empty? || @defs.empty?
+   -if @reqs.empty? and @uses.empty? and @trackers.empty? and @files.empty? and @defs.empty? and @pre.empty? and @basic_flows.empty? and @alter_flows.empty? and @helps.empty?
     ="Result is not found"
    -else
     -if !@reqs.empty?
@@ -23,6 +23,36 @@
      -@uses.each do |use|
       ="UC#{use.id}:"
       =link_to use.name,use_case_path(use.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@pre.empty?
+     %b="Pre Conditions"
+     %br
+     -@pre.each do |pre|
+      ="Pre#{pre.id}:"
+      =link_to pre.title,show_pre_condition_url(pre.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@basic_flows.empty?
+     %b="Basic Flows"
+     %br
+     -@basic_flows.each do |base|
+      ="Basic#{base.id}:"
+      =link_to base.action,show_basic_flow_url(base.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@alter_flows.empty?
+     %b="Alternate Flows"
+     %br
+     -@alter_flows.each do |alter|
+      ="Alter#{alter.id}:"
+      =link_to alter.title,show_alter_flow_url(alter.id)
       %br
      %hr{:style=>"color:green;"}
      %br
@@ -56,6 +86,18 @@
       =link_to f.file_file_name,project_file_path(f.id)
       %br
      %hr{:style=>"color:green;"}
+     %br
+     %br
+    -if !@helps.empty?
+     %b="FAQs"
+     %br
+     -@helps.each do |d|
+      ="FAQ:"
+      =link_to d.faq,show_faq_url(d.id)
+      %br
+     %hr{:style=>"color:green;"}
+     %br
+     %br
 
 
  %div{:class=>"rightPanel"}

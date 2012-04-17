@@ -1,0 +1,11 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="FAQ"
+  %div{:class=>"fcontainer"}
+   %div{:id=>"show_faq"}
+    -if !@help.nil?
+     %div{:id=>"FAQ"}
+      %h2.question=link_to @help.faq,"##{@help.id}",:id=>"faq_#{@help.id}"
+      =@help.result.html_safe
+      %br
+   %span{:class=>"smLink"}=link_to "<< Return to FAQs",get_help_url

@@ -1,0 +1,22 @@
+%div{:class=>"rows reqList",:id=>"span_images_use_#{@file_use.id}"}
+ %div{:class=>"w600px upper"}
+  -if !@file_use.nil?
+   %span{:class=>"cols w30px noBdr actionItems1"}
+    -if @user.privilige!="Read"
+     =add_usecase_file image_tag("edit.gif",:id=>"edit_images_#{@file_use.id}",:title=>"Edit Use Case attributes"),@file_use,@user
+   -first_name=find_user_name_use_email(@file_use)
+   -if !first_name.empty?
+    %span{:class=>"cols w180px noBdr"}=first_name
+   -if @file_use.category.nil?
+    %span{:class=>"cols w100px"}="Category"
+   -else
+    %span{:class=>"cols w100px"}=@file_use.category 
+   %span{:class=>"cols w100px"}=@file_use.status
+   %span{:class=>"cols w50px noBdr actionItems1"}
+    -if @user.privilige!="Read"
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@file_use.id}",:title=>"Unlink use case"),delete_use_file_url(@file_use.id)
+
+ %div{:class=>"lower"}
+  =@file_use.name  
+%div{:id=>"edit_usecase_#{@file_use.id}"}
+

@@ -1,1 +1,6 @@
-$('#add_file_name').html('#{escape_javascript(render(:partial=>'project_files/sort_file'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-else
+ :plain
+  $('#add_file_name').html('#{escape_javascript(render(:partial=>'project_files/sort_file'))}');

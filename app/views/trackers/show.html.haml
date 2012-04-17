@@ -1,37 +1,80 @@
 %div{:class=>"container"}
  %div{:id=>"tracker",:class=>"leftPanel"}
-  %h1="Tracker"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_tracker",:align=>"middle"}
-    -if !@tracker.nil?
-     %div{:class=>"Row wid660"}
-     =@tracker.title
-     |
-     ="Assigned" if @tracker.assigned.nil? or @tracker.assigned.empty?
-     =@tracker.assigned if !@tracker.assigned.nil?
-     |
-     =@tracker.category
-     |
-     ="Due" if @tracker.due.nil?
-     =@tracker.due if !@tracker.due.nil?
-     -if @tracker.flag_tracker==true
-      =check_box_tag "track_flag_#{@tracker.id}","",true
-     -else
-      =check_box_tag "track_flag_#{@tracker.id}","",false
-     =add_edit_tracker_field "Edit",@tracker
-     -att_flag=check_attachment_tracker(@tracker)
-     -if att_flag=="true"
-      =link_to "Delete",tracker_path(@tracker.id),:method => :delete
-     -else
-      =link_to "Delete",tracker_path(@tracker.id),:confirm => 'Are you sure you want to delete?',:method => :delete
-     =add_comment_tracker_field "Add Comments",@tracker,@user
-     %div{:id=>"edit_#{@tracker.id}"}
-     %br
-     %div{:id=>"comment_#{@tracker.id}"}
-     %hr{:style=>"width:400px;color:green;"}
-     %br
+  %h1="Trackers"
+  %div{:class=>"fl w685px"}
+   %div{:class=>"tabFormat"}
+    %div{:id=>"add_tracker",:align=>"middle"}
+     -if !@tracker.nil?
+      %div{:class=>"rows reqList",:id=>"span_images_track_#{@tracker.id}"}
+       %div{:class=>"upper"}
+        %span{:class=>"cols w30px noBdr actionItems1"}
+         =add_edit_tracker_field image_tag("edit.gif",:id=>"edit_images_#{@tracker.id}",:title=>"Edit Tracker Attributes"),@tracker
+        %span{:class=>"cols w100px noBdr"}="Unassigned" if @tracker.assigned.nil? or @tracker.assigned.empty?
+        %span{:class=>"cols w100px noBdr"}=@tracker.assigned if !@tracker.assigned.nil?
+        %span{:class=>"cols w100px"}=@tracker.category
+        -if @tracker.due.nil?
+         %span{:class=>"cols w80px"}="Due"
+        -else
+         %span{:class=>"cols w80px"}=@tracker.due.strftime("%d-%m-%Y")
+        %span{:class=>"cols w100px noBdr actionItems1"}
+         -if @user.privilige!="Read"
+          -if @tracker.flag_tracker==true
+           =check_box_tag "track_flag_#{@tracker.id}","",true,:title=>"Completed",:style=>"display:none;"
+          -else
+           =check_box_tag "track_flag_#{@tracker.id}","",false,:title=>"Mark complete",:style=>"display:none;"
+          -if @tracker.requirements.count==0
+           =link_to image_tag("link-r.png",:id=>"link_r_images_#{@tracker.id}",:alt=>"Add / show linked requirement"),show_tracker_req_url(@tracker.id),:title=>"Link a requirement"
+          -else
+           =link_to image_tag("link-r.png",:id=>"link_r_images_#{@tracker.id}",:alt=>"Add / show linked requirement"),show_tracker_req_url(@tracker.id),:title=>"Linked requirements - #{@tracker.requirements.count}"
+          -if @tracker.use_cases.count==0
+           =link_to image_tag("link-u.png",:id=>"link_u_images_#{@tracker.id}",:alt=>"Add / show linked use case"),show_tracker_use_url(@tracker.id),:title=>"Link a use case"
+          -else
+           =link_to image_tag("link-u.png",:id=>"link_u_images_#{@tracker.id}",:alt=>"Add / show linked use case"),show_tracker_use_url(@tracker.id),:title=>"Linked use cases - #{@tracker.use_cases.count}"
+         -else
+          -if @tracker.flag_tracker==true
+           =check_box_tag "track_flag_#{@tracker.id}","",true,:disabled=>true,:title=>"Completed",:style=>"display:none;"
+          -else
+           =check_box_tag "track_flag_#{@tracker.id}","",false,:disabled=>true,:title=>"Mark complete",:style=>"display:none;"
+          -if @tracker.requirements.count==0
+           =link_to image_tag("link-r.png",:id=>"link_r_images_#{@tracker.id}",:alt=>"Add / show linked requirement"),"#",:confirm=>t(:tracker_requirement_link_message_with_out_permisson),:title=>"Link a requirement"
+          -else
+           =link_to image_tag("link-r.png",:id=>"link_r_images_#{@tracker.id}",:alt=>"Add / show linked requirement"),"#",:confirm=>t(:tracker_requirement_link_message_with_out_permisson),:title=>"Linked requirements - #{@tracker.requirements.count}"
+          -if @tracker.use_cases.count==0
+           =link_to image_tag("link-u.png",:id=>"link_u_images_#{@tracker.id}",:alt=>"Add / show linked use case"),"#",:confirm=>t(:tracker_usecase_link_message_with_out_permisson),:title=>"Link a use case"
+          -else
+           =link_to image_tag("link-u.png",:id=>"link_u_images_#{@tracker.id}",:alt=>"Add / show linked use case"),"#",:confirm=>t(:tracker_usecase_link_message_with_out_permisson),:title=>"Linked use cases - #{@tracker.use_cases.count}"
+         =add_comment_tracker_field image_tag("comments.gif",:id=>"comment_images_#{@tracker.id}",:alt=>"Add Comments"),@tracker,@user
+         -att_flag=check_attachment_tracker(@tracker)
+         -if @user.privilige=="Admin"
+          -if att_flag=="true"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:method => :delete
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:confirm => t(:tracker_delete_message),:method => :delete
+         -elsif !current_user.nil? and @user.id==@tracker.user_id and @user.privilige!="Read"
+          -if att_flag=="true"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:method => :delete
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:confirm => t(:tracker_delete_message),:method => :delete
+         -elsif !current_member.nil? and @user.id==@tracker.member_id and @user.privilige!="Read"
+          -if att_flag=="true"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:method => :delete
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),tracker_path(@tracker.id),:confirm => t(:tracker_delete_message),:method => :delete
+         -elsif !current_member.nil? and @user.id==@tracker.member_id and @user.privilige=="Read"
+          =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),"#",:confirm => t(:tracker_remove_message_with_out_permisson)
+         -elsif !current_user.nil? and @user.id==@tracker.user_id and @user.privilige=="Read"
+          =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),"#",:confirm => t(:tracker_remove_message_with_out_permisson)
+         -else
+          =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker.id}",:title=>"Delete tracker"),"#",:confirm => t(:tracker_no_user)
+
+       %div{:class=>"lower"}
+        =@tracker.title
+      %div{:id=>"edit_#{@tracker.id}"}
+      %div{:id=>"comment_#{@tracker.id}"}
+
+   %span{:class=>"smLink"}=link_to "<< Return to trackers list",trackers_path
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_tracker"}
    %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"

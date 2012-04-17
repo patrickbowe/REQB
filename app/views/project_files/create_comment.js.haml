@@ -1,2 +1,19 @@
-$('#file_comment_#{@file.id}').attr('value','');
-$('#comment_show_#{@file.id}').append('#{escape_javascript(render(:partial=>'project_files/comment_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @file.nil?
+ :plain
+  window.location.replace("/project_files");
+
+-elsif @comment.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_comment)}</div>');
+  
+-else
+ :plain
+  $('#flash_error_message').html('').append(''); 
+  $('#file_comment_#{@file.id}').attr('value','');
+  $('#comment_comment_#{@file.id}').show();
+  $('#comment_save_#{@file.id}').show();
+  $('#comment_cancel_#{@file.id}').show();
+  $('#comment_show_#{@file.id}').prepend('#{escape_javascript(render(:partial=>'project_files/comment_field'))}');

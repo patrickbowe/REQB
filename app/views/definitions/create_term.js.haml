@@ -1,3 +1,12 @@
-$('#term').attr('value','<< Add term');
-$('#definition').attr('value','<< Add definition');
-$('#add_definition').html('#{escape_javascript(render(:partial=>'definitions/create'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @term.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_definition)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#term1').attr('value','<< Add term');
+  $('#definition1').attr('value','<< Add definition');
+  $('#add_definition').html('#{escape_javascript(render(:partial=>'definitions/create'))}');

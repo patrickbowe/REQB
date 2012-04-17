@@ -1,0 +1,10 @@
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:file_id].nil?
+ :plain
+  window.location.replace("/project_files");
+-else
+ :plain
+  $('#file_usecase').attr('value','');
+  $('#add_use_file').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case_file'))}');

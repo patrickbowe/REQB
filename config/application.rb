@@ -37,6 +37,8 @@ module Project2
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
     config.browser_validations = false
+    #config.middleware.use "Rack::SslEnforcer"
+    #config.middleware.use Rack::SslEnforcer, :only => ["/users"], :strict => true
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

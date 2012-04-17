@@ -1,0 +1,27 @@
+%h3="My Trackers"
+-if !@assign_trackers.empty?
+ -@assign_trackers.each do |tracker|
+  %div{:class=>"Row",:id=>"row_assigned_tracker_#{tracker.id}"}
+   %span.editBox
+    =image_tag "../images/delete.gif",:style=>"width:17px;height:17px;",:id=>"tracker_image_#{tracker.id}",:class=>"dashboard_show"
+    -if tracker.flag_tracker==true
+     =check_box_tag "tracker_assigned_flag_#{tracker.id}","",true,:class=>"dashboard_show"
+    -else
+     =check_box_tag "tracker_assigned_flag_#{tracker.id}","",false,:class=>"dashboard_show"
+    =link_to (image_tag "../images/edit.gif",:style=>"width:17px;height:17px;"),tracker_path(tracker.id),:class=>"dashboard_show"
+   -if tracker.flag_tracker==true
+    %span.descBoxStrike1
+     =tracker.title
+   -else
+    %span.descBox1
+     =tracker.title
+   -if !tracker.due.nil?
+    %span.dateBox
+     =tracker.due.strftime("%d-%b-%y")
+-else
+ %div{:class=>"Row"}
+  %span.editBox
+  %span.descBox1{:style=>"border-bottom:none;"}
+   ="No trackers have been created yet,"
+   =link_to "click here",trackers_path
+   =" to add one."     

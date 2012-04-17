@@ -10,44 +10,36 @@
     %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
     %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages"}
     %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:title=>"Basic Flow"}
-   %span{:class=>"line"}
-   %div{:class=>"dwnContainer"}
-    %div{:id=>"project",:align=>"middle"}
-    %b="Use Case Details"
-    %br
-    %div{:id=>"add_postcondition"}
-     -if @user.privilige!="Read" and @user.privilige!="Approve"
-      =text_field_tag "post_condition","<< Add post-condition",:size=>"50",:style=>"text-align:right"
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@post_conditions.nil?
-        -@post_conditions.each do |post|
-         -form_tag edit_post_url(post.id) do
-          =text_field_tag "post_condition_#{post.id}",post.title
-          %div{:id=>"show_save_cancel_#{post.id}",:style => "display:none;"}
-           =submit_tag "Save"
-           =link_to "Cancel",post_conditions_url(:id=>session[:use_case_id])
-          =link_to "Delete",delete_post_url(post.id)
-          %br
-          %br
-     -else
-      =text_field_tag "post_condition","<< Add post-condition",:size=>"50",:style=>"text-align:right",:disabled=>true
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@post_conditions.nil?
-        -@post_conditions.each do |post|
-         -form_tag edit_post_url(post.id) do
-          =text_field_tag "post_condition_#{post.id}",post.title
-          %div{:id=>"show_save_cancel_#{post.id}",:style => "display:none;"}
-           =submit_tag "Save",:disabled=>true
-           =link_to "Cancel",post_conditions_url(:id=>session[:use_case_id])
-          =link_to "Delete",delete_post_url(post.id),:href=>"#"
-         %br
-         %br
-    %hr{:style=>"width:400px;color:green;"}
-    =link_to "<< Back to use case list",use_cases_path
-    %br
-    =link_to "Success Conditions>>",success_conditions_url(:id=>@use_case.id)
+   %span{:class=>"content"}
+    %div{:class=>"dwnContainer"}
+     %div{:id=>"project",:class=>"fl w685px1"}
+      %h4="Use case details for #{@use_case.name}"
+      %div{:class=>"tabFormat"}
+       %div{:id=>"add_postcondition",:class=>"rows aRow ctr"}
+        -if @user.privilige!="Read"
+         =text_field_tag "post_condition","<< Add post-condition",:size=>"50",:class=>"inpTxt_ad rgt w400px"
+         %span{:id=>"loading"}=image_tag "spinner.gif"
+        -else
+         =text_field_tag "post_condition","<< Add post-condition",:size=>"50",:class=>"inpTxt_ad rgt w400px",:disabled=>true
+       %div{:class=>"gap"}
+       %div{:id=>"add_use_case_detail"}
+        -if !@post_conditions.nil?
+         -@post_conditions.each do |post|
+          -form_tag edit_post_url(post.id) do
+           %div{:class=>"rows ctr"}
+            =text_area_tag "post_condition_#{post.id}",post.title,:class=>"inpTxt rgt w400px marL38"
+            -if @user.privilige!="Read"
+             %span{:id=>"show_save_cancel_#{post.id}",:style => "display:none;"}
+              %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+              %span{:class=>"smLink"}=link_to "Cancel",post_conditions_url(:id=>session[:use_case_id])
+             %span{:class=>"smLink"}=link_to "Delete",delete_post_url(post.id)
+            -else
+             %span{:class=>"smLink"}=link_to "Delete","#",:confirm=>t(:post_condition_delete_message_with_out_permisson)
+
+      %span{:class=>"smLink fl"}=link_to "<< Back to use case list",use_cases_path
+      %span{:class=>"smLink fr"}=link_to "Success Conditions >>",success_conditions_url(:id=>@use_case.id)
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"
        

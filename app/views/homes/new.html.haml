@@ -1,23 +1,31 @@
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
   %h1="Get Help"
-  %div{:class=>"fcontainer"}
+  %div{:class=>"rows aRow"}
    -form_for @help_request,:url=>{:controller=>"homes",:action=>"create"} do |f|
-    = f.error_messages
-    %br
-    %b=f.label "Your Email"
-    =f.text_field :sender_email
-    %br
-    %br 
-    %b=f.label "Request"
-    =f.text_area :email_content,:size=>"50",:style=>"text-align:right"
-    %br
-    =f.submit :submit
+    %div{:class=>"rows"}
+     = f.error_messages
+    %div{:class=>"rows"}
+     %span{:class=>"cols Txt w200px"}
+      %b=f.label "Please enter your email:"
+     %br
+     %span{:class=>"cols w500px"}=f.text_field :sender_email,:size=>"50",:class=>"inpTxt w300px"
+    %div{:class=>"rows"}
+     %span{:id=>"checkEmail",:class=>"signin_div"}
+    %div{:class=>"rows"}
+     %span{:class=>"cols Txt w400px"}
+      %b=f.label "Let us know how we can help using the form below:"
+     %br
+     %span{:class=>"cols w500px"}=f.text_area :email_content,:rows=>"10",:cols=>"490",:class=>"inpTxt w492px"
+    %div{:class=>"rows"}
+     %span{:id=>"checkContent",:class=>"signin_div"}
+    %div{:class=>"buttons"}
+     =f.submit :submit,:class=>"btn"
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_definition"}
    %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
 
 
 

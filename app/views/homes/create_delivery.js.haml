@@ -1,0 +1,8 @@
+-if @delivery.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_delivery)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#delivery_name').attr('value','<< Add new delivery period');
+  $('#show_delivery').prepend('#{escape_javascript(render(:partial=>'create_delivery'))}');

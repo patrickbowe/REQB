@@ -1,4 +1,4 @@
 -if !current_user.nil?
-  =add_change_password_field "Change Password",current_user
+  %span.toogleTxt=add_change_password_field "Change Password",current_user
 -else
-  =add_change_password_field "Change Password",current_member
+  %span.toogleTxt=add_change_password_field "Change Password",current_member

@@ -10,14 +10,17 @@ gem "gemcutter", "~> 0.7.0"
 gem 'cheddargetter_client_ruby'
 gem 'httparty'
 gem 'sqlite3'
-gem 'taps'
-gem 'tabulous'
 gem 'i18n','0.5.0'
 gem 'crack'
 gem 'paperclip'
 gem 'aws-s3'
-
+gem 'comfortable_mexican_sofa',"1.5.10"
+gem "prawn", "~> 0.12.0"
+gem 'paypal_adaptive',"0.2.7"
+#gem 'rack-ssl-enforcer'
 #gem "tabs_on_rails"
+#gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

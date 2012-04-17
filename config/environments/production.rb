@@ -3,11 +3,13 @@ Project2::Application.configure do
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
-  config.cache_classes = true
+  config.cache_classes = false
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
+  config.action_view.debug_rjs             = true
+  #config.action_view.cache_template_loading = true
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
@@ -46,9 +48,11 @@ Project2::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
 end
 module REQBEnv
-  DEFAULT_HOST_WITH_PORT = "localhost:3000"
+  DEFAULT_HOST = "http://requirementbox.com"
+  DEFAULT_HOST_WITH_PORT = "requirementbox.com"
   DEFAULT_S3_PROFILE_IMAGE_URL = "http://s3.amazonaws.com/REQB/original"
 end
 

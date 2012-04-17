@@ -1,0 +1,38 @@
+-if current_user.nil? && current_member.nil?
+
+ %div{:id=>"signin"}
+  -form_for @user_session, :url => {:controller=>"user_sessions",:action=>"create"} do |f|
+   %fieldset
+    -if !flash[:notice].nil?
+     %p=flash[:notice]
+    -if @flag_error=="true"
+     %p="Your email and password do not match.Please review and re-enter them."
+    -if @flag_active=="true"
+     %p= "Account is not activated yet."
+
+    %h2="Log in to requirementbox"
+    =f.label :email
+    %br
+    =f.text_field :email,:tabindex=>"1"
+    %div{:id=>"checkEmail",:class=>"signin_div"}
+    =f.label :password
+    %br
+    = f.password_field :password,:tabindex=>"2"
+    %div{:id=>"checkPassword",:class=>"signin_div"}
+    = f.check_box :remember_me,:tabindex=>"3",:class=>"checkbox"
+    %label
+     %span
+      ="Remember me on this computer"
+     %label
+      %br
+      = f.submit "Submit Query",:tabindex=>"4"
+      %br
+      %label
+       =link_to "Forgotten your password?",:controller=>"password_resets",:action=>"new",:tabindex=>"5"
+ %div{:id=>"signin_logo"}
+  %ul{:class=>"signin_left"}
+   %li
+    = link_to "Don't have an account?  Sign up today!",sign_up_url
+  %ul{:class=>"signin_right"}
+   %li
+    =link_to image_tag("requirementbox_footer.png"),root_url

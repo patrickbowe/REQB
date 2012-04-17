@@ -1,1 +1,6 @@
-$('#add_definition').html('#{escape_javascript(render(:partial=>'definitions/sort_def'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-else
+ :plain
+  $('#add_definition').html('#{escape_javascript(render(:partial=>'definitions/sort_def'))}');

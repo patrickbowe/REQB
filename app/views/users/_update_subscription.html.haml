@@ -1,0 +1,8 @@
+%div{:class=>"toogleBox"}
+ -form_for :object, :url=>change_subscription_url do |f|
+  %p
+   = f.label "Please select plan:"
+   %br
+   =select "plan_type","",options_for_select(Plan.find(:all).collect {|p| [p.plan_type + " - $" + p.price.to_s + " / Month"] },params[:plan_type]),{},:prompt=>"--Select--"
+   = f.submit "Change Plan"
+   =link_to "Cancel",account_details_url

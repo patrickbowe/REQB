@@ -1,7 +1,8 @@
--form_for :object, :url=>change_email_url do |f|
- %p
-  = f.label :email
-  %br
-  = f.email_field :email
-  = f.submit "Change Email"
-  =link_to "Cancel",account_details_url
+%div{:class=>"toogleBox"}
+ -form_for :object, :url=>change_email_url do |f|
+  %p
+   = f.label "Please enter your new email address:"
+   %br
+   = f.email_field :email
+   = f.submit "Change Email"
+   =link_to "Cancel",account_details_url

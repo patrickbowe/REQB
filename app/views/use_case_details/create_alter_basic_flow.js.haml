@@ -1,3 +1,3 @@
-$('#use_alter_basic_action_#{@alter_flow.id}').attr('value','<< Add an user action');
-$('#use_alter_basic_response_#{@alter_flow.id}').attr('value','<< Add an user response');
-$('#edit_alternate_#{@alter_flow.id}').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+$('#alter_use_basic_action_#{@alter_flow.id}').attr('value','<< Add a user action');
+$('#alter_use_basic_response_#{@alter_flow.id}').attr('value','<< Add a system response');
+$('#edit_alternate_#{@alter_flow.id} ul').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');

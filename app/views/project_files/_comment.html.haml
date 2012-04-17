@@ -1,19 +1,26 @@
-%hr{:style=>"width:400px;color:green;"}
-%br
-%br
-=text_area_tag "file_comment_#{file1.id}","<< Add comment",:size=>"50",:style=>"text-align:right"
-
-%br
-%br
+%div{:class=>"rows aRow ctr"}
+ =text_area_tag "file_comment_#{file1.id}","<< Add comment",:cols=>"50",:class=>"inpTxt rgt w400px"
+%div{:class=>"gap"}
+%div{:id=>"comment_comment_#{file1.id}",:class=>"rows aRow ctr",:style=>"display:none;"}
+ -form_tag update_file_comment_url do
+  %div{:id=>"comment_show_#{file1.id}"}
+  %div{:id=>"comment_save_#{file1.id}",:style=>"display:none;"}
+   %div{:class=>"buttons"}
+    =submit_tag "Save",:class=>"btn"
+    =submit_tag "Cancel",:class=>"btn"
+%div{:class=>"gap"}
 %div{:id=>"comment_show_#{file1.id}"}
  -comments=file1.comments.find :all
  -if !comments.empty?
   -comments.each do |comment|
-   =text_area_tag :file_comment,comment.title,:size=>"50",:style=>"text-align:right",:readonly => true
-   -if @user.privilige=="Admin"
-    =link_to "Delete",delete_file_comment_url(comment.id)
-   -else
-    =link_to "Delete",delete_file_comment_url(comment.id),:href=>"#" 
-   %br
-   %br 
+   %div{:id=>"comment_info_#{comment.id}",:class=>"rows aRow ctr"}
+    %div{:class=>"ctrBox w412px"}
+     %span{:class=>"fl"}="Entered " + comment.created_at.strftime("%d %B %Y %H:%M:%S")
+     -first_name=find_user_name_comment(comment)
+     -if !first_name.empty?
+      %span{:class=>"fr"}="By " + first_name
+    =text_area_tag :file_comment,comment.title,:cols=>"50",:class=>"inpTxt rgt w400px",:readonly => true
+    -if @user.privilige=="Admin"
+     =link_to "Delete",delete_file_comment_url(comment.id),:remote=>true
+    
 

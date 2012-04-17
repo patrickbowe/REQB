@@ -6,6 +6,9 @@ class CreateProjectFiles < ActiveRecord::Migration
       t.references :user
       t.references :project
       t.references :member
+      t.references :requirement
+      t.references :use_case
+      t.references :tracker        
       t.timestamps
     end
   end

@@ -1,0 +1,14 @@
+%h2="Create a user account"
+=form.label "Enter your email address, this will also be your username:"
+%br
+=form.email_field :email,:tabindex=>"1"
+%div{:id=>"checkEmail",:class=>"signin_div"}
+=form.label "Enter a password:"
+%br
+=form.password_field :password,:tabindex=>"2"
+%div{:id=>"checkPassword",:class=>"signin_div"}
+=form.label "Please re-enter your password:"
+%br
+=form.password_field :password_confirmation,:tabindex=>"3"
+%div{:id=>"checkPasswordCon",:class=>"signin_div"}
+

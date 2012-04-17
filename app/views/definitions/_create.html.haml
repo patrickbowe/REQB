@@ -1,18 +1,25 @@
 -if !@defs.nil?
      -@defs.each do |d|
           -form_tag edit_def_url(d.id) do
-               %div{:class=>"Row wid660"}
-               =text_field_tag "term_#{d.id}",d.term
-               =text_field_tag "definition_#{d.id}",d.definition
-               -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
-               %div{:id=>"save_def_#{d.id}",:style => "display:none;"}
-                    =submit_tag "Save"
-                    =link_to "Cancel","#",:id=>"cancel_def_#{d.id}"
-               -if @user.privilige=="Admin" or @user.id==d.user_id
-                    =link_to "Delete",delete_def_url(d.id)
-               -else
-                    =link_to "Delete",delete_def_url(d.id),:href=>"#"
-               %br
-               %br
-          %br
-          %hr{:style=>"width:400px;color:green;"}
+               %div{:id=>"definition",:class=>"rows w650px ctr"}
+                    %span{:class=>"noBdr actionItems",:id=>"save_def1_#{d.id}"}
+                         =text_area_tag "term_#{d.id}",d.term,:cols=>"50",:class=>"inpTxt w150px rgt"
+                         =text_area_tag "definition_#{d.id}",d.definition,:cols=>"50",:class=>"inpTxt w250px rgt"
+                    %span{:class=>"noBdr actionItems"}
+                         -if @user.privilige!="Read"
+                              %span{:id=>"save_def_#{d.id}",:style => "display:none;"}
+                                   %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+                                   %span{:class=>"smLink"}=link_to "Cancel",definitions_path
+                         -if @user.privilige=="Admin"
+                              %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+                         -elsif !current_user.nil? and @user.id==d.user_id and @user.privilige!="Read"
+                              %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+                         -elsif !current_member.nil? and @user.id==d.member_id and @user.privilige!="Read"
+                              %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+                         -elsif !current_user.nil? and @user.id==d.user_id and @user.privilige=="Read"
+                              %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+                         -elsif !current_member.nil? and @user.id==d.member_id and @user.privilige=="Read"
+                              %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+
+                         -else
+                              %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_no_user)

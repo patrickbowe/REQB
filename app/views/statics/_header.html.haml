@@ -1,0 +1,68 @@
+.projectBox_n
+  - if !current_user.nil?
+    = select("project_name","project_id",Project.find(:all,:conditions=>["user_id=?",current_user.id]).collect {|p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"})
+  - elsif !current_member.nil?
+    = select "project_name","project_id",Project.find(:all,:conditions=>["user_id=?",session[:admin_id]]).collect {  |p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"}
+.topLink
+  - if !current_user.nil?
+    = current_user.email
+  - else
+    = current_member.email
+  |
+  - if !session[:project_id].nil?
+    = link_to "Project Settings",notification_url,:title=>"Click to modify notifications and attributes"
+    |
+  = link_to "My Account",account_details_url,:title=>"Click to modify project, people or billing details"
+  | #{link_to "Get Help",get_help_url,:title=>"Click for tutorials and FAQs",:style=>"background:#F08F46;color:white;",:class=>"hovertest"} |
+  - if !current_user.nil? or !current_member.nil?
+    = link_to "Log Out", logout_path
+  -else
+    = link_to "Sign in",new_user_session_path
+.clear
+.menu
+  .leftCor
+  .mid
+    %ul
+      %li
+        - if @section=='dashboard'
+          = link_to "Dashboard",dashboard_url,:class=>"active"
+        - else
+          = link_to "Dashboard",dashboard_url
+      %li.spacer
+      %li
+        - if @section=='requirements'
+          = link_to "Requirements",requirements_path,:class=>"active"
+        - else
+          = link_to "Requirements",requirements_path
+      %li.spacer
+      %li
+        - if @section=='use cases'
+          = link_to "Use Cases",use_cases_path,:class=>"active"
+        - else
+          = link_to "Use Cases",use_cases_path
+      %li.spacer
+      %li
+        - if @section=='trackers'
+          = link_to "Trackers",trackers_path,:class=>"active"
+        - else
+          = link_to "Trackers",trackers_path
+      %li.spacer
+      %li
+        - if @section=='files'
+          = link_to "Files",project_files_path,:class=>"active"
+        - else
+          = link_to "Files",project_files_path
+      %li.spacer
+      %li
+        - if @section=='definitions'
+          = link_to "Definitions",definitions_path,:class=>"active"
+        - else
+          = link_to "Definitions",definitions_path
+  .rightCor
+.searchBg
+  .searchBox
+    - form_tag search_path do
+      = text_field_tag "search_text","Search"
+      %input#button.button{:name => "button", :type => "submit", :value => ""}/
+  .printBox
+    %img#print_button{:height => "20", :src => "/images/printer.png", :width => "20"}/

@@ -1,22 +1,19 @@
-%div{:align=>"middle",:style=>"width:600px;"}
-                                            %b="Requirements"
-                                            %br
-                                            %div{:style=>"text-align:left;width:580px;padding-left:100px;"}
-                                                                                        ="Requirements"
-                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                        ="Category"
-                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                        ="Type"
-                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                        ="Status"
+%div{:class=>"fl w685px"}
+                                            %h4="Add Multiple Requirements"
+                                            %div{:class=>"tabFormat"}
+                                                                                        %div{:class=>"rows rHead"}
+                                                                                                                                    %span{:class=>"cols w180px ctr"}="Description"
+                                                                                                                                    %span{:class=>"cols w180px ctr"}="Category"
+                                                                                                                                    %span{:class=>"cols w180px ctr"}="Type"
+                                                                                                                                    %span{:class=>"cols w100px ctr"}="Status"
                                             -form_tag :controller=>"requirements",:action=>"create_requirements" do |f|
                                                                                         -(1..10).each do |f|
-                                                                                                                                    =text_field_tag "name[#{f}]"
-                                                                                                                                    =select "category[#{f}]","",["Configuration","Expenses","Invoicing","User admin"]
-                                                                                                                                    =select "type1[#{f}]","",["Functional","Non Functional","Classified"]
-                                                                                                                                    =select "status[#{f}]","",["Draft","Under Review","Reviewed","Approved","Rejected","To be modified"]
-                                                                                                                                    %br
-                                                                                                                                    %br                                                                                                                                                                                
-                                                                                        =submit_tag "Save"
-                                                                                        =link_to "Cancel"
+                                                                                                                                    %div{:class=>"rows ctr"}
+                                                                                                                                                                                %span{:class=>"cols w180px"}=text_field_tag "name[#{f}]",'',:class=>"inpTxt w150px"
+                                                                                                                                                                                %span{:class=>"cols w180px"}=select "category[#{f}]","",Category.find(:all,:conditions=>["project_id=?",session[:project_id]]).collect {|p| [p.title] },{},:class=>"inpSel1 w150px"
+                                                                                                                                                                                %span{:class=>"cols w180px"}=select "type1[#{f}]","",["Functional","Non Functional","Constraint"],{},:class=>"inpSel1 w150px"
+                                                                                                                                                                                %span{:class=>"cols w100px"}=select "status[#{f}]","",["Draft","For Review","Reviewed","Approved","Rejected","To be modified"],{},:class=>"inpSel1 w80px"
+                                                                                        %div{:class=>"rows ctr buttons"}
+                                                                                                                                    =submit_tag "Save",:class=>"btn",:id=>"requirement_10"
+                                                                                                                                    =link_to submit_tag("Cancel",:class=>"btn"),"#"
                                                                                 

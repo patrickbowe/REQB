@@ -1,0 +1,57 @@
+%div{:class=>"container"}
+ %div{:id=>"require",:class=>"leftPanel"}
+  %h1="Trackers"
+  %div{:class=>"fl w685px"}
+   %h4="Use cases for #{@tracker.title}"
+   %div{:class=>"tabFormat"}
+    %div{:id=>"use_case",:align=>"middle"}
+     %div{:class=>"rows aRow ctr",:style=>"vertical-align:middle;"}
+      %div{:style=>"float:left; width:150px; padding-top:4px; padding-right:4px; text-align:right;"}="Linked Use Case"
+      -if @user.privilige!="Read" 
+       %div{:style=>"float:left;"}
+        %span{:style=>"position:relative; display:inline-block;"}
+         =text_field_tag :tracker_use_case_name,"<< Start typing to search for a use case to link",:size=>"50",:class=>"inpTxt_ad rgt w450px"
+         %div{:id=>"match_req_usecase"}
+         %span{:id=>"loading"}=image_tag "spinner.gif"
+
+      -else
+       =text_field_tag :tracker_use_case_name,"<< Start typing to search for a use case to link",:size=>"50",:class=>"inpTxt_ad rgt w450px",:disabled=>true
+     %div{:class=>"gap"}
+    %div{:id=>"add_tracker_use_case",:align=>"middle"}
+     -if !@tracker_use_cases.nil?
+      -@tracker_use_cases.each do |u|
+       %div{:class=>"rows reqList",:id=>"span_images_use_#{u.id}"}
+        %div{:class=>"w600px upper"}
+         %span{:class=>"cols w30px noBdr actionItems1"}
+          =add_use_tracker_edit_field image_tag("edit.gif",:id=>"edit_images_#{u.id}",:title=>"Edit Use Case attributes"),u
+         -first_name=find_user_name_use_email(u)
+         -if !first_name.empty?
+          %span{:class=>"cols w180px noBdr"}=first_name
+         -if u.category.nil?
+          %span{:class=>"cols w100px"}="Category"
+         -else
+          %span{:class=>"cols w100px"}=u.category 
+
+         %span{:class=>"cols w100px"}=u.status
+         %span{:class=>"cols w50px noBdr actionItems1"}
+          -if @user.privilige!="Read"
+           -if (@user.privilige=="Admin" and u.status=="Approved")
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Unlink use case"),"#",:confirm => t(:usecase_unlink_message_approve),:title=>"Delete"
+           -elsif u.status!="Approved"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Unlink use case"),:controller => "use_cases", :action => "destroy_tracker_usecase", :id => u.id
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Unlink use case"),"#",:confirm => t(:usecase_unlink_message_approve),:title=>"Delete"
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Unlink use case"),"#",:confirm => t(:usecase_unlink_message_with_out_permisson),:title=>"Delete"
+
+        %div{:class=>"lower"}
+         =u.name
+       %div{:id=>"edit_#{u.id}"}
+    %div{:class=>"rows reqList"}
+     =link_to "<<Return to trackers list",trackers_path
+ %div{:class=>"rightPanel"}
+  %div{:id=>"sort_tracker"}
+   %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+     

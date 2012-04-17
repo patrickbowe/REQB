@@ -1,0 +1,74 @@
+%div{:class=>"fl w350px"}
+ -form_for @attr,:url=>save_req_attributes_url do |f|
+  -if@user.privilige!="Admin"
+   -@use_css="i"
+  %div{:class=>"rows rHead"}
+   %div{:class=>"label"}
+    ="Requirements"
+   %div{:class=>"field"}
+    ="Display in Application?"
+  %div{:class=>"rows "}
+   %div{:class=>"label"}
+    ="Status"
+   -if @attr.req_status==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_status,:class=>@aclass, :id=>"req_status"
+  %div{:class=>"rows aRow"}
+   %div{:class=>"label"}
+    ="Priority"
+   -if @attr.req_priority==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_priority,:class=>@aclass, :id=>"req_priority"
+  %div{:class=>"rows"}
+   %div{:class=>"label"}
+    ="Importance"
+   -if @attr.req_importance==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_importance,:class=>@aclass, :id=>"req_importance"
+  %div{:class=>"rows aRow"}
+   %div{:class=>"label"}
+    ="Category"
+   -if @attr.req_category==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_category,:class=>@aclass, :id=>"req_category"
+  %div{:class=>"rows"}
+   %div{:class=>"label"}
+    ="Type"
+   -if @attr.req_type==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_type,:class=>@aclass, :id=>"req_type"
+  %div{:class=>"rows aRow"}
+   %div{:class=>"label"}
+    ="Verification"
+   -if @attr.req_verification==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_verification,:class=>@aclass, :id=>"req_verification"
+  %div{:class=>"rows"}
+   %div{:class=>"label"}
+    ="Delivered In"
+   -if @attr.req_delivered==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :req_delivered,:class=>@aclass, :id=>"req_delivered"
+
+

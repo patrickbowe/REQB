@@ -1,2 +1,11 @@
-$('#tracker_name').attr('value','');
-$('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @tracker.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_tracker)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#tracker_name').attr('value','');
+  $('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker'))}');

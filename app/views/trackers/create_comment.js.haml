@@ -1,2 +1,15 @@
-$('#tracker_comment_#{@tracker.id}').attr('value','');
-$('#comment_show_#{@tracker.id}').append('#{escape_javascript(render(:partial=>'trackers/comment_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @comment.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_comment)}</div>');
+  
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#tracker_comment_#{@tracker.id}').attr('value','');
+  $('#comment_comment_#{@tracker.id}').show();
+  $('#comment_save_#{@tracker.id}').show();
+  $('#comment_cancel_#{@tracker.id}').show();
+  $('#comment_show_#{@tracker.id}').prepend('#{escape_javascript(render(:partial=>'trackers/comment_field'))}');

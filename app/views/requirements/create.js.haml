@@ -1,2 +1,11 @@
-$('#req_name').attr('value','');
-$('#add_require').prepend('#{escape_javascript(render(:partial=>'create_require'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @project_req.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_requirement)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#req_name').attr('value','');
+  $('#add_require').prepend('#{escape_javascript(render(:partial=>'create_require'))}');

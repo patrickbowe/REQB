@@ -1,34 +1,27 @@
-%div{:align=>"left",:style=>"width:445px"}
-                      %hr{:style=>"width:350px;"}
-                      ="TR_" + tracker.id.to_s
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      ="Entered " + tracker.created_at.strftime("%d %B %Y")
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      -first_name=find_user_name_tracker(tracker)
-                      -if !first_name.empty?
-                                            ="By " + first_name
-
-                      %br
-                      %br
-                      -form_tag edit_url(tracker.id) do
-                                            %div{:style=>"display:inline-block;float:left;width:220px;"}
-                                                                  =label_tag "Description"
-                                                                  =text_field_tag "title",tracker.title,:maxlength=>"50"
-                                                                  %br
-                                                                  =label_tag "Category"
-                                                                  =select "category","",options_for_select(["Configuration","Expenses","Invoicing","User admin"],tracker.category)
-                                                                  %br
-                                                                  
-                                                                  =label_tag "Assigned"
-                                                                  =select "assigned","id",@all_user.collect {|name| [name.first_name]},{:selected=>tracker.assigned,:prompt=>"--Select--"}
-                                                                  %br
-
-                                                                  =label_tag "Due"
-                                                                  =text_field_tag :due1,tracker.due,:class=>"calendar"
-
-                                            %br
-                                            %br
-                                            %br
-                                            %br
-                                            =submit_tag "Save"
-                                            =remove_edit_tracker_field "Cancel",tracker
+%div{:id=>"editDetails",:class=>"fullBox",:style=>"display:block;"}
+ %div{:class=>"rows aRow"}
+  %div{:class=>"rows srHead"}
+   %span{:class=>"cols w50px"}="TR_" + tracker.id.to_s
+   %span{:class=>"cols w180px"}="Entered " + tracker.created_at.strftime("%d %B %Y")
+   -first_name=find_user_name_tracker(tracker)
+   -if !first_name.empty?
+    %span{:class=>"cols w300px"}="By " + first_name
+  -form_tag edit_url(tracker.id) do
+   %div{:class=>"rows"}
+    %span{:class=>"cols Txt w80px"}="Description"
+    %span{:class=>"cols w550px"}=text_field_tag "title",tracker.title,:class=>"inpTxt w500px marL15"
+   %div{:class=>"rows"}
+    %span{:class=>"cols Txt w80px"}="Type"
+    %span{:class=>"cols w150px"}=select "category","",options_for_select(["Change Request","Issue","Question","Request","Risk","Task"],tracker.category),{},:class=>"inpSel w120px"
+    %span{:class=>"cols Txt w80px"}="Assigned"
+    -if !@all_user.nil?
+     %span{:class=>"cols w150px"}=select "assigned","id",@all_user.collect {|name| [name.first_name]},{:selected=>tracker.assigned,:prompt=>"--Select--"},:class=>"inpSel w120px"
+   %div{:class=>"rows"}
+    %span{:class=>"cols Txt w80px"}="Due"
+    -if !tracker.due.nil?
+     %span{:class=>"cols w150px"}=text_field_tag :due1,tracker.due.strftime("%d-%m-%Y"),:class=>"calendar inpTxt w120px marL5"
+    -else
+     %span{:class=>"cols w150px"}=text_field_tag :due1,tracker.due,:class=>"calendar inpTxt w115px" 
+   %div{:class=>"buttons"}
+    =submit_tag "Save",:class=>"btn"
+    =remove_edit_tracker_field submit_tag("Cancel",:class=>"btn"),tracker

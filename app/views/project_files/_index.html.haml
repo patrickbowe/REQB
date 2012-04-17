@@ -1,55 +1,91 @@
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
   %h1="File Uploads"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_file"}
-    =render "new"
-    %br
-    %br
-   %div{:id=>"add_file_name",:align=>"middle"}
-    -if !@files.nil?
-     -@files.each do |f|
-      %div{:class=>"Row wid660"}
-       =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
-       |
-       -if !f.requirements.empty?
-        ="REQ"+ f.requirements[0].id.to_s
-       -elsif !f.use_cases.empty?
-        ="UC"+f.use_cases[0].id.to_s
-       -elsif !f.trackers.empty?
-        ="TR"+f.tracker[0].id.to_s
-       -else    
-        ="Not link"
-       =add_file_edit_field "Edit",f
-       -if @user.privilige!="Read" && @user.privilige!="Approve"
-        -att_flag=check_attachment_file(f.id)
-        -if att_flag=="true"
-         =link_to "Delete",project_file_path(f.id),:method=> :delete,:confirm => 'Are you sure you want to delete?'
-        -else
-         =link_to "Delete",project_file_path(f.id),:method=> :delete
-       -else
-        =link_to "Delete",project_file_path(f.id),:href=>"#"
-       =add_comment_file_field "Add Comments",f,@user
-       %br
-       %br
-       %br
+  %div{:class=>"fl w685px"}
+   %div{:class=>"tabFormat"}
+    %div{:id=>"add_file"}
+     =render "new"
+    %div{:id=>"add_file_name",:align=>"middle"}
+     -if !@files.nil?
+      -@files.each do |f|
+       %div{:class=>"rows reqList",:id=>"span_images_file_#{f.id}"}
+        %div{:class=>"upper"}
+         %span{:class=>"cols w30px noBdr actionItems1"}
+          =add_file_edit_field image_tag("edit.gif",:id=>"edit_images_#{f.id}",:title=>"Edit File attributes"),f
+         -if !f.requirements.empty?
+          %span{:class=>"cols w150px noBdr"}="REQ"+ f.requirements[0].id.to_s
+         -elsif !f.use_cases.empty?
+          %span{:class=>"cols w150px noBdr"}="UC"+f.use_cases[0].id.to_s
+         -elsif !f.trackers.empty?
+          %span{:class=>"cols w150px noBdr"}="TR"+f.tracker[0].id.to_s
+         -else
+          %span{:class=>"cols w150px noBdr"}="Not linked"
+         %span{:class=>"cols w150px"}=f.type1
+         %span{:class=>"cols w150px noBdr actionItems1"}
+          -if @user.privilige!="Read"
+           -if f.requirements.count==0
+            =link_to image_tag("link-r.png",:id=>"link_r_images_#{f.id}",:alt=>"Add / show linked requirements"),show_file_reqs_url(:id=>f.id),:title=>"Link a requirement"
+           -else
+            =link_to image_tag("link-r.png",:id=>"link_r_images_#{f.id}",:alt=>"Add / show linked requirements"),show_file_reqs_url(:id=>f.id),:title=>"Linked requirements - #{f.requirements.count}"
+           -if f.use_cases.count==0
+            =link_to image_tag("link-u.png",:id=>"link_u_images_#{f.id}",:alt=>"Add / show linked use cases"),show_file_uses_url(:id=>f.id),:title=>"Link a use case"
+           -else
+            =link_to image_tag("link-u.png",:id=>"link_u_images_#{f.id}",:alt=>"Add / show linked use cases"),show_file_uses_url(:id=>f.id),:title=>"Linked use cases - #{f.use_cases.count}"
+          -else
+           -if f.requirements.count==0
+            =link_to image_tag("link-r.png",:id=>"link_r_images_#{f.id}",:alt=>"Add / show linked requirements"),"#",:confirm=>t(:file_requirement_link_message_with_out_permisson),:title=>"Link a requirement"
+           -else
+            =link_to image_tag("link-r.png",:id=>"link_r_images_#{f.id}",:alt=>"Add / show linked requirements"),"#",:confirm=>t(:file_requirement_link_message_with_out_permisson),:title=>"Linked requirements - #{f.requirements.count}"
+           -if f.use_cases.count==0
+            =link_to image_tag("link-u.png",:id=>"link_u_images_#{f.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:file_usecase_link_message_with_out_permisson),:title=>"Link a use case"
+           -else
+            =link_to image_tag("link-u.png",:id=>"link_u_images_#{f.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:file_usecase_link_message_with_out_permisson),:title=>"Linked use cases - #{f.use_cases.count}"
+          =add_comment_file_field image_tag("comments.gif",:id=>"comment_images_#{f.id}",:alt=>"Add / show comments"),f,@user
+          -att_flag=check_attachment_file(f.id)
+          -if @user.privilige=="Admin"
+
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete,:confirm =>t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete
+          -elsif !current_user.nil? and @user.id==f.user_id and @user.privilige!="Read"
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete,:confirm =>t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete
+          -elsif !current_member.nil? and @user.id==f.member_id and @user.privilige!="Read"
+           -if att_flag!="true"
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete,:confirm =>t(:file_delete_message)
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),project_file_path(f.id),:method=> :delete
+          -elsif !current_user.nil? and @user.id==f.user_id and @user.privilige=="Read"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),"#",:confirm=>t(:file_remove_message_with_out_permisson)
+          -elsif !current_member.nil? and @user.id==f.member_id and @user.privilige=="Read"
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),"#",:confirm=>t(:file_remove_message_with_out_permisson)
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{f.id}",:title=>"Delete file"),"#",:confirm=>t(:file_no_user)
+
+
+        %div{:class=>"lower"}
+         =link_to f.file_file_name,"#{REQBEnv::DEFAULT_S3_PROFILE_IMAGE_URL}/#{f.id}/#{f.file_file_name}"
        %div{:id=>"edit_#{f.id}"}
-       %br
        %div{:id=>"comment_#{f.id}"}
-        %hr{:style=>"width:400px;color:green;"}
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_file"}
    %h1="Sort Files"
-   =radio_button_tag :sort,"type1"
-   =label_tag "Type"
-   %br
-   =radio_button_tag :sort,"file_file_name"
-   =label_tag "Name"
-   %br
-   =radio_button_tag :sort,"created_at"
-   =label_tag "Date Entered"
+   %div{:class=>"rightPanel_show"}
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"type1",false,:class=>"check_box"
+     =label_tag "Type"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"file_file_name",false,:class=>"check_box"
+     =label_tag "Name"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"created_at",false,:class=>"check_box"
+     =label_tag "Date Entered"
+    %div{:class=>"clear"}  
    %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"
 
        

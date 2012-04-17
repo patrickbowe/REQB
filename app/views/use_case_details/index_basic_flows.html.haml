@@ -10,55 +10,48 @@
     %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
     %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages"}
     %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:class=>"active",:title=>"Basic Flow"}
-   %span{:class=>"line"}
-   %div{:class=>"dwnContainer"}
-    %div{:id=>"project",:align=>"middle"}
-    %b="Use Case Details"
-    %br
-    %div{:id=>"add_basic_flow"}
-     -if @user.privilige!="Read" and @user.privilige!="Approve"
-      =text_area_tag "use_basic_action","<< Add an user action",:size=>"50",:style=>"text-align:right"
-      =text_area_tag "use_basic_response","<< Add an user response",:size=>"50",:style=>"text-align:right",:tabindex=>"0"
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@basic_flows.nil?
-        -i=1
-        -@basic_flows.each do |basic|
-         -form_tag edit_basic_flow_url(basic.id) do
-          ="Step #{i}"
-          =text_area_tag "basic_action_#{basic.id}",basic.action,:readonly=>true
-          =text_area_tag "basic_response_#{basic.id}",basic.response,:readonly=>true
-          %div{:id=>"show_save_cancel_#{basic.id}",:style => "display:none;"}
-           =submit_tag "Save"
-           =link_to "Cancel",'#',:id=>"add_save_cancel_hide_#{basic.id}"
-          =link_to "Edit",'#',:id=>"add_save_cancel_#{basic.id}"
-          -i=i+1 
-          -alt_count=alter_count(basic)
-          =link_to "Alt(#{alt_count})",alternate_flow_url(:id=>basic.id)
-          =link_to "Delete",delete_basic_flow_url(basic.id)
-          %br
-          %br
-     -else
-      =text_area_tag "use_basic_action","<< Add an user action",:size=>"50",:style=>"text-align:right",:disabled=>true
-      =text_area_tag "use_basic_response","<< Add an user response",:size=>"50",:style=>"text-align:right",:disabled=>true
-      %br
-      %br
-      %div{:id=>"add_use_case_detail",:align=>"middle"}
-       -if !@basic_flows.nil?
-        -@basic_flows.each do |basic|
-         -form_tag edit_basic_flow_url(basic.id) do
-          =text_area_tag "basic_action_#{basic.id}",basic.action,:readonly=>true
-          =text_area_tag "basic_response_#{basic.id}",basic.response,:readonly=>true
-          %div{:id=>"show_save_cancel_#{basic.id}",:style => "display:none;"}
-           =submit_tag "Save",:disabled=>true
-           =link_to "Cancel",basic_flow_url(:id=>session[:use_case_id])
-          =link_to "Edit",'#',:href=>"#" 
-          -alt_count=alter_count(basic)
-          =link_to "Alt(#{alt_count})",'',:href=>"#"
-          =link_to "Delete",delete_basic_flow_url(basic.id),:href=>"#"
-         %br
-         %br
-    %hr{:style=>"width:400px;color:green;"}
-    =link_to "<< Back to use case list",use_cases_path
+   %span{:class=>"content"}
+    %div{:class=>"fl w685px1",:id=>"project"}
+     %h4="Use case details for #{@use_case.name}"
+     %div{:class=>"tabFormat"}
+      %div{:class=>"rows aRow ctr",:id=>"add_basic_flow"}
+       -if @user.privilige!="Read"
+        =text_area_tag "use_basic_action","<< Add a user action",:size=>"50",:class=>"inpTxt_ad rgt w250px"
+        =text_area_tag "use_basic_response","<< Add a system response",:size=>"50",:class=>"inpTxt_ad rgt w250px",:tabindex=>"0"
+        %span{:id=>"loading"}=image_tag "spinner.gif"
+       -else
+        =text_area_tag "use_basic_action","<< Add a user action",:size=>"50",:class=>"inpTxt_ad rgt w250px",:disabled=>true
+        =text_area_tag "use_basic_response","<< Add a system response",:size=>"50",:class=>"inpTxt_ad rgt w250px",:disabled=>true
+     %div{:class=>"gap"}
+     %div{:id=>"add_use_case_detail"}
+      -if !@basic_flows.nil?
+       -i=1
+       %div{:class=>"rows_basic ctr"}
+        %ul{:class=>"sortable"}
+         -@basic_flows.each do |basic|
+
+          %li{:id=>"li_#{basic.id}"}
+           -form_tag edit_basic_flow_url(basic.id) do
+            %span{:id=>"step_#{basic.id}"}
+             =link_to "Step #{i}","#",:title=>"Click and drag to change step sequence"
+            =text_area_tag "basic_action_#{basic.id}",basic.action,:cols=>"50",:class=>"inpTxt lft w200px "
+            =text_area_tag "basic_response_#{basic.id}",basic.response,:cols=>"50",:class=>"inpTxt lft w200px "
+            -if @user.privilige!="Read"
+             %span{:id=>"show_save_cancel_#{basic.id}",:style => "display:none;"}
+              %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+              %span{:class=>"smLink"}=link_to "Cancel",'#',:id=>"add_save_cancel_hide_#{basic.id}"
+            -i=i+1
+            -alt_count=alter_count(basic)
+            -if @user.privilige!="Read"
+             %span{:class=>"smLink"}=link_to "Alt(#{alt_count})",alternate_flow_url(:id=>basic.id),:title=>"Click to add or modify an alternate flow for this step"
+             %span{:class=>"smLink"}=link_to "Delete",delete_basic_flow_url(basic.id)
+            -else
+             %span{:class=>"smLink"}=link_to "Alt(#{alt_count})","#",:title=>"Click to add or modify an alternate flow for this step",:confirm=>t(:basic_edit_message_with_out_permisson)
+             %span{:class=>"smLink"}=link_to "Delete","#",:confirm=>t(:basic_delete_message_with_out_permisson)
+    %span{:class=>"smLink fl"}=link_to "<< Back to use case list",use_cases_path
+    %span{:class=>"smLink fr"}=link_to "Pre-conditions >>",use_case_details_path(:id=>@use_case.id)
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"
        

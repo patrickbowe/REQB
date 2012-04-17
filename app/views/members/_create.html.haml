@@ -1,46 +1,69 @@
 %div{:id=>"add_email_text"}
- =render :partial=>"add_email_field"
- %br
- %br
-%div{:id=>"add_member",:align=>"middle"}
- -if !@members.nil?
-  -@members.each do |member|
-   -form_tag (edit_member_path(member.id)) do
-    -if member.active?
-     =text_field_tag :status,"Active",:disabled=>true
-    -else
-     =text_field_tag :status,"In-active",:disabled=>true
-    =text_field_tag :first_name,"#{member.first_name}"
-    =text_field_tag :last_name,"#{member.last_name}"
-    =text_field_tag :email,"#{member.email}"
-    -if !current_user.nil?
-     =select "privilige","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve/","Admin"],member.privilige)
-     =submit_tag "Edit"
-     =link_to "Delete",member_path(member.id),:confirm => 'Are you sure you want to delete?',:method=>:delete
-     -if member.notify?
-      =link_to "Re-notify",notify_url(member.id)
-     -else
-      =link_to "Notify",notify_url(member.id)
-      %br
-      %br
-    -else
-     =select "privilige","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve/","Admin"],member.privilige),{},{:disabled=>true}
-     -if !current_member.nil? and @current_member.privilige=="Admin"
-      =submit_tag "Edit"
-      -if @current_member.id!=member.id
-       =link_to "Delete",member_path(member.id),:confirm => 'Are you sure you want to delete?',:method=>:delete
-      -else
-       =link_to "Delete",member_path(member.id),:href => '#'
-      -if member.notify?
-       =link_to "Re-notify",notify_url(member.id)
-      -else
-       =link_to "Notify",notify_url(member.id)
-     -else
-      =submit_tag "Edit",:disabled=>true
-      =link_to "Delete",member_path(member.id),:href => '#'
-      -if member.notify?
-       =link_to "Re-notify",notify_url(member.id),:href => '#'
-      -else
-       =link_to "Notify",notify_url(member.id),:href => '#'
-     %br
-     %br
+ %div{:class=>"fl w685px1"}
+  %div{:class=>"tabFormat"}
+   =render :partial=>"add_email_field"
+   %div{:class=>"rows rHead"}
+    %span{:class=>"cols w30px"}="ID"
+    %span{:class=>"cols w50px"}="Status"
+    %span{:class=>"cols w80px"}="First Name"
+    %span{:class=>"cols w80px"}="Last Name"
+    %span{:class=>"cols w150px"}="Email"
+    %span{:class=>"cols w75px"}="Privileges"
+    %span{:class=>"cols w150px"}="Action"
+   %div{:id=>"add_member"} 
+    -if !@members.nil?
+     -@members.each do |member|
+      %div{:class=>"rows"}
+       -form_tag (edit_member_path(member.id)) do
+        %span{:class=>"cols w30px Txt"}=member.id
+        -if member.active?
+         %span{:class=>"cols w50px"}=text_field_tag :status,"Active",:disabled=>true,:class=>"inpTxt w50px"
+        -else
+         %span{:class=>"cols w50px"}=text_field_tag :status,"In-active",:disabled=>true,:class=>"inpTxt w50px"
+        -if !current_member.nil? and @current_member.privilige!="Admin"
+         %span{:class=>"cols w80px"}=text_field_tag "first_name","#{member.first_name}",:readonly=>true,:class=>"inpTxt w80px"
+         %span{:class=>"cols w80px"}=text_field_tag "last_name","#{member.last_name}",:readonly=>true,:class=>"inpTxt w80px"
+         %span{:class=>"cols w150px"}=text_field_tag "email","#{member.email}",:readonly=>true,:class=>"inpTxt w150px"
+        -else
+         %span{:class=>"cols w80px"}=text_field_tag "first_name_#{member.id}","#{member.first_name}",:class=>"inpTxt w80px"
+         %span{:class=>"cols w80px"}=text_field_tag "last_name_#{member.id}","#{member.last_name}",:class=>"inpTxt w80px"
+         %span{:class=>"cols w150px"}=text_field_tag "email_#{member.id}","#{member.email}",:class=>"inpTxt w150px"
+
+        -if !current_user.nil?
+         %span{:class=>"cols w75px"}=select "privilige_#{member.id}","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve","Admin"],member.privilige),{},{:class=>"inpSel1 w75px"}
+         %span{:class=>"cols w175px"}
+          %span.smLink=link_to "Delete",member_path(member.id),:confirm => "Are you sure that you want to delete #{member.email}?  All requirements, use cases, trackers etc created by this user will also be deleted.",:method=>:delete
+          -if member.notify?
+           %span.smLink=link_to "Re-notify",notify_url(member.id)
+          -else
+           %span.smLink=link_to "Notify",notify_url(member.id)
+          %span.smLink{:id=>"member_edit_#{member.id}",:style=>"display:none;"}
+           =submit_tag "Save",:class=>"cButtonWhite"
+           =link_to "Cancel","#",:id=>"member_cancel_#{member.id}"
+
+
+        -else
+         %span{:class=>"cols w75px"}=select "privilige_#{member.id}","",options_for_select(["Read","Approve","Read/Write","Read/Write/Approve","Admin"],member.privilige),{:disabled=>true},{:class=>"inpSel1 w75px"}
+         -if !current_member.nil? and @current_member.privilige=="Admin"
+          %span{:class=>"cols w150px"}
+           -if @current_member.id!=member.id and member.active==true
+            %span.smLink=link_to "Delete",member_path(member.id),:confirm => "Are you sure that you want to delete #{member.email}?  All requirements, use cases, trackers etc created by this user will also be deleted.",:method=>:delete
+           -else
+            %span.smLink=link_to "Delete","#",:confirm=>t(:people_delete_message_with_out_permisson)
+           -if member.notify?
+            %span.smLink=link_to "Re-notify",notify_url(member.id)
+           -else
+            %span.smLink=link_to "Notify",notify_url(member.id)
+          %div{:id=>"member_edit_#{member.id}",:style=>"display:none;"}
+           %span.smLink=submit_tag "Save"
+           %span.smLink=link_to "Cancel","#",:id=>"member_cancel_#{member.id}"
+         -else
+          %span{:class=>"cols w150px"}
+           %span.smLink=link_to "Delete","#",:confirm=>t(:people_delete_message_with_out_permisson)
+           -if member.notify?
+            %span.smLink=link_to "Re-notify","#",:confirm=>t(:people_notify_message_with_out_permisson)
+           -else
+            %span.smLink=link_to "Notify","#",:confirm=>t(:people_notify_message_with_out_permisson)
+           %span{:id=>"member_edit_#{member.id}",:style=>"display:none;"}
+            %span.smLink=submit_tag "Save",:disabled=>true
+            %span.smLink=link_to "Cancel","#",:id=>"member_cancel_#{member.id}"

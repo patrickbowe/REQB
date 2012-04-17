@@ -1,2 +1,10 @@
-$('#req_use_case_name').attr('value','');
-$('#add_req_use_case').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case_req'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:req_id].nil?
+ :plain
+  window.location.replace("/requirements");
+-else
+ :plain
+  $('#req_use_case_name').attr('value','');
+  $('#add_req_use_case').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case_req'))}');

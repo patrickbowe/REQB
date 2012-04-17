@@ -1,8 +1,8 @@
 -if !@member.nil?
       -if @member.errors.any?
-            -@member.errors.full_messages.each do |error|
-                  =error
-                  %br
+            %div{:class=>"flash_error"}
+                  =@member.errors.full_messages[0]
+                        
       -elsif @flag_email_check!=nil
-            =@flag_email_check
+            %div{:class=>"flash_error"}=@flag_email_check
             %br

@@ -14,12 +14,19 @@ module HomesHelper
         end
   end
 
-  def add_change_email__member_field(name,current_member)
+  def add_change_email_member_field(name,current_member)
           link_to_function name do |page|
                 page << "$('#change_email').html('#{escape_javascript(render('members/change_email',:member => current_member))}');"
 
           end
    end
+
+  def update_change_subscription(name,current_user)
+        link_to_function name do |page|
+          page << "$('#update_subscription').html('#{escape_javascript(render('users/update_subscription',:user => current_user))}');"
+
+        end
+    end
 
 
 end

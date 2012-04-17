@@ -1,7 +1,9 @@
-=text_area_tag :tracker_comment,@comment.title,:size=>"50",:style=>"text-align:right",:readonly=>true
--if @user.privilige=="Admin"
-    =link_to "Delete",delete_comment_tracker_url(@comment.id)
--else
-    =link_to "Delete",delete_comment_tracker_url(@comment.id),:href=>"#"
-%br
-%br
+%div{:id=>"comment_info_#{@comment.id}",:class=>"ctrBox w412px"}
+ %span{:class=>"fl"}="Entered " + @comment.created_at.strftime("%d %B %Y %H:%M:%S")
+ -first_name=find_user_name_comment(@comment)
+ -if !first_name.empty?
+  %span{:class=>"fr"}="By " + first_name
+ =text_area_tag "comment[#{@comment.id}]",@comment.title,:cols=>"50",:class=>"inpTxt rgt w400px",:readonly=>false
+ -if @user.privilige=="Admin"
+  %div{:class=>"ctrBox w412px rgt"}
+   %span{:class=>"smLink"}=link_to "Delete",delete_comment_tracker_url(@comment.id),:remote=>true

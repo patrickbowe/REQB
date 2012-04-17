@@ -9,6 +9,7 @@ class CreateRequirements < ActiveRecord::Migration
       t.string :importance
       t.string :priority
       t.string :verification
+      t.string :delivered
       t.references :user
       t.references :member
       t.timestamps

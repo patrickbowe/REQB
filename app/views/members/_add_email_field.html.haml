@@ -1,6 +1,8 @@
--if @flag=="true" and @user.privilige=="Admin" 
-    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:style=>"text-align:right"
-    -#=submit_tag "Submit"
--else
-    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:style=>"text-align:right",:disabled=>true
-    -#=submit_tag "Submit",:disabled=>true    
+%div{:class=>"rows aRow ctr"}
+  ="Add New People:"
+  -if @flag=="true" and @user.privilige=="Admin"
+    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:class=>"inpTxt_ad rgt w400px"
+    %span{:id=>"loading"}=image_tag "spinner.gif"
+  -else
+    =text_field_tag :member_name1,"<< Add new person's email address",:size=>"50",:class=>"inpTxt_ad rgt w400px",:disabled=>true
+%div{:class=>"gap"}        

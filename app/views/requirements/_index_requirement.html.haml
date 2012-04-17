@@ -1,69 +1,120 @@
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
-  %h1="Requirement"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_require_text"}
-    =render :partial=>"add_requirement_field"
-    %br
-    %br
-   %div{:id=>"add_require",:align=>"middle"}
-    -if !@requirements.nil?
-     -@requirements.each do |req|
-      %div{:class=>"Row wid660"}
-       =req.name
-       |
-       =req.category
-       |
-       =req.status
-       |
-       =req.type1
-       -if @user.privilige!="Read" and @user.privilige!="Approve"
-        =add_edit_field "Edit",req
-        -att_flag=check_attachment_req(req.id)
-        -if @user.privilige=="Admin"
-         -if att_flag=="true"
-          =link_to "Delete",delete_req_url(req.id)
-         -else
-          =link_to "Delete",delete_req_url(req.id),:confirm => 'Are you sure you want to delete?'
-        -elsif @user.privilige!="Admin" and req.status!="Approved"
-         -if att_flag=="true"
-          =link_to "Delete",delete_req_url(req.id)
-         -else
-          =link_to "Delete",delete_req_url(req.id),:confirm => 'Are you sure you want to delete?'
-        -else 
-         =link_to "Delete",delete_req_url(req.id),:href=>"#"
-        =link_to "Add/Show Usecase",show_usecases_url(:req=>req.id),:title=>req.use_cases.count
-        =link_to "Add/Show Tracker",show_trackers_url(:req=>req.id),:title=>req.trackers.count
-        =link_to "Add/Show File",show_files_url(:req=>req.id),:title=>req.project_files.count
-        =add_comment_req_field "Add Comments",req,@user
-        %div{:id=>"edit_#{req.id}"}
-        %br
-        %div{:id=>"comment_#{req.id}"}
-        %hr{:style=>"width:400px;color:green;"} 
+  %h1="Requirements"
+  %div{:class=>"fl w685px"}
+   %div{:class=>"tabFormat"}
+    %div{:id=>"add_require_text"}
+     =render :partial=>"add_requirement_field"
+    %div{:id=>"add_require",:align=>"middle"}
+     -if !@requirements.nil?
+      -@requirements.each do |req|
+       %div{:class=>"rows reqList", :id=>"span_images_#{req.id}"}
+        %div{:class=>"upper"}
+         %span{:class=>"cols w30px noBdr actionItems1"}
+          =add_edit_field image_tag("edit.gif",:id=>"edit_images_#{req.id}",:title=>"Edit Requirement attributes"),req
+         -first_name=find_user_name_email(req)
+         -if !first_name.empty?
+          %span{:class=>"cols w170px noBdr"}=first_name
 
-        %br
-       -else
-        =link_to "Edit",edit_requirement_path(req.id),:href=>"#"
-        =link_to "Delete",delete_req_url(req.id),:href=>"#"
-        =link_to "Add/Show Usecase",:href=>"#"
-        =add_comment_req_field "Add Comments",req,@user
-        %div{:id=>"edit_#{req.id}"}
-        %br
-        %div{:id=>"comment_#{req.id}"} 
-        %hr{:style=>"width:400px;color:green;"}
+         %span{:class=>"cols w85px"}=req.category
+         %span{:class=>"cols w70px"}=req.status
+         %span{:class=>"cols w70px"}=req.type1
+         %span{:class=>"cols w150px noBdr actionItems1"}
+          -if @user.privilige!="Read"
+           -if req.status!="Approved"
+            -if req.use_cases.count==0
+             =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),show_usecases_url(:req=>req.id),:title=>"Link a use case"
+            -else
+             =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),show_usecases_url(:req=>req.id),:title=>"Linked use cases - #{req.use_cases.count}"
+            -if req.trackers.count==0
+             =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),show_trackers_url(:req=>req.id),:title=>"Link a tracker"
+            -else
+             =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),show_trackers_url(:req=>req.id),:title=>"Linked trackers - #{req.trackers.count}"
+            =add_comment_req_field image_tag("comments.gif",:id=>"comment_images_#{req.id}",:alt=>"Add / show comments"),req,@user
+            -if req.project_files.count==0
+             =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),show_files_url(:req=>req.id),:title=>"Upload a file"
+            -else
+             =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),show_files_url(:req=>req.id),:title=>"Linked files - #{req.project_files.count}"
+           -else
+            -if req.use_cases.count==0
+             =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:usecase_link_message_with_out_permisson),:title=>"Link a use case"
+            -else
+             =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:usecase_link_message_with_out_permisson),:title=>"Linked use cases - #{req.use_cases.count}"
+            -if req.trackers.count==0
+             =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:tracker_link_message_with_out_permisson),:title=>"Link a tracker"
+            -else
+             =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:tracker_link_message_with_out_permisson),:title=>"Linked trackers - #{req.trackers.count}"
+            =add_comment_req_field image_tag("comments.gif",:id=>"comment_images_#{req.id}",:alt=>"Add / show comments"),req,@user
+            -if req.project_files.count==0
+             =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:file_link_message_with_out_permisson),:title=>"Upload a file"
+            -else
+             =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:file_link_message_with_out_permisson),:title=>"Linked files - #{req.project_files.count}"
+          -else
+           -if req.use_cases.count==0
+            =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:usecase_link_message_with_out_permisson),:title=>"Link a use case"
+           -else
+            =link_to image_tag("link.gif",:id=>"link_images_#{req.id}",:alt=>"Add / show linked use cases"),"#",:confirm=>t(:usecase_link_message_with_out_permisson),:title=>"Linked use cases - #{req.use_cases.count}"
+           -if req.trackers.count==0
+            =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:tracker_link_message_with_out_permisson),:title=>"Link a tracker"
+           -else
+            =link_to image_tag("trackers.gif",:id=>"tracker_images_#{req.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:tracker_link_message_with_out_permisson),:title=>"Linked trackers - #{req.trackers.count}"
+           =add_comment_req_field image_tag("comments.gif",:id=>"comment_images_#{req.id}",:alt=>"Add / show comments"),req,@user
+           -if req.project_files.count==0
+            =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:file_link_message_with_out_permisson),:title=>"Upload a file"
+           -else
+            =link_to image_tag("upload.gif",:id=>"upload_images_#{req.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:file_link_message_with_out_permisson),:title=>"Linked files - #{req.project_files.count}"
+          -if @user.privilige!="Read"
+           -att_flag=check_attachment_req(req.id)
+           -if (@user.privilige=="Admin" or @user.privilige=="Approve" or @user.privilige=="Read/Write/Approve" or @user.privilige=="Read/Write") and req.status.eql?("Approved")
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),"#",:confirm => t(:requirement_delete_message_approve)
+           -elsif ((@user.privilige=="Admin" or @user.privilige=="Approve" or  @user.privilige=="Read/Write/Approve" or @user.privilige=="Read/Write")  and (req.status!="Approved"))
+            -if(@user.privilige=="Admin")
+             -if att_flag=="true"
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:title=>"Delete"
+             -else
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:confirm => t(:requirement_delete_message),:title=>"Delete"
+            -elsif (!current_user.nil? and  @user.id==req.user_id)
+             -if att_flag=="true"
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:title=>"Delete"
+             -else
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:confirm => t(:requirement_delete_message),:title=>"Delete"
+            -elsif (!current_member.nil? and  @user.id==req.member_id)
+             -if att_flag=="true"
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:title=>"Delete"
+             -else
+              =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),delete_req_url(req.id),:confirm => t(:requirement_delete_message),:title=>"Delete"
+            -else
+             =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),"#",:confirm => t(:requirement_no_user),:title=>"Delete"
+           -else
+            =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),"#",:confirm=> t(:requirement_delete_message_with_out_permisson),:title=>"Delete"
+          -else
+           =link_to image_tag("delete.gif",:id=>"delete_images_#{req.id}",:title=>"Delete requirement"),"#",:confirm=> t(:requirement_delete_message_with_out_permisson),:title=>"Delete"
+           
+
+
+        %div{:class=>"lower"}
+         =req.name
+       %div{:id=>"edit_#{req.id}"}
+       %div{:id=>"comment_#{req.id}"}
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_req"}
    %h1="Sort Requirements"
-   =radio_button_tag :sort,"type1"
-   =label_tag "Type"
-   %br
-   =radio_button_tag :sort,"name"
-   =label_tag "Name"
-   %br
-   =radio_button_tag :sort,"created_at"
-   =label_tag "Date Entered"
+   %div{:class=>"rightPanel_show"}
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"type1",false,:class=>"check_box"
+     =label_tag "Type"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"name",false,:class=>"check_box"
+     =label_tag "Name"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"created_at",false,:class=>"check_box"
+     =label_tag "Date Entered"
+    %div{:class=>"clear"}
   %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage(@user).to_s + "mb from " + find_total_storage(@user) + " used" 
-   
+   %div{:class=>"rightPanel_show"}=find_storage(@user).to_s + "mb from " + find_total_storage(@user) + "mb used"
+  %div{:id=>"report"}
+   %h1="Reports"
+   %div{:class=>"rightPanel_show"}=link_to "Traceability Matrix",traceability_report_url(:format=>"pdf"),:target=>"_blank"
+   %div{:class=>"rightPanel_show"}=link_to "Requirement Catalog",req_catalog_report_url(:format=>"pdf"),:target=>"_blank"
       

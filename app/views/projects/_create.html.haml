@@ -1,10 +1,22 @@
--form_tag edit_project_path(@project.id) do 
-     =text_field_tag :project_name,"#{@project.project_name}"
-     =text_field_tag :description,"#{@project.description}"
-     =submit_tag "Edit"
-     -att_flag=check_attachment(@project.id)
-     -if att_flag=="true"
-          =link_to "Delete",delete_url(@project.id)
-     -else
-          =link_to "Delete",delete_url(@project.id),:confirm => 'Are you sure you want to delete?'
-           
+%div{:class=>"rows",:id=>"show_project"}
+ -form_tag edit_project_path(@project.id) do
+  %span{:class=>"cols w150px"}=text_field_tag "project_name_#{@project.id}","#{@project.project_name}",:class=>"inpTxt w150px"
+  %span{:class=>"cols w350px"}=text_field_tag "project_description_#{@project.id}","#{@project.description}",:class=>"inpTxt w350px"
+  %span{:class=>"cols noBdr actionItems"}
+   -if @user.privilige!="Admin"
+    %span.smLink=link_to "Delete","#",:confirm => "You do not have permission to delete #{@project.project_name}.Please contact your administrator."
+    %span{:id=>"save_cancel_#{@project.id}",:style=>"display:none;"}
+     %span.smLink=link_to "Save","#",:confirm => "You do not have permission to edit #{@project.project_name}.Please contact your administrator."
+     %span.smLink=link_to "Cancel","#",:id=>"cancel_#{@project.id}",:class=>"cButtonWhite"
+
+   -else
+    -att_flag=check_attachment(@project.id)
+    -if att_flag=="true"
+     %span.smLink=link_to "Delete",delete_url(@project.id)
+    -else
+     %span.smLink=link_to "Delete",delete_url(@project.id),:confirm => "Are you sure you want to delete #{@project.project_name}?  All requirements, use cases, trackers etc associated with this project will be deleted."
+    
+    %span{:id=>"save_cancel_#{@project.id}",:style=>"display:none;"}
+     %span.smLink=submit_tag "Save",:class=>"cButtonWhite"
+     %span.smLink=link_to "Cancel","#",:id=>"cancel_#{@project.id}",:class=>"cButtonWhite"
+%div{:class=>"gap"}            

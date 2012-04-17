@@ -1,0 +1,14 @@
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:project_id].nil?
+ :plain
+  window.location.replace("/projects");
+-elsif @category.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_category)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#category_name').attr('value','<< Add new category');
+  $('#show_category').prepend('#{escape_javascript(render(:partial=>'create_category'))}');

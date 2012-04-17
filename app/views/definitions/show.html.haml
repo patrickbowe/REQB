@@ -1,30 +1,37 @@
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
   %h1="Definitions"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_definition",:align=>"middle"}
+  %div{:class=>"fl w685px"}
+   %div{:id=>"add_definition"}
     -if !@def.nil?
      -form_tag edit_def_url(@def.id) do
-      %div{:class=>"Row wid660"}
-       =text_field_tag "term_#{@def.id}",@def.term
-       =text_field_tag "definition_#{@def.id}",@def.definition
-       -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
-       %div{:id=>"save_def_#{@def.id}",:style => "display:none;"}
-        =submit_tag "Save"
-        =link_to "Cancel","#",:id=>"cancel_def_#{@def.id}"
-       -if @user.privilige=="Admin" or @user.id==@def.user_id
-        =link_to "Delete",delete_def_url(@def.id)
-       -else
-        =link_to "Delete",delete_def_url(@def.id),:href=>"#"
-       %br
-       %br
-     %br
-     %hr{:style=>"width:400px;color:green;"}
+      %div{:id=>"definition",:class=>"rows w650px ctr"}
+       %span{:class=>"noBdr actionItems",:id=>"save_def1_#{@def.id}"}
+        =text_area_tag "term_#{@def.id}",@def.term,:cols=>"50",:class=>"inpTxt w150px rgt"
+        =text_area_tag "definition_#{@def.id}",@def.definition,:cols=>"50",:class=>"inpTxt w250px rgt"
+       %span{:class=>"noBdr actionItems"}
+        -if @user.privilige!="Read"
+         %span{:id=>"save_def_#{@def.id}",:style => "display:none;"}
+          %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+          %span{:class=>"smLink"}=link_to "Cancel",definitions_path
+         -if @user.privilige=="Admin"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(@def.id)
+         -elsif !current_user.nil? and @user.id==@def.user_id and @user.privilige!="Read"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(@def.id)
+         -elsif !current_member.nil? and @user.id==@def.member_id and @user.privilige!="Read"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(@def.id)
+         -elsif !current_user.nil? and @user.id==@def.user_id and @user.privilige=="Read"
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+         -elsif !current_member.nil? and @user.id==@def.member_id and @user.privilige=="Read"
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+         -else
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_no_user)
+  %span{:class=>"smLink"}=link_to "<< Return to Definitions list",definitions_path  
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_definition"}
    %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
 
 
 

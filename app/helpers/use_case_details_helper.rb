@@ -4,6 +4,6 @@ module UseCaseDetailsHelper
   end
 
   def find_alternate_basic_flow(alternate_flow)
-    alter_basic_flows=alternate_flow.alternate_basic_flows :all
+    alter_basic_flows=alternate_flow.alternate_basic_flows.order("seq_number ASC")
   end
 end

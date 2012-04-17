@@ -1,4 +1,12 @@
 -if !@requirements.nil?
+ -@section = 'requirements'
  =render :partial=>'requirements/index_requirement'
 -elsif !@use_reqs.nil?
+ -@section = 'use cases'
  =render :partial=>'requirements/index_requirement_usecase'
+-elsif !@file_reqs.nil?
+ -@section = 'files'
+ =render :partial=>'requirements/index_requirement_file'
+-elsif !@tracker_reqs.nil?
+ -@section = 'trackers'
+ =render :partial=>'requirements/index_requirement_tracker' 

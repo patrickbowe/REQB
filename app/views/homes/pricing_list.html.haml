@@ -1,0 +1,10 @@
+-if current_user.nil? && current_member.nil?
+           -if !flash[:notice].nil?
+                      %div
+                                 = flash[:notice]
+
+           %div{:class=>"log_con wid880"}
+                      =render :partial=>"cms-admin/sites/1/pages/5"
+
+
+  

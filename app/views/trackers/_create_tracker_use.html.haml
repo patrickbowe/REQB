@@ -1,16 +1,40 @@
 -if !@tracker_use.nil?
- =@tracker_use.title
- |
- ="Assigned" if @tracker_use.assigned.nil? or @tracker_use.assigned.empty?
- =@tracker_use.assigned if !@tracker_use.assigned.nil?
- |
- =@tracker_use.category 
- |
- ="Due" if @tracker_use.due.nil?
- =@tracker_use.due if !@tracker_use.due.nil?
- =check_box_tag "track_flag_#{@tracker_use.id}","",false
- =add_edit_tracker_use_field "Edit",@tracker_use
- =link_to "Delete",delete_tracker_use_url(@tracker_use.id)
+ %div{:class=>"rows reqList",:id=>"span_images_track_use_#{@tracker_use.id}"}
+  %div{:class=>"upper"}
+   %span{:class=>"cols w30px noBdr actionItems1"}
+    =add_edit_tracker_use_field image_tag("edit.gif",:id=>"edit_images_#{@tracker_use.id}",:title=>"Edit Tracker Attributes"),@tracker_use
+   -if @tracker_use.assigned.nil?
+    %span{:class=>"cols w200px noBdr"}="Unassigned"
+   -elsif @tracker_use.assigned.empty?
+    %span{:class=>"cols w200px noBdr"}="Unassigned"
+   -else
+    %span{:class=>"cols w200px noBdr"}=@tracker_use.assigned
+   %span{:class=>"cols w100px"}=@tracker_use.category
+   -if @tracker_use.due.nil?
+    %span{:class=>"cols w100px"}="Due"
+   -else
+    %span{:class=>"cols w100px"}=@tracker_use.due
+   %span{:class=>"cols w100px noBdr actionItems1"}
+    -if @user.privilige=="Read"
+     -if @tracker_use.flag_tracker==true
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",true,:disabled=>true,:title=>"Completed",:style=>"display:none;"
+     -else
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",false,:disabled=>true,:title=>"Mark complete",:style=>"display:none;"
+    -elsif @user.privilige=="Admin"
+     -if @tracker_use.flag_tracker==true
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",true,:title=>"Completed",:style=>"display:none;"
+     -else
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",false,:title=>"Mark complete",:style=>"display:none;"
+    -else
+     -if @tracker_use.flag_tracker==true
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",true,:disabled=>true,:title=>"Completed",:style=>"display:none;"
+     -else
+      =check_box_tag "track_usecase_flag_#{@tracker_use.id}","",false,:title=>"Mark complete",:style=>"display:none;"
+    -if @user.privilige!="Read"
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker_use.id}",:title=>"Delete Tracker"),delete_tracker_use_url(@tracker_use.id)
+    -else
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker_use.id}",:title=>"Delete Tracker"),"#",:confirm => t(:tracker_remove_message_with_out_permisson)
+
+  %div{:class=>"lower1"}
+   =@tracker_use.title
  %div{:id=>"edit_#{@tracker_use.id}"}
- %hr{:style=>"width:400px;color:green;"}
- %br

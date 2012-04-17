@@ -1,0 +1,19 @@
+%div{:class=>"rows reqList",:id=>"span_images_#{@tracker_req.id}"}
+ %div{:class=>"upper"}
+  -if !@tracker_req.nil?
+   %span{:class=>"cols w30px noBdr actionItems1"}
+    =add_requirement_tracker image_tag("edit.gif",:id=>"edit_images_#{@tracker_req.id}",:alt=>"Edit Requirement attributes"),@tracker_req,@user
+   -first_name=find_user_name_email(@tracker_req)
+   -if !first_name.empty?
+    %span{:class=>"cols w180px noBdr"}=first_name
+   %span{:class=>"cols w100px"}=@tracker_req.category
+   %span{:class=>"cols w100px"}=@tracker_req.status
+   %span{:class=>"cols w100px"}=@tracker_req.type1
+   %span{:class=>"cols w50px noBdr actionItems1"}
+    -if @user.privilige!="Read" and @user.privilige!="Approve"
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@tracker_req.id}",:alt=>"Unlink requirement"),delete_req_tracker_url(@tracker_req.id)
+
+ %div{:class=>"lower"}
+  =@tracker_req.name
+ %div{:id=>"edit_requirement_#{@tracker_req.id}"}
+

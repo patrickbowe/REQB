@@ -1,2 +1,11 @@
-$('#use_case_name').attr('value','');
-$('#add_use_case').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @project_use.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_usecase)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#use_case_name').attr('value','');
+  $('#add_use_case').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case'))}');

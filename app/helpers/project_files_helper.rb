@@ -1,13 +1,18 @@
 module ProjectFilesHelper
   def find_user_name_of_file(file1)
-    result=file1.find_user_name_file
+    result=file1.find_first_name_email(file1)
   end
 
   def add_comment_file_field(name,file1,user)
-        link_to_function name,:title=>file1.comments.count do |page|
+     if file1.comments.count==0
+       link_to_function name,:title=>"Modify Comments" do |page|
           page << "$('#comment_#{file1.id}').html('#{escape_javascript(render('project_files/comment',:file1 => file1,:user=>user))}');"
-
-        end
+       end
+     else
+       link_to_function name,:title=>"Linked comments - #{file1.comments.count}" do |page|
+          page << "$('#comment_#{file1.id}').html('#{escape_javascript(render('project_files/comment',:file1 => file1,:user=>user))}');"
+       end
+    end
     end
   def check_attachment_file(id)
       return flag=ProjectFile.check_attached_file_items(id)

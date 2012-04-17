@@ -1,22 +1,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>3D Projects Dashboard</title>
+ <link href='http://pure-autumn-9167.heroku.com/images/reqb.ico' rel="shortcut icon" type='image/x-icon' />
+
+  <!--[if IE 6]>
+  <link href="/stylesheets/ie6.css" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  <!--[if IE 7]>
+  <link href="/stylesheets/ie7.css" rel="stylesheet" type="text/css" />
+  <![endif]-->
+    <!--[if IE 8]>
+  <link href="/stylesheets/ie8.css" rel="stylesheet" type="text/css" />
+
+  <![endif]-->
+
+
+  <meta name="google-site-verification" content="Q1kBSynNvKrgQEgYsjFN8di1DqLJKPUDd9Kdeb6yCvc" />
+  
+  <title>Fast, effective requirements management - requirementbox.com</title>
+
   <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css"%>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "screen.css" %>
+  <%= stylesheet_link_tag "engage.itoggle.css"%>
   <%= javascript_include_tag :all%>
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js" %>
   <%= javascript_include_tag "http://ajax.microsoft.com/ajax/jquery.validate/1.5.5/jquery.validate.min.js"%>
   <%= javascript_include_tag "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js"%>
+
   <%= csrf_meta_tag %>
-  
-  <script>
-  $(document).ready(function(){
-      $('.mySelectBoxClass').customStyle();
-  });
-  </script>
-  <!--<script language="javascript" src="jquery-latest.js"></script>-->
+
+
   <script>
   $("li").hover(
     function () {
@@ -27,74 +40,79 @@
     }
   );
   </script>
+  
 
+  <!-- Google Analytics Code -->
+
+      <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-29767632-1']);
+    _gaq.push(['_setDomainName', 'requirementbox.com']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+      </script>
+
+      <!-- End of Google Analytics Code -->
+
+      <!-- KISSInsights Code -->
+
+      <script type="text/javascript">var _kiq = _kiq || [];
+
+      </script>
+      <script type="text/javascript" src="//s3.amazonaws.com/ki.js/32361/6iy.js" async="true"></script>
+      <script type="text/javascript" charset="utf-8">
+        var current_user_email=null;
+        var current_member_email=null;
+        current_user_email = <%= @current_user.nil? ? '' : @current_user.email %>;
+        current_member_email = <%= @current_member.nil? ? '' : @current_member.email %>;
+        if(current_user_email != ''){
+                _kiq.push(['user_email', current_user_email]);
+
+        }
+         if(current_member_email != ''){
+                
+                _kiq.push(['member_email', current_member_email]);
+        }
+
+      </script>
+
+
+      <!-- End of KISSInsights Code -->
 
 </head>
 <body>
 <div id="mainDiv">
+
     <% if !current_member.nil? || !current_user.nil? %>
 	<div class="headerBg">
-		<div class="left">
-        	<div class="projectBox">
-              <div id="project_select">
-                <%if !current_user.nil?%>
-                  <%= select("project_name","project_id",Project.find(:all,:conditions=>["user_id=?",current_user.id]).collect {|p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"})%>
-                <%elsif !current_member.nil?%>
-                  <%=select "project_name","project_id",Project.find(:all,:conditions=>["user_id=?",session[:admin_id]]).collect {  |p| [p.project_name,p.id] },{:selected=>session[:project_id]},{:class=>"customStyleSelectBox"}%>
-                <%end%>
-              </div>  
-        	</div>
-            <div id="menu">
-            	<div class="leftCor"></div>
-                <div class="mid">
-                	<ul>
-                    <li><%= link_to "Dashboard",dashboard_url%></li>
-                    <li class="spacer"></li>
-                    <li><%= link_to "Requirements",requirements_path%></li>
-                    <li class="spacer"></li>
-                    <li><%= link_to "Use Cases",use_cases_path%></li>
-                    <li class="spacer"></li>
-                    <li><%= link_to "Trackers",trackers_path%></li>
-                    <li class="spacer"></li>
-                    <li><%= link_to "Files",project_files_path%></li>
-                    <li class="spacer"></li>
-                    <li><%= link_to "Definitions",definitions_path%></li>
-                    </ul>
-                </div>
-                <div class="rightCor"></div>
-           </div>
-		</div>
-		<div class="right">
-			<div class="topLink">
-			<a href="#">People</a> | <a href="#">Account</a> | <%=link_to "Setting",account_details_url%> | <%=link_to "Get Help",get_help_url%> | <% if !current_user.nil? or !current_member.nil?%><%=link_to "Logout", logout_path%> <%else%> <%=link_to "Sign in",new_user_session_path%><%end%>
-			</div>
-			<div class="searchBg">
-			  <div class="searchBox">
-                <%form_tag search_path do%>
-                  <%=text_field_tag "search_text","Type Your Text"%>
-                  <input type="submit" name="button" id="button" value="" class="button" />
-                <%end%>
-			  </div>
-              <div class="printBox"><img src="images/printer-icon.jpg" width="32" height="32" /></div>
-			</div>
-		</div>
+		<%=render :partial=>"statics/header"%>
 	</div>
-      
-    <%end%>  
-     <div class="clear"></div>                
-      <% if !flash[:notice].nil?%>
-        <div>
-         <%= flash[:notice]%>
-        </div>
-      <%end%>
+
+    <%end%>
+     <div class="clear"></div>
+     <div id="flash_error_message">
+     <% if !current_member.nil? || !current_user.nil? %>
+        <% if !flash[:notice].nil?%>
+           <div class="flash_error">
+              <%= flash[:notice]%>
+           </div>
+        <%end%>
+     <%end%>
+     </div>
 
 
+       <%= yield %>
 
 
-
-<%= yield %>
 
 </div>
-<div class="copyright">All text and design is copyright &copy; 1999-2011</div>
+<%=render :partial=>"statics/footer"%>
 </body>
 </html>

@@ -1,1 +1,6 @@
-$('#add_tracker').html('#{escape_javascript(render(:partial=>'trackers/sort_tracker'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-else
+ :plain
+  $('#add_tracker').html('#{escape_javascript(render(:partial=>'trackers/sort_tracker'))}');

@@ -1,6 +1,9 @@
 -if !@file.nil?
+ -@section = 'files'
  =render "project_files/index"
 -elsif !@file_reqs.nil?
+ -@section = 'requirements'
  =render "project_files/index_req"
 -elsif !@file_uses.nil?
+ -@section = 'use cases'
  =render "project_files/index_use"

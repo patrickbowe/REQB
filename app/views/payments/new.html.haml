@@ -1,125 +1,94 @@
-%div{:class=>"log_con wid880"}
- %h1="businessanalysthq.com"
- %div{:class=>"signUp_menu"}
-  -#=link_to "Home","#"
-  -#|
-  -#=link_to "Tour","#"
-  -#|
-  -#=link_to "Blog","#"
-  -#|
-  -#=link_to "Pricing","#"
-  -#|
-  -#=link_to "Sign In"
- %div{:class=>"clear"}
- %div{:class=>"log_con_Box wid820"}
-  %div{:class=>"box820 fl"}
-   %span{:class=>"colorBox bronze marL222"}
-    %strong="Bronze"
-    %em="20 / Month"
-   %span{:class=>"colorBox gray"}
-    %strong="Silver"
-    %em="45 / Month"
-   %span{:class=>"colorBox yell"}
-    %strong="Gold"
-    %em="90 / Month"
-   %span{:class=>"colorBox lGray marR0"}
-    %strong="Platinum"
-    %em="150 / Month"
-  %div{:class=>"box820 fl"}
-   %div{:class=>"loginForm wid820 marT0"}
-    -form_tag @user,:url=>payments_path,:method=>:post,:id=>"form1" do
-     %div{:class=>"rows marB20"}
-      %label.fl="Number of projects:"
-      =text_field_tag "input3","",:disabled=>true,:class=>"inp146 marL114",:tabindex=>"1"
-      =text_field_tag "input3","",:disabled=>true,:class=>"inp146",:tabindex=>"1"
-      =text_field_tag "input3","",:disabled=>true,:class=>"inp146",:tabindex=>"1"
-      =text_field_tag "input3","",:disabled=>true,:class=>"inp146 marR0",:tabindex=>"1"
-      -if !@response_code.nil?
-       =@response_code.error_messages.inspect
-      %div.error_messages
-     %div{:class=>"loginForm wid300 fl"}
-      %div.rows
-       =label_tag "First Name"
-       %span=text_field_tag "first_name",'',:class=>"inpwid"
-      %div{:id=>"first_name_error"}
-      %div.rows
-       =label_tag "Billing Address"
-       %span=text_field_tag "address",'',:class=>"inpwid"
-      %div{:id=>"address_error"}
-      %div.rows
-       =label_tag "Zip/Postal Code"
-       %span=text_field_tag "zip",'',:class=>"inpwid"
-      %div{:id=>"zip_error"}
-      %div.rows
-       =label_tag "Country"
-       %span=select "country","",Country.all.collect {|c| [ c.name ] },{:prompt=>"--Select--"},:class=>"secWid"
-      %div{:id=>"country_error"}
-                 
-     %div{:class=>"loginForm wid300 fr"}
-      %div.rows
-       =label_tag "Last Name"
-       %span=text_field_tag "last_name",'',:class=>"inpwid"
-      %div{:id=>"last_name_error"}
+%div{:id=>"signup_header"}
+ =link_to image_tag("requirementbox_small.png",:alt=>"requirementbox.com logo",:width=>"400px",:height=>"71px",:class=>"signup_header"),"/"
+%div{:id=>"signup_heading"}
+ %h1="We're almost done!"
+ %h2="Just complete the form below and your subscription to requirementbox will automatically be created for you."
+ %h2="Fields marked with an * are mandatory" 
+%div{:id=>"signup_form"}
+ -form_tag @user,:url=>payments_path,:method=>:post,:id=>"form1" do
+  %fieldset
+   -if !@response_code.nil?
+    -if !@response_code.error_messages.empty?
+     %p=@response_code.error_messages.inspect
+   -if !flash.now[:notice].nil?
+    %p=flash.now[:notice]
+   %h2="Account Information"
+   %div{:id=>"form_col_left"}
+    =label_tag "First name*"
+    %br
+    =text_field_tag "first_name",(params[:first_name]? params[:first_name] : ""),:tabindex=>"1"
+    %br
+    %span{:id=>"first_name_error",:class=>"signin_div"}
 
-      %div.rows
-       =label_tag "City"
-       %span=text_field_tag "city",'',:class=>"inpwid"
-      %div{:id=>"city_error"}
+   %div{:id=>"form_col_left"}
+    =label_tag "Last name*"
+    %br
+    =text_field_tag "last_name",(params[:last_name]? params[:last_name] : ""),:tabindex=>"2"
+    %br
+    %span{:id=>"last_name_error",:class=>"signin_div"}
+   
+   %label="Subscription URL*"
+   %br
+   %label="http://"
+   =text_field_tag "subdomain",(params[:subdomain]? params[:subdomain] : ""),:tabindex=>"4",:class=>"url"
+   %label=".requiremenbox.com"
+   %br
+   %br
+   %div{:id=>"subdomain_error",:class=>"signin_div"}
+   %br
+  %fieldset
+   %h2="Billing Address"
+   %label="Billing address*"
+   %br
+   =text_field_tag "address",(params[:address]? params[:address] : ""),:class=>"address",:tabindex => "5"
+   %div{:id=>"address_error",:class=>"signin_div"}
+   %div{:id=>"form_col_left"}
+    =label_tag "City*"
+    %br
+    =text_field_tag "city",(params[:city] ? params[:city] : ""),:tabindex=>"6"
+    %br
+    %div{:id=>"city_error",:class=>"signin_div"}
+    =label_tag "Country*"
+    =select "country","",options_for_select(Country.find(:all).collect {|c| [ c.name] },params[:country]? params[:country] : "Select"),{:prompt=> "--Select--"},:tabindex => "8"
+    //,(params[:country] ? params[:country] : "Select") .to_s.gsub(/["]/,"").gsub("[","").gsub("]","").rstrip.chop.chop.chop.chop
+    %div{:id=>"country_error",:class=>"signin_div"}
+   %div{:id=>"form_col_right"}
+    =label_tag "Zip/Postal Code*"
+    %br
+    =text_field_tag "zip",(params[:zip]? params[:zip] : ""),:tabindex => "7"
+    %div{:id=>"zip_error",:class=>"signin_div"}
+  %fieldset
+   %h2="Choose Your Subscription"
+   %div{:id=>"form_col_left"}
+   %label="Please select your subscrition type:*"
+   %br
+   =select "plan_type","",options_for_select(Plan.find(:all).collect {|p| [p.plan_type + " - $" + p.price.to_s + " / Month"] },params[:plan_type]),{},:prompt=>"--Select--",:tabindex=>"3"
+   //'Silver - $48 / Month'select "category[#{f}]","",Category.find(:all,:conditions=>["project_id=?",session[:project_id]]).collect {|p| [p.title] }
+   //<%= options_for_select(Service.get_conference_entry_tones, @firebar.conference_entry_tone_id) %>
+   %p.paypal{:style=>"display:none;"}="You've chosen a paid account, when you click the 'Sign me up!' button below you will be directed to PayPal."
+   %br
+  %div{:id=>"guarantee"}
+   %h3="Guarantee"
+   %p="If, for any reason, you are not happy with requirementbox.com, simply cancel within 30 days and we'll cancel your subscription and refund you with no questions asked."
+  %fieldset
+   %h2="Sign up"
+   =check_box_tag "newsletter_check","yes",false,:tabindex=>"14",:class=>"checkbox"
+   %label="Would you like to receive our newsletter?"
+   %br
+   =check_box_tag "accept_check","",params[:accept_check]? true : false,:tabindex=>"15",:class=>"checkbox"
+   %label
+    ="I agree to both the"
+    =link_to "terms and conditions","#{REQBEnv::DEFAULT_HOST}/terms_of_service.html",:tabindex=>"16",:target => "_blank"
+    ="and the"
+    =link_to "privacy policy.","#{REQBEnv::DEFAULT_HOST}/privacy_policy.html",:tabindex=>"17",:target => "_blank"
+    ="*"
+   %br
+   %div{:id=>"accept_check_error",:class=>"signin_div"}
+   =submit_tag "Sign me up!",{:id=>"payment_submit",:class=>"submit",:style=>"display:none;"}
+   %input#payment_submit1.submit{:name => "commit", :type => "button",:value => "Sign me up!"}/
 
-      %div.rows
-       =label_tag "Region / Province"
-       %span=text_field_tag "region",'',:class=>"inpwid"
-      
-      %div.rows
-       =label_tag "Phone"
-       %span=text_field_tag "phone",'',:class=>"inpwid"
-      %div{:id=>"phone_error"}
-      %br
-      %br 
-      =hidden_field_tag "plan_type_free","Free"
-     %div{:class=>"loginForm wid820"}
-      %div{:class=>"rows marB20"}
-       %label
-        =check_box_tag "payment_check","",false
-        ="If you want to pay for account,please enter payment information"
-      %div{:class=>"rows"}
-       %h2
-        %label="Payment Details"
-      %div{:class=>"loginForm wid300 fl"}
-       %div{:class=>"rows"}
-        =label_tag "Plan"
-        %span=select "plan_type","", ['BRONZE', 'GOLD', 'PLATINUM','SILVER'],{},:class=>"secWid"
-       %div{:class=>"rows"}
-        =label_tag "Payment Type"
-        %span=select "payment_type","", ['Master Card', 'Visa', 'American Express'],{},:class=>"secWid"
-       %div{:class=>"rows"}
-        =label_tag "First Name on Card"
-        %span=text_field_tag "name_on_card","",:disabled=>true,:class=>"inpwid"
-       %div{:class=>"rows"}
-        =label_tag "Last Name on Card"
-        %span=text_field_tag "last_name_on_card","",:disabled=>true,:class=>"inpwid"
-       %div{:class=>"rows"}
-        =label_tag "Card Number"
-        %span=text_field_tag "card_number","",:disabled=>true,:class=>"inpwid"
-       %div{:class=>"rows"}
-        =label_tag "Expire Date"
-        %span=select_month Date.today,{},:disabled=>:true,:class=>"secWid"
-        -#%span=select_year Date.today ,:start_year=>1990 ,:end_year=>2050,:disabled=>true
-       %div{:class=>"rows"}
-        =label_tag "CCV Code"
-        =text_field_tag "ccv_code","",:disabled=>true,:class=>"inpwid"
-       %div{:class=>"rows"}
-        %label
-         =check_box_tag "newsletter_check","yes",false
-         ="Do you want newsletter"
-       %div{:class=>"rows"}
-        %label
-         =check_box_tag "accept_check","",false
-         ="Accept the terms and conditions, privacy and refund policy"
-      %div{:class=>"loginForm wid255 marT84 fr bgyell"}
-       %div{:class=>"rows"}
-        %label="Guarantee:"
-        %span=text_area_tag "","If you are not happy with bahq.com, for any reason, just cancel within 30 days and we will refund your you automatically with no questions asked",:cols=>"",:rows=>"",:class=>"texarea"
 
-     %div{:class=>"rows"}
-      %label=submit_tag "Continue",{:id=>"payment_submit"}
+%div{:id=>"signin_logo"}
+ %ul{:class=>"signin_right"}
+  %li
+   =link_to image_tag("requirementbox_footer.png"),root_url

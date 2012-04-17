@@ -1,0 +1,12 @@
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @tracker.nil?
+ :plain
+  window.location.replace("/trackers");
+-elsif session[:req_id].nil?
+ :plain
+  window.location.replace("/requirements");
+-else
+ :plain
+  $('#add_tracker').html('#{escape_javascript(render(:partial=>'trackers/update_req_tracker'))}');

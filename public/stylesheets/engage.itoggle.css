@@ -1,0 +1,103 @@
+/* ---------------------------------------------
+	TOGGLE.CSS
+-----------------------------------------------*/
+
+div#itoggle{
+	padding:0px 0px 0;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	color:#333;
+	}
+div#itoggle h3{
+	margin-bottom:4px;
+	font-size: 14px;
+	font-weight:bold;
+	}
+div#itoggle p{
+	color:#666;
+	margin-bottom:10px;
+	}
+
+
+/* -----------------------------
+	This is the important bit
+-------------------------------*/
+
+div#itoggle label.ilabel{
+	display:block;
+	font-size:12px;
+	padding-bottom:10px;
+	cursor:pointer;
+	}
+
+div#itoggle label.itoggle,
+div#itoggle label.itoggle span{
+	display: block;
+	width: 93px;
+	height: 27px;
+    margin-left: 180px;
+	margin-bottom: 0px;
+	background: url(../images/itoggle.png) left bottom no-repeat;
+	cursor:pointer;
+	text-indent:-5000px;
+	}
+div#itoggle label.itoggle.iToff{
+	background-position:right bottom;
+	}
+
+
+
+/*	
+	If you want the corners to be
+	transparent, add these two lines
+	to the main block above. Only
+	works on webkit and mozilla browsers
+	For more reliable results, make your
+	own png using the supplied .psd
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+*/
+div#iitoggle{
+	background:#FFF;
+	padding:20px 20px 0;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	color:#333;
+	}
+div#iitoggle h3{
+	margin-bottom:4px;
+	font-size: 14px;
+	font-weight:bold;
+	}
+div#iitoggle p{
+	color:#666;
+	margin-bottom:10px;
+	}
+
+
+/* -----------------------------
+	This is the important bit
+-------------------------------*/
+
+div#itoggle label.iilabel{
+	display:block;
+	font-size:12px;
+	padding-bottom:10px;
+	cursor:pointer;
+	}
+
+div#itoggle label.iitoggle,
+div#itoggle label.iitoggle span{
+	display: block;
+	width: 93px;
+	height: 27px;
+    margin-left: 150px;
+	margin-bottom: 0px;
+	background: url(../images/itogle.png) left bottom no-repeat;
+	cursor:pointer;
+	text-indent:-5000px;
+	}
+div#itoggle label.iitoggle.iToff{
+	background-position:right bottom;
+	}

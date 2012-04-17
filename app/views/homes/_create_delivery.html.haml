@@ -1,0 +1,10 @@
+-form_tag update_delivery_url(@delivery.id) do
+ %div{:class=>"rows"}
+  =text_field_tag "delivery_#{@delivery.id}",@delivery.title,:size=>"50",:class=>"inpTxt rgt w300px"
+  -if @user.privilige=="Admin"
+   %span.smLink=link_to "Delete",destroy_delivery_url(@delivery.id)
+  %span{:id=>"delivery_save_#{@delivery.id}",:style=>"display:none;"}
+   %span.smLink=submit_tag "Save",:class=>"cButton"
+   %span.smLink=link_to "Cancel","#",:id=>"delivery_cancel_#{@delivery.id}"
+
+

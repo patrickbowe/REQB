@@ -1,1 +1,6 @@
-$('#add_require').html('#{escape_javascript(render(:partial=>'requirements/sort_requirement'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-else
+ :plain
+  $('#add_require').html('#{escape_javascript(render(:partial=>'requirements/sort_requirement'))}');

@@ -1,40 +1,99 @@
 -if !@use_cases.nil?
-   -@use_cases.each do |u|
-      =u.name
-      |
-      =u.category
-      |
-      =u.status
-      -if @user.privilige!="Read" and @user.privilige!="Approve"
-         =add_use_edit_field "Edit",u,@user
-         -att_flag=check_attachment_use(u.id)
-         -if @user.privilige=="Admin"
-            -if att_flag=="true"
-               =link_to "Delete",use_case_path(u.id),:method=>:delete
-            -else
-               =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
-         -elsif @user.privilige!="Admin" and u.status!="Approved"
-            -if att_flag=="true"
-               =link_to "Delete",use_case_path(u.id),:method=>:delete
-            -else
-               =link_to "Delete",use_case_path(u.id),:method=>:delete,:confirm => 'Are you sure you want to delete?'
-         -else
-            =link_to "Delete",use_case_path(u.id),:href=>"#"
-         =link_to "Add/Show Requirements",show_requirements_url(u.id),:title=>u.requirements.count
-         =link_to "Add/Show Trackers",show_trackers_use_url(:use=>u.id),:title=>u.trackers.count
-         =link_to "Usecase Details",use_case_details_path(:id=>u.id)
-         =add_comment_use_field "Add Comments",u,@user
-         %div{:id=>"edit_#{u.id}"}
-         %br
-         %br
-         %div{:id=>"comment_#{u.id}"}
-         %hr{:style=>"width:400px;color:green;"}
-      -else
-         =add_use_edit_field "Edit",u,@user
-         =link_to "Delete",use_case_path(u.id),:href=>'#'
-         =link_to "Usecase Details",use_case_details_path(:id=>u.id),:href=>"#"
-         =add_comment_use_field "Add Comments",u,@user
-         %br
-         %div{:id=>"comment_#{u.id}"}
-         %hr{:style=>"width:400px;color:green;"}
-         %br
+      -@use_cases.each do |u|
+            %div{:class=>"rows reqList",:id=>"span_images_use_#{u.id}"}
+                  %div{:class=>"upper"}
+                        %span{:class=>"cols w30px noBdr actionItems1"}
+                              =add_use_edit_field image_tag("edit.gif",:id=>"edit_images_#{u.id}",:title=>"Edit Use Case attributes"),u,@user
+                        -first_name=find_user_name_use_email(u)
+                        -if !first_name.empty?
+                              %span{:class=>"cols w180px noBdr"}=first_name
+                        -if u.category.nil?
+                              %span{:class=>"cols w80px"}="Category"
+                        -else
+                              %span{:class=>"cols w80px"}=u.category
+                        %span{:class=>"cols w80px"}=u.status
+                        %span{:class=>"cols w170px noBdr actionItems1"}
+                              -if @user.privilige!="Read"
+                                    -if (@user.privilige=="Admin" or @user.privilige=="Approve" or @user.privilige=="Read/Write/Approve" or @user.privilige=="Read/Write") and u.status!="Approved"
+                                          =link_to image_tag("add-show-icon.gif",:id=>"add_show_icon_images_#{u.id}",:title=>"Add / view conditions, messages, triggers, rules and flows"),use_case_details_path(:id=>u.id)
+                                          -if u.requirements.count==0
+                                                =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),show_requirements_url(u.id),:title=>"Link a requirement"
+                                          -else
+                                                =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),show_requirements_url(u.id),:title=>"Linked requirements - #{u.requirements.count}"
+                                          -if u.trackers.count==0
+                                                =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),show_trackers_use_url(:use=>u.id),:title=>"Link a tracker"
+                                          -else
+                                                =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),show_trackers_use_url(:use=>u.id),:title=>"Linked trackers - #{u.trackers.count}"
+                                          =add_comment_use_field image_tag("comments.gif",:id=>"comment_images_#{u.id}",:alt=>"Add comments"),u,@user
+                                          -if u.project_files.count==0
+                                                =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),show_files_use_url(:use=>u.id),:title=>"Upload a file"
+                                          -else
+                                                =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),show_files_use_url(:use=>u.id),:title=>"Linked files- #{u.project_files.count}"
+                                    -else
+                                          =link_to image_tag("add-show-icon.gif",:id=>"add_show_icon_images_#{u.id}",:title=>"Add / view conditions, messages, triggers, rules and flows"),"#",:confirm=>t(:usecasedetails_link_message_with_out_permisson)
+                                          -if u.requirements.count==0
+                                                =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),"#",:confirm=>t(:requirement_link_message_with_out_permisson),:title=>"Link a requirement"
+                                          -else
+                                                =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),"#",:confirm=>t(:requirement_link_message_with_out_permisson),:title=>"Linked requirements - #{u.requirements.count}"
+                                          -if u.trackers.count==0
+                                                =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:usecase_tracker_link_message_with_out_permisson),:title=>"Link a track"
+                                          -else
+                                                =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:usecase_tracker_link_message_with_out_permisson),:title=>"Linked trackers - #{u.trackers.count}"
+                                          =add_comment_use_field image_tag("comments.gif",:id=>"comment_images_#{u.id}",:alt=>"Add comments"),u,@user
+                                          -if u.project_files.count==0
+                                                =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:usecase_file_link_message_with_out_permisson),:title=>"Upload a file"
+                                          -else
+                                                =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:usecase_file_link_message_with_out_permisson),:title=>"Linked files - #{u.project_files.count}"
+
+                              -else
+                                    =link_to image_tag("add-show-icon.gif",:id=>"add_show_icon_images_#{u.id}",:title=>"Add / view conditions, messages, triggers, rules and flows"),"#",:confirm=>t(:usecasedetails_link_message_with_out_permisson)
+                                    -if u.requirements.count==0
+                                          =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),"#",:confirm=>t(:requirement_link_message_with_out_permisson),:title=>"Link a requirement"
+                                    -else
+                                          =link_to image_tag("link.gif",:id=>"link_images_#{u.id}",:alt=>"Add / show requirements"),"#",:confirm=>t(:requirement_link_message_with_out_permisson),:title=>"Linked requirements - #{u.requirements.count}"
+                                    -if u.trackers.count==0
+                                          =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:usecase_tracker_link_message_with_out_permisson),:title=>"Link a tracker"
+                                    -else
+                                          =link_to image_tag("trackers.gif",:id=>"tracker_images_#{u.id}",:alt=>"Add / show trackers"),"#",:confirm=>t(:usecase_tracker_link_message_with_out_permisson),:title=>"Linked trackers - #{u.trackers.count}"
+                                    =add_comment_use_field image_tag("comments.gif",:id=>"comment_images_#{u.id}",:alt=>"Add comments"),u,@user
+                                    -if u.project_files.count==0
+                                          =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:usecase_file_link_message_with_out_permisson),:title=>"Upload a file"
+                                    -else
+                                          =link_to image_tag("upload.gif",:id=>"upload_images_#{u.id}",:alt=>"Add / show uploaded files"),"#",:confirm=>t(:usecase_file_link_message_with_out_permisson),:title=>"Linked files - #{u.project_files.count}"
+                              -if @user.privilige!="Read"
+                                    -att_flag=check_attachment_use(u.id)
+                                    -if (@user.privilige=="Admin" or @user.privilige=="Approve" or @user.privilige=="Read/Write/Approve" or @user.privilige=="Read/Write") and u.status.eql?("Approved")
+                                          =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),"#",:confirm => t(:usecase_delete_message_approve)
+
+                                    -elsif (@user.privilige=="Admin" or @user.privilige=="Read/Write/Approve" or @user.privilige=="Read/Write" or @user.privilige=="Approve")  and u.status!="Approved"
+                                          -if(@user.privilige=="Admin")
+                                                -if att_flag=="true"
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:title=>"Delete"
+                                                -else
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:confirm => t(:usecase_delete_message),:title=>"Delete"
+                                          -elsif (!current_user.nil? and  @user.id==u.user_id )
+                                                -if att_flag=="true"
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:title=>"Delete"
+                                                -else
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:confirm => t(:usecase_delete_message),:title=>"Delete"
+                                          -elsif (!current_member.nil? and  @user.id==u.member_id)
+                                                -if att_flag=="true"
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:title=>"Delete"
+                                                -else
+                                                      =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),use_case_path(u.id),:confirm => t(:usecase_delete_message),:title=>"Delete"
+                                          -else
+                                                =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),"#",:confirm => t(:use_case_no_user),:title=>"Delete"
+
+                                    -else
+                                          =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),"#",:confirm=> t(:use_case_no_user),:title=>"Delete"
+
+                              -else
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{u.id}",:title=>"Delete use case"),"#",:confirm=> t(:usecase_delete_message_with_out_permisson),:title=>"Delete"
+
+
+
+                  %div{:class=>"lower"}
+                        =u.name
+
+            %div{:id=>"edit_#{u.id}"}
+            %div{:id=>"comment_#{u.id}"}

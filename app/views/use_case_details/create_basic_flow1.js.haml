@@ -1,4 +1,6 @@
-$('#use_basic_action').attr('value','<< Add an user action');
-$('#use_basic_response').attr('value','<< Add an user response');
+$('#use_basic_action').attr('value','<< Add a user action');
+$('#use_basic_response').attr('value','<< Add a system response');
 $('#use_basic_action').focus();
-$('#add_use_case_detail').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+-if !@basic_flow.nil?
+ :plain
+  $('#add_use_case_detail .sortable').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');

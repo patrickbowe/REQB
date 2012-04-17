@@ -1,0 +1,55 @@
+%div{:class=>"fl w300px"}
+ -form_for @attr,:url=>save_use_attributes_url do |f|
+  -if@user.privilige!="Admin"
+   -@use_css="i"
+  %div{:class=>"rows rHead"}
+   %div{:class=>"label"}
+    ="Use Cases"
+   %div{:class=>"field"}
+    ="Display in Application?"
+  %div{:class=>"rows "}
+   %div{:class=>"label"}
+    ="Status"
+   -if @attr.use_status==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :use_status,:class=>@aclass, :id=>"use_status"
+  %div{:class=>"rows aRow"}
+   %div{:class=>"label"}
+    ="Priority"
+   -if @attr.use_priority==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :use_priority,:class=>@aclass , :id=>"use_priority"
+  %div{:class=>"rows"}
+   %div{:class=>"label"}
+    ="Importance"
+   -if @attr.use_importance==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :use_importance,:class=>@aclass, :id=>"use_importance"
+  %div{:class=>"rows aRow"}
+   %div{:class=>"label"}
+    ="Category"
+   -if @attr.use_category==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :use_category,:class=>@aclass, :id=>"use_category"
+  %div{:class=>"rows"}
+   %div{:class=>"label"}
+    ="Delivered In"
+   -if @attr.use_delivered==false
+    - @aclass =@use_css+"itoggle iToff"
+   -else
+    -@aclass =@use_css+"itoggle iTon"
+   %div{:id=>"itoggle",:class=>"project"}
+    =f.label  :use_delivered,:class=>@aclass, :id=>"use_delivered"
+  %div{:class=>"buttons"}

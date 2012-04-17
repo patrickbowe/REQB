@@ -1,2 +1,18 @@
-$('#req_comment_#{@req.id}').attr('value','');
-$('#comment_show_#{@req.id}').append('#{escape_javascript(render(:partial=>'requirements/comment_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @req.nil?
+ :plain
+  window.location.replace("/requirements");
+
+-elsif @comment.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_comment)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#req_comment_#{@req.id}').attr('value','');
+  $('#comment_comment_#{@req.id}').show();
+  $('#comment_save_#{@req.id}').show();
+  $('#comment_cancel_#{@req.id}').show();
+  $('#comment_show_#{@req.id}').prepend('#{escape_javascript(render(:partial=>'requirements/comment_field'))}');

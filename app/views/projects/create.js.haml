@@ -1,12 +1,23 @@
--if @flag=="true"
+-if current_user.nil? and current_member.nil?
  :plain
-  $('#project_name1').attr('value','');
+  window.location.replace("/sign-in");
+-elsif @project.id.nil? 
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_project)}</div>');
 -else
- :plain
-  $('#project_name1').attr('value','<< Add a new project');
-  $('#project_name1').attr('disabled',true);
-$('#add_project').prepend('#{escape_javascript(render(:partial=>'create'))}');
-$('#project_name_project_id').append('<option value=#{escape_javascript(@project.id.to_s)}>#{escape_javascript(@project.project_name)}</option>');
+ $('#flash_error_message').html('').append('');
+ -if @flag=="true"
+  :plain
+   $('#project_name1').attr('value','');
+ -else
+  :plain
+   $('#project_name1').attr('value','<< Add a new project');
+   $('#project_name1').attr('disabled',true);
+ $('#rows1').css('display','block');
+ $('#show_project').prepend('#{escape_javascript(render(:partial=>'create'))}');
+ $('#project_name_project_id').append('<option value=#{escape_javascript(@project.id.to_s)}>#{escape_javascript(@project.project_name)}</option>');
+
+
 
 
 

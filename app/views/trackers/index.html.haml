@@ -1,6 +1,9 @@
 -if !@trackers.nil?
+ -@section = 'trackers'
  =render :partial=>'trackers/index_tracker'
 -elsif !@tracker_reqs.nil?
+ -@section = 'requirements'
  =render :partial=>'trackers/index_tracker_req'
 -elsif !@tracker_usecases.nil?
+ -@section = 'use cases'
  =render :partial=>'trackers/index_tracker_use'  

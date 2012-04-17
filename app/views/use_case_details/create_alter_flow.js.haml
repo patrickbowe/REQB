@@ -1,2 +1,14 @@
-$('#alternate_flow').attr('value','');
-$('#add_use_case_detail').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:basic_flow_id].nil?
+ :plain
+  window.location.replace("/use_cases");
+-elsif @alternate_flow.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_alter)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#alternate_flow').attr('value','');
+  $('#add_use_case_detail1').append('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');

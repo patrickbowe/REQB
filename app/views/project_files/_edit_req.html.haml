@@ -1,20 +1,29 @@
-%div{:align=>"left",:style=>"width:445px"}
-  -form_tag edit_file_req_url(f.id) do
-    ="TR_#{f.id}"
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    ="Entered " + f.created_at.strftime("%d %B %Y")
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%div{:id=>"editDetails",:class=>"fullBox",:style=>"display:block;"}
+ -form_tag edit_file_req_url(f.id) do
+  %div{:class=>"rows aRow"}
+   %div{:class=>"rows srHead"}
+    %span{:class=>"cols Txt w50px"}="File_#{f.id}"
+    %span{:class=>"cols w180px"}="Entered " + f.created_at.strftime("%d %B %Y")
     -first_name=find_user_name_of_file(f)
     -if !first_name.empty?
-      ="By " + first_name
-      %br
-    %hr{:style=>"width:400px;color:gray;"}
-    =label_tag "Type"
-    =text_field_tag :type,f.type1
-    %br
-    %br
-    =label_tag "Description"
-    =text_area_tag :des,f.description
-    %br
-    =submit_tag "Save"
-    =remove_file_edit_req_field "Cancel",f
+     %span{:class=>"cols w300px"}="By " + first_name
+   %div{:class=>"rows"}
+    %span{:class=>"cols Txt w80px"}="Type"
+    %span{:class=>"cols w170px"}
+     -if @user.privilige=="Read"
+      =select "type1","",options_for_select(["Communication","Diagram","Document","Plan","Screen","Spreadsheet","Test Case","Transcript","Other"],f.type1),{},:class=>"inpSel w160px marR20",:disabled=>true
+     -else
+      =select "type1","",options_for_select(["Communication","Diagram","Document","Plan","Screen","Spreadsheet","Test Case","Transcript","Other"],f.type1),{},:class=>"inpSel w160px marR20"
+   %div{:class=>"rows"}
+    %span{:class=>"cols Txt w80px"}="Description"
+    %span{:class=>"cols w160px"}
+     -if @user.privilige=="Read"
+      =text_area_tag :des,f.description,:rows => 3,:class=>"inpTxt w150px",:disabled=>true
+     -else
+      =text_area_tag :des,f.description,:rows => 3,:class=>"inpTxt w150px"
+   %div{:class=>"buttons"}
+    -if @user.privilige=="Read"
+     =submit_tag "Save",:class=>"btn",:disabled=>true
+    -else
+     =submit_tag "Save",:class=>"btn"
+    =remove_file_edit_req_field submit_tag("Cancel",:class=>"btn"),f

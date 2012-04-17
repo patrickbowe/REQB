@@ -5,7 +5,7 @@
  =link_to "Edit","#",:id=>"edit_file_#{@file.id}"
  %div{:id=>"save_file_#{@file.id}",:style => "display:none;"}
   -form_tag edit_file_use_url(@file.id) do
-   ="TR_#{@file.id}"
+   ="File_#{@file.id}"
    &nbsp;&nbsp;&nbsp;&nbsp;
    ="Entered " + @file.created_at.strftime("%d %B %Y")
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

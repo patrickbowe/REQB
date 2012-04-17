@@ -1,0 +1,120 @@
+%body{:style=>"font-family: 'Arial', 'Trebuchet MS'; font-size:15px; background:#ffffff; color:#000000; line-height:20px;"}
+ %table{:width=>"570",:border=>"0",:align=>"center",:cellpadding=>"0",:cellspacing=>"0"}
+  %tr
+   %td{:height=>"100"}
+    %span{:style=>"font-size:50px; font-weight:bold; color:#27aae1"}
+     =image_tag "#{REQBEnv::DEFAULT_HOST}/images/logo.gif",:width=>"569",:height=>"88",:alt=>"requirement box"
+  %tr
+   %td{:style=>"background:#4087b9; color:#000000;"}
+    %table{:width=>"100%",:cellpadding=>"8",:cellspacing=>"0",:border=>"0"}
+     %tr
+      %td{:style=>"padding-top:20px;"}
+       %span{:style=>"font-size:32px;"}
+        %b="Welcome to "
+        %b=link_to "requirementbox.com","#",:style=>"color:#000000;text-decoration:none;"
+     %tr
+      %td{:style=>"padding-bottom:25px;"}
+       %span{:style=>"font-size:18px;"}
+        ="Sign in to"
+        =link_to "requiremenbox.com","#",:style=>"color:#000000; text-decoration:none;"
+        ="now using your account details below."
+     %tr
+      %td{:bgcolor=>"#000000"}
+       %table{:width=>"100%",:cellpadding=>"2",:cellspacing=>"0",:border=>"0",:style=>"color:#ffffff;"}
+        %tr
+         %td{:width=>"100"}
+          ="LOGIN NAME:"
+         %td
+          %b=@user_name
+        %tr
+         %td
+          ="LOGIN PAGE:"
+         %td
+          %b=link_to "requirementbox.com","#{REQBEnv::DEFAULT_HOST}/sign-in",:style=>"color:#ffffff;"
+        %tr
+         %td{:width=>"100"}
+          ="SUBSCRIPTION:"
+         %td
+          %b=@plan.plan_type.capitalize
+        -if @plan.plan_type!="Free"
+         %tr
+          %td{:width=>"100"}
+           ="PAYMENT METHOD:"
+          %td
+           %b="PAYPAL"
+        %tr
+         %td{:width=>"100"}
+          ="SERVICE PROVIDER:"
+         %td
+          %b="Elementcha B.V. ("
+          %b=link_to "requirementbox.com","www.requirementbox.com"
+          %b=")"
+        %tr
+         %td{:width=>"100"}
+          ="MONTHLY PRICE:"
+         %td
+          %b="$" + "#{@plan.price}"
+          %b="/MONTH"
+          
+          
+
+     %tr
+      %td{:height=>"80"}
+       %b=link_to "Start Now>>",login_url,:style=>"color:#ffffff; font-size:18px;"
+       %br
+       %b=link_to "Forgotten your password?","#{REQBEnv::DEFAULT_HOST}/password_resets/new",:style=>"color:#ffffff;"
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    ="To get help with requirementbox.com, you can email us at"
+    =link_to "support@requriementbox.com","mailto:support@requriementbox.com"
+    =", check out our FAQ in the help section or simply call us on"
+    %b{:style=>"color:#000000;"}="+31 6 486 30 767"
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    ="To get you started, we've included some of the most common topics that you'll encounter while using requriementbox."
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    %span{:style=>"font-size:32px; color:#000000;"}
+     ="Getting Started"
+  %tr
+   %td{:style=>"padding-top:12px;"}
+    %b{:style=>"font-size:22px; color:#416e9d;"}
+     =link_to "Create a requirementbox",'#',:style=>"text-decoration:none;"
+  %tr
+   %td
+    ="Create your own requirementbox that can capture all or your project's requirements."
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    %b{:style=>"font-size:22px; color:#416e9d;"}
+     =link_to "Add user to requirementbox","#",:style=>"text-decoration:none;"
+  %tr
+   %td
+    ="Allow other users to access your requirementboxes, view trackers and add their own definitions."
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    %b{:style=>"font-size:22px; color:#416e9d;"}
+     =link_to "Add artefacts to your requirementbox","#",:style=>"text-decoration:none;"
+  %tr
+   %td
+    ="Add requirements use cases, trackers, files and definitions to your requirementbox."
+    %br
+    %br
+    ="If you would like to know more, please feel free to follow us on"
+    =link_to "Twitter","#"
+    ="or follow our"
+    =link_to "blog","www.requirementbox.com/blog"
+    %br
+    %br
+    ="In the meantime, we hope to"
+    =link_to "hear","mailto:support@requirementbox.com"
+    ="from you soon."
+  %tr
+   %td{:style=>"padding-top:20px;"}
+    %a{:href => "requirementbox.com", :style => "text-decoration:none;"}
+     %b{:style => "font-size:22px; color:#416e9d;"}="requirementbox.com"
+  %tr
+   %td
+    &nbsp;
+
+
+

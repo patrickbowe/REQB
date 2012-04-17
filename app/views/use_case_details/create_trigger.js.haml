@@ -1,2 +1,14 @@
-$('#trigger').attr('value','');
-$('#add_use_case_detail').prepend('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:use_case_id].nil?
+ :plain
+  window.location.replace("/use_cases");
+-elsif @trigger.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_trigger)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#trigger').attr('value','');
+  $('#add_use_case_detail').prepend('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');

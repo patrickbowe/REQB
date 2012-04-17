@@ -1,0 +1,41 @@
+%div{:class=>"container"}
+ %div{:class=>"projectPanel"}
+  %div{:class=>"tabbed_area"}
+   %ul{:class=>"tabs"}
+    %li=link_to "Pre-conditions",use_case_details_path(:id=>@use_case.id),{:title=>"Pre-conditions"}
+    %li=link_to "Post Conditions",post_conditions_url(:id=>@use_case.id),{:title=>"Post Conditions"}
+    %li=link_to "Success Conditions",success_conditions_url(:id=>@use_case.id),:title=>"Success Conditions"
+    %li=link_to "Triggers",triggers_url(:id=>@use_case.id),:title=>"Triggers"
+    %li=link_to "Actors",actors_url(:id=>@use_case.id),{:title=>"Actors"}
+    %li=link_to "Business Rules",business_rules_url(:id=>@use_case.id),{:title=>"Business Rules"}
+    %li=link_to "Messages",message_url(:id=>@use_case.id),{:title=>"Messages"}
+    %li=link_to "Basic Flow",basic_flow_url(:id=>@use_case.id),{:class=>"active",:title=>"Basic Flow"}
+   %span{:class=>"content"}
+    %div{:class=>"fl w685px1",:id=>"project"}
+     %h4="Use case details for #{@use_case.name}"
+     %div{:id=>"add_basic_flow"}
+      %div{:id=>"add_use_case_detail",:align=>"middle"}
+       -if !@basic.nil?
+        -form_tag edit_basic_flow_url(@basic.id) do
+         =link_to "Step #{@basic.seq_number}","#",:title=>"Click and drag to change step sequence"
+         =text_area_tag "basic_action_#{@basic.id}",@basic.action,:cols=>"50",:class=>"inpTxt rgt w200px "
+         =text_area_tag "basic_response_#{@basic.id}",@basic.response,:cols=>"50",:class=>"inpTxt rgt w200px "
+         -if @user.privilige!="Read"
+          %span{:id=>"show_save_cancel_#{@basic.id}",:style => "display:none;"}
+           %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+           %span{:class=>"smLink"}=link_to "Cancel",show_basic_flow_url(@basic.id)
+
+         -alt_count=alter_count(@basic)
+         -if @user.privilige!="Read"
+          %span{:class=>"smLink"}=link_to "Alt(#{alt_count})",alternate_flow_url(:id=>@basic.id),:title=>"Click to add or modify an alternate flow for this step"
+          %span{:class=>"smLink"}=link_to "Delete",delete_basic_flow_url(@basic.id)
+         -else
+          %span{:class=>"smLink"}=link_to "Alt(#{alt_count})","#",:title=>"Click to add or modify an alternate flow for this step",:confirm=>t(:basic_edit_message_with_out_permisson)
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm=>t(:basic_delete_message_with_out_permisson)
+
+
+    %span{:class=>"smLink fl"}=link_to "<< Back to use case list",use_cases_path
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"

@@ -12,10 +12,12 @@ class User < ActiveRecord::Base
   has_many :definitions, :dependent=>:destroy
   has_many :project_files,:dependent=>:destroy
   has_many :help_requests,:dependent=>:destroy
+  has_many :notifications,:dependent => :destroy
+  has_many :notification_message,:dependent => :destroy
   acts_as_authentic do |c|
       c.login_field = :email
-      c.merge_validates_length_of_password_field_options :minimum => 8
-      c.merge_validates_length_of_password_confirmation_field_options :minimum => 8
+      c.merge_validates_length_of_password_field_options :minimum => 6
+      c.merge_validates_length_of_password_confirmation_field_options :minimum => 6
     end
    attr_accessor :old_password
   #validates_length_of :password, :minimum => 8
@@ -45,8 +47,11 @@ class User < ActiveRecord::Base
   end
 
   def send_activation_confirmation!
+
     reset_perishable_token!
-    UserMailer.activation_confirmation(self).deliver
+    user_plan=self.user_plan
+    plan=Plan.find(user_plan.plan_id)
+    UserMailer.activation_confirmation(self,user_plan,plan).deliver
   end
 
   

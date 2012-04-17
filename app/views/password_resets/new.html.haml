@@ -1,0 +1,14 @@
+%div{:class=>"container"}
+ %div{:class=>"leftPanel"}
+  %h1="Forgot Password"
+  %div{:class=>"fl w685px1 fr"}
+   -form_tag password_resets_path do
+    ="Please enter the email address you used to register:"
+    %br
+    =text_field_tag "forgot_email"
+    = submit_tag "Reset my password"
+ %div{:class=>"rightPanel"}
+  %div{:id=>"storage"}
+   %h1="Storage"
+   -if !@user.nil?
+    =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"

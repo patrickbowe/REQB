@@ -4,11 +4,14 @@ class CreateTrackers < ActiveRecord::Migration
       t.text :title
       t.string :category
       t.string :assigned
-      t.string :due
+      t.integer :assigned_subscriber_id
+      t.date :due
       t.boolean :flag_tracker
       t.references :member
       t.references :user
       t.references :project
+      t.references :requirement
+      t.references :use_case
       t.timestamps
     end
   end

@@ -1,18 +1,26 @@
 *{margin:0; padding:0;}
 
-body{background-color: #F3F3F3; margin: 0px; font:11px Arial, Helvetica, sans-serif; color: #333;}
+body{background-color: #F3F3F3; margin: 0px; font:12px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; letter-spacing:0px;color: #404040; line-height: 20px;}
 
 .fl{float:left;}
 .fr{float:right;}
 .clear{clear:both;}
 .marR0{margin-right:0 !important;}
+.marR7{margin-left:-13px !important;}
+.marR15{margin-right:15px !important;}
+.marR20{margin-right:20px !important;}
+.marR28{margin-right:28px !important;}
+.marL14{margin-left:14px !important;}
 .marL15{margin-left:15px !important;}
+.marL5{margin-left:5px !important;}
+.marL38{margin-left:38px !important;margin-top:2px !important;}
+.marT2{margin-top:2px !important;}
 .marL222{margin-left:222px !important;}
 .marL114{margin-left:114px !important;}
 .marT0{margin-top:0 !important;}
 .marT10{margin-top:10px !important;}
 .marT50{margin-top:50px !important;}
-.org{color:#ff7200 !important;}
+.org{color:#f08f46 !important;background:#fff !important;}
 .bgyell{background-color:#F4C92E;}
 .marB0{margin-bottom:0 !important;}
 .marB20{margin-bottom:20px !important;}
@@ -20,47 +28,61 @@ body{background-color: #F3F3F3; margin: 0px; font:11px Arial, Helvetica, sans-se
 form, ul, li, h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
 #mainDiv{width:998px; margin:0 auto; overflow: hidden; background:#fff;}
 
-.headerBg{background:url(../images/header-bg.jpg) repeat-x; width:998px; height:114px;}
+.headerBg{background:/*url(../images/header-bg.jpg) repeat-x*/ #000; width:978px; height:114px; padding:10px 10px 0 10px;}
 
-	.headerBg .left{width:615px; height:114px; float:left;}
+	.headerBg .left{width:515px; height:114px; float:left;}
 
 		.projectBox{margin:10px 8px;}
-		.customStyleSelectBox{width:250px; height:50px; border:0; font:30px Arial, Helvetica, sans-serif; color:#ffb800; background:url(../images/select-bg.jpg) no-repeat; background-color: #f5f0de; padding:5px 7px; border:1px solid #e7dab0; -moz-border-radius: 5px; -webkit-border-radius: 5px;border-radius: 5px 5px;}
-		#menu{width:550px; margin-left:8px; margin-top:24px;}
-		#menu .leftCor{background:url(../images/menu-left.png) no-repeat right; width:7px; height:29px; float:left;}
-		#menu .mid{background:url(../images/menu-mid.png) repeat-x; min-width:475px; height:29px; line-height:29px; float:left;}
-			#menu .mid ul{margin:0; padding:0;}
-			#menu .mid li{margin:0; padding:0 !important; list-style:none; float:left;}
-			#menu .mid li a{color:#333; font-size:13px !important; text-decoration:none; margin:0 6px; padding:0 !important;}
-			#menu .mid li a:hover{color:#ff7200; font-size:13px !important; text-decoration:underline; margin:0 6px; padding:0 !important;}
-			.spacer{background:url(../images/spacer.png) no-repeat; width:13px; height:29px;}
-		#menu .rightCor{background:url(../images/menu-right.png) no-repeat left; width:7px; height:29px; float:left;}
+        .projectBox_n{margin-right:10px; float:left; width:250px;}
+		.customStyleSelectBox{width:250px; /*height:50px;*/ border:0; font:30px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color:#f08f46; background:url(../images/select-bg.jpg) no-repeat; background-color: #f5f0de; /*padding:5px 7px;*/ border:1px solid #e7dab0; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px 5px;}
+        .menu{padding-top:45px; width: 650px; float:left;}
+           .menu .leftCor{background:url(/images/menu-left.png) no-repeat right; width:7px; height:29px; float:left;}
+           .menu .mid{background:url(/images/menu-mid.png) repeat-x; height:29px; line-height:29px; float:left;}
+           .menu .mid ul{margin:0; padding:0;}
+           .menu .mid li{margin:0; padding:0 !important; list-style:none; float:left;}
+           .menu .mid li a {color: #FFF000; display: block; font-family: Helvetica; font-size: 13px !important; font-weight: bold; padding: 0 !important; text-align: center;  text-decoration: none; width: 94px;}
+           .menu .mid li a.active{color:#ffffff;}
+           .menu .mid li a:hover{color:#FFB800; text-decoration:underline;}
+           .spacer{background:url(/images/spacer.png) no-repeat; width:13px; height:29px;}
+           .menu .rightCor{background:url(/images/menu-right.png) no-repeat left; width:7px; height:29px; float:left;}
 
 
-    .headerBg .right{width:383px; height:114px; float:right;}
+    .headerBg .right{width:483px; height:114px; float:right;}
+        .topLink{text-align:right; line-height:18px; color: #c0c0c0;text-decoration:none;  float:right; width:700px;font-size: 12px;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+        /*.topLink a{color:#999; text-decoration:none;}
+        .topLink a:hover{color:#fff; text-decoration:underline;}*/
+        .topLink a {font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;color: #c0c0c0;text-decoration:none; }
+        .topLink a:hover{text-decoration: underline;color: #f08f46;}
+        a.hovertest
+        {
+          color:#ffffff !important;
+        }
+        a.hovertest:hover
+        {
+          color:#FFF000 !important;
+        }
 
-		.topLink{margin:8px; text-align:right; line-height:18px; color:#999999;}
-			.topLink a{color:#999; text-decoration:none;}
-			.topLink a:hover{color:#fff; text-decoration:underline;}
+        .searchBg{margin: 44px 0 0 0; width:277px; height:22px; float:right;}
+        .searchBox{height:22px; float:left;margin-left:14px;}
+        .searchBg input{width:200px; height:20px; line-height:29px; border:1px solid #52a801; color:#999999; font-size:10px; padding-left:5px;}
+        .searchBg .button{background:url(/images/search-arrow.png) no-repeat center; width:10px; height:20px; border:0; cursor:pointer; vertical-align:top; margin-top:0;}
+        .printBox{width:20px; height:20px; float:left; margin:0 0 0 10px;}
 
-		.searchBg{margin:29px 8px 0 0; background:url(../images/search-bg.jpg) no-repeat; width:349px; height:50px; padding:0 12px; float:right;}
-		.searchBox{width:307px; height:22px; padding:15px 0; float:left;}
-		.searchBg input{width:226px; height:20px; line-height:20px; border:1px solid #52a801; font-size:10px; padding-left:5px;}
-		.searchBg .button{background:url(../images/search-but.jpg) no-repeat; width:71px; height:22px; border:0; cursor:pointer; vertical-align:top; margin-top:0;}
-		.printBox{width:32px; height:32px; float:left; margin:10px 0 10px 10px;}
 
 	.container{width:982px; background:url(../images/g-bg.gif) repeat-y right; margin:8px; min-height:428px; float:left;}
-		.leftPanel{width:706px; float:left; border:1px solid #52a801; height:100%; padding-bottom:10px;}
-		.leftPanel h1{font:bold 13px Arial, Helvetica, sans-serif; color: #000; margin-bottom:10px; padding-left:8px; line-height:28px; background:#6ebe23;}
+		.leftPanel{width:706px; float:left; border:1px solid #82b63a; height:100%; padding-bottom:10px;}
+		.leftPanel h1{font:bold 14px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; color: #404040; margin-bottom:10px; padding-left:8px; line-height:28px; background:#82b63a;}
 			.leftCon{float:left; width:495px;}
-			.leftCon h3{width:430px; margin-left:56px; font-size:13px; border-bottom:1px dashed #ccc; padding-bottom:5px;}
+			.leftCon h3{width:425px; margin-left:61px; font-size:13px; border-bottom:1px dashed #ccc; padding-bottom:5px;}
 				.Row{width:487px; float:left;}
 				.containerBox{left:float; margin-bottom:20px; padding-left:5px; overflow:hidden;}
-				.editBox{width:50px; padding:6px 0 0 5px; float:left; display:block;}
-				.editBox input[type=checkbox]{vertical-align:middle; margin:0 2px;}
+				.editBox{width:55px; padding:6px 0 0 5px; float:left; display:block;}
+                .dashboard_show{display:block;width:17px;float:left;}
+				.editBox input[type=checkbox]{vertical-align:middle; margin-top:1;}
 				.editBox img{width:14px; height:14px; border:0;}
-				.leftCon .descBox{width:326px; line-height:20px; padding:3px 0; margin-left:2px; float:left; border-bottom:1px dashed #ccc; display:block; cursor:pointer;}
-				.dateBox{width:75px; line-height:20px; padding:3px 0; float:left; margin-left:5px; display:block; border-bottom:1px dashed #ccc;}
+                .dashboard_show{display:block;width:17px;float:left;}
+				.leftCon .descBox{width:326px; line-height:20px; padding:3px 0; margin-left:57px; float:left; border-bottom:1px dashed #ccc; display:block; cursor:pointer;}
+				.dateBox{width:75px; line-height:20px; height:20px;padding:3px 0; float:left; margin-left:5px; display:block; border-bottom:1px dashed #ccc;}
 				.calBox{display:block; width:24px; height:21px; padding-top:5px; text-align:center; border-bottom:1px dashed #ccc; float:left;}
 					.calBox img{width:16px; height:16px; border:0;}
 			.rightCon{float:right; width:195px; margin-right:8px;}
@@ -68,9 +90,16 @@ form, ul, li, h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
 				.rightCon .descBox{width:169px; line-height:20px; margin-right:2px;  padding:3px 0; float:left; border-bottom:1px dashed #ccc; display:block; cursor:pointer;}
 				.numBox{display:block; width:24px; line-height:20px; padding:3px 0; text-align:center; border-bottom:1px dashed #ccc; float:left;}
 			.rightCon h3{width:195px; font-size:13px; border-bottom:1px dashed #ccc; padding-bottom:5px;}
+            .Row1{width:487px; float:left;}
+			.containerBox1{left:float; margin-bottom:20px; padding-left:5px; overflow:hidden;}
+			.editBox1{width:50px; padding:6px 0 0 5px; float:left; display:block;}
+			.editBox1 input[type=checkbox]{vertical-align:middle; margin:0 2px;}
+			.editBox1 img{width:14px; height:14px; border:0;}
+			.leftCon .descBox1{line-height:20px; padding:3px 0; margin-left:5px; float:left; border-bottom:1px dashed #ccc; display:block; cursor:pointer;overflow:hidden;width:321px; height:20px;}
+            .leftCon .descBoxStrike1{line-height:20px; padding:3px 0; margin-left:5px; float:left; border-bottom:1px dashed #ccc; display:block; cursor:pointer;overflow:hidden;width:321px; height:20px;text-decoration:line-through;}
 
 
-		.rightPanel{width:250px; padding:8px; height:100%; float:right;}
+		    .rightPanel {float: right;height: 100%;width: 266px;color: #FFFFFF;}
 			.rightPanel .imgBox{width:250px; height:250px; margin-bottom:8px; border:0; display:block;}
 			.rightPanel strong{display:block; line-height:18px; margin-bottom:8px;}
 			.rightPanel span.h2{background:#FFFFFF; font:bold 14px Arial, Helvetica, sans-serif; color: #ff7200; border:1px solid #52a801; float:left; width:243px; line-height:24px; padding-left:5px; display:block;}
@@ -78,8 +107,11 @@ form, ul, li, h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
 			.box strong{margin:0; font-weight:normal; font-size:12px;}
 			.box strong a{text-decoration:none; color:#333;}
 			.box strong a:hover{text-decoration:underline; color:#333;}
-
-
+            .rightPanel h1{background-color: #C0C0C0;color: #FFFFFF;font-size: 14px;margin: 0;padding: 4px 6px;}
+            .rightPanel input{margin: 10px 0; }
+            .rightPanel_show{display:block; padding:10px; width:246px;}
+            .rightPanel_show .check_box{display:block;float:left;width:20px !important;}
+            .rightPanel_show label{display:block;padding-top:6px !important;float:left;width:220px;} 
 .projectPanel{width:708px; float:left;}
 
 .dwnContainer{float:left; margin:0 auto; padding:0; float:left;}
@@ -97,22 +129,23 @@ form, ul, li, h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
 
 ul.tabs {
 	margin:0px; padding:0px;
-	margin: 8px 0 6px;
+	margin: 8px 0 3px;
 }
 ul.tabs li {
 	list-style:none;
 	display:inline;
+    font:10px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; letter-spacing:0px;color: #404040; line-height: 18px;
 }
 ul.tabs li a {
-	background-color:#6ebe23;
-	color:#000;
+	background-color:#82b63a;
+	color:#404040;
 	padding:6px 6px;
 	text-decoration:none;
 	font-weight:bold;
 	border:1px solid #52a801;
 }
 ul.tabs li a:hover {
-	background-color:#6ebe23;
+	background-color:#82b63a;
 	border-color:#52a801;
 	color:#ffffff;
 }
@@ -127,13 +160,15 @@ ul.tabs li a.active {
 	padding:10px;
 	border:1px solid #52a801;
 	font-family:Arial, Helvetica, sans-serif;
+    float:left;
+    width:686px;
 }
 
 	.content h2{font-size:13px !important; color:#ff7200;}
 	.content p{line-height:18px; margin-bottom:10px;}
-
-#content_5{display:block;}
-#content_1, #content_2, #content_3, #content_4, #content_6 {display:none; }
+    #content_5{display:block;}
+#content_2
+#content_1,#content_3, #content_4, #content_6 {display:none; }
 
 .fcontainer{width:660px; margin:0 auto; margin-top:15px; overflow:hidden;}
 .fcontainer span{display:block;}
@@ -186,11 +221,11 @@ span#match_req_usecase {
 }
 
 #match_req_usecase ul {
-    width: 323px;
+    width: 450px;
     /*background: none repeat scroll 0 0 #F5F5F5;*/
     list-style: none outside none;
     margin: 0;
-    padding: 0;
+    padding:3px 5px;
     z-index: 10;
     border: 1px solid;
     text-align: left;
@@ -200,13 +235,16 @@ span#match_req_usecase {
 
 
 	.projectBox h1{font:bold 36px Arial, Helvetica, sans-serif; color:#ffb800; line-height:50px;}
-	.log_con{width:382px; background:#003f75; padding:15px; margin:5% auto;}
+    .log_con{width:382px; background:#003f75; padding:15px; margin:0 auto;}
 	.log_con h1{font:30px Arial, Helvetica, sans-serif; text-align:center; color:#fff; margin:0; margin-bottom:5px;}
 	.log_con_Box{padding:15px; border:1px solid #003f75; border-radius:1px; -moz-border-radius:8px; background:#f4f4f4; width:350px; margin:0 auto; overflow:hidden;}
 	.log_con_Box a{color:#c40000; text-decoration:underline;}
 	.log_con_Box a:hover{color:#000; text-decoration:none;}
 	.log_con_Box h3{font-size:13px; border-bottom:1px dashed #ccc; padding-bottom:5px; width:100%; float:left; display:block;}
-
+    .log_con_Box p{font-size:13px;line-height:18px; margin-bottom:10px;}
+    .log_con_Box ol{margin:0 0 10px 0; padding:0; float:left;font-size:13px;}
+    .log_con_Box ul{margin:0 0 10px 0; padding:0; float:left;font-size:13px;}
+    .log_con_Box li{margin:0 10px; padding:0;line-height:26px; float:left; value:number;width:850px;}
 
 .loginForm{width:350px; font:12px Arial; margin-top:15px; float:left;}
 .loginForm .rows{float:left; padding-bottom:8px; clear:left; width:100%;}
@@ -218,6 +256,7 @@ span#match_req_usecase {
 .s_butt{background:url(../images/login.png) no-repeat; width:68px; height:25px; border:0; cursor:pointer;}
 
 .rows input.inpSty1 {width:160px;}
+.rows input[type=submit]{height:25px;width:50px;}
 .rows textarea.txtSty {width:500px; height:80px;}
 .rows textarea.txtSty2 {width:570px; height:80px;}
 
@@ -234,7 +273,7 @@ span#match_req_usecase {
 .box820{width:820px;}
 	.secWid{width:250px;}
     .numProBox{width:230px; vertical-align:bottom; float:left; display:block; min-height:98px;}
-	.colorBox{width:118px; height:58px; padding:15px; cursor:pointer; color:#FFF; text-align:center; display:block; margin-right:2px; float:left;}
+	.colorBox{width:117px; height:58px; padding:15px; cursor:pointer; color:#FFF; text-align:center; border:1px solid #000; display:block; /*margin-right:2px;*/ float:left;}
 	.bronze{background:#3A3110 !important;}
 	.gray{background:#9b9b9b !important;}
 	.yell{background:#F4C92E !important;}
@@ -244,11 +283,246 @@ span#match_req_usecase {
 	.secWid{width:250px;}
 	.wid300{width:300px !important;}
 	.wid255{width:235px !important; padding:10px;}
-.copyright{width:998px; margin:0 auto; text-align:center; line-height:20px; background-color:#cccccc; margin-top:10px; padding:10px 0;}
-	.copyright a{text-decoration:none; color:#c40000; font-weight:bold;}
-	.copyright a:hover{text-decoration:underline; color:#333; font-weight:bold;}
+ .copyright{background-color: #CCCCCC; height: 30px; line-height: 24px; margin: 10px auto 0; padding: 10px 0 0; text-align: center; width: 998px;}
+ .copyright a{text-decoration:none; color:#404040; font-weight:bold;}
+ .copyright a:hover{text-decoration:underline; color: rgb(240, 143, 70); font-weight:bold;}
+ .copyright p{margin:0 10px; padding:0;}
+ .copyleft{width:500px; float:left; text-align:left;}
+ .copy_right{width:143px; float:right;}
 .texarea{background:#F4C92E; border:none; font-face:Arial !important; font-weight:bold; color:#FFF; width:235px; height:100px; overflow:auto;}
 .wid255 label{font-size:18px; font-face:Arial !important; font-weight:bold; color:#FFF !important;}
 .box820 h1{font:26px Arial, Helvetica, sans-serif; text-align:left; color:#333; margin:0; margin-bottom:5px;}
-.log_con{width:382px; background:#003f75; padding:15px; margin:0 auto;}
 
+
+ul.sortable li span:hover {color:#13329B;text-decoration:none;cursor: pointer;}
+.sortable { list-style-type: none;width:668px;}
+.toogleTxt{width:653px; height:25px; line-height:25px; background:#f5f5f5; border:1px solid #ddd; padding-left:5px; margin-bottom:5px; cursor:pointer;}
+.toogleTxt1{width:653px; height:25px; line-height:25px; background:#f5f5f5; border:1px solid #ddd; padding-left:5px; margin-bottom:5px; cursor:pointer;}
+.toogleTxt2{width:653px; height:25px; line-height:25px; background:#f5f5f5; border:1px solid #ddd; padding-left:5px; margin-bottom:5px; cursor:pointer;}
+.toogleBox{border:1px solid #ddd; padding:5px; display:block; margin-bottom:5px;}
+.toogleBox1{border:1px solid #ddd; padding:5px; display:block; margin-bottom:5px;}
+.toogleBox2{border:1px solid #ddd; padding:5px; display:block; margin-bottom:5px;}
+.cButton{background:#fff; border:0; width:auto; height:20px; cursor:pointer;font-size:11px;text-decoration:none;color:#0000ff;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.cButton:hover{background:#fff; border:0; width:auto; height:20px; cursor:pointer;font-size:11px;text-decoration:none;underline:#f08f46;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.cButtonGrey{background:#f3f3f3; border:0; width:auto; height:20px; cursor:pointer;font-size:11px;text-decoration:normal;color:#0000ff;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.cButtonGrey:hover{background:#f3f3f3; border:0; width:auto; height:20px; cursor:pointer;font-size:11px;text-decoration:normal;underline:#f08f46;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.cButtonWhite{background:#fff; border:0; width:35px !important; height:25px !important; cursor:pointer;color:#0000ff; font-size:11px;text-decoration:none;margin-left:-10px;margin-right:4px;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.cButtonWhite:hover{background:#fff; border:0; width:35px !important; height:25px !important; cursor:pointer;text-decoration: underline; color:#f08f46;font-size:11px; font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;margin-left:-10px;margin-right:4px;}
+
+/*input[type=submit]{height:25px !important;width:auto !important;border:1px solid #000; margin-right:5px;font-size:12px; font-weight:bold;padding:2px;}*/
+.flash_error{background:#82b63a; font-size:14px !important;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important; font-weight:bold !important; color:#fff000; line-height:30px; padding:0 15px; margin-top:10px; border:1px solid #ccc; width:98%;}
+.flash_error_out{background:#F4F4F4; font-size:12px; font-weight:bold; color:#C40000; line-height:30px; padding:0 15px; margin-bottom:10px;width:96.3%;text-align:center;}
+.marL224{margin-left:224px !important;}
+.rows table{background-color:#939393; margin-top:-5px;}
+.rows .table1{background-color:none;margin-top:0px;}
+.rows td{padding:2px 0; background-color:#f4f4f4;}
+.rows td.priceTxtPad{padding-top:15px !important; padding-bottom:10px !important; line-height:18px; font-style:italic;}
+.rows td.priceTxtPad a{color:#333;}
+span#loading {
+    color:#666666;
+    display:none;
+}
+span#loading1 {
+    color:#666666;
+    display:none;
+}
+
+
+/************[copy new CSS from here]*************/
+.rows_basic {width:658px; float:left; padding:5px 2%;}
+.rows_alter {width:87%; float:left; padding:5px 0%;margin-left:7px;}
+.w350px {width:350px;}
+
+form {margin:0; padding:0;}
+textarea, select, input {color: #333333; font: 11px Arial,Helvetica,sans-serif;}
+
+.fullBox {width:100%; float:left;}
+.gap {display:block; padding:5px; clear:both;}
+
+.inpSel {border: 1px solid #C8C8C8; height:22px;}
+.inpSel1 {border: 1px solid #C8C8C8; height:30px;font:18px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important; }
+.inpTxt {border: 1px solid #C8C8C8; padding:3px 5px;font:18px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important; }
+.inpTxt_ad {border: 1px solid #C8C8C8; padding:3px 5px;font:18px "Lucida Sans";}
+.inpTxt_ad input{color: #404040 !important;}
+.inpTxt_ad:focus {border: 1px solid #fff; padding:3px 5px;font:18px "Lucida Sans";}
+
+.buttons, .rows {width:96%; float:left; padding:5px 2%;}
+div.tabFormat .rows {width:98% !important; padding:5px 1% !important;}
+div.tabFormat input.inpTxt {padding:3px 2px;}
+
+span.lastCl {float:right !important;}
+.actionItems img{vertical-align:middle; border:0 !important; margin:0 3px;}
+.actionItems1 img{vertical-align:middle; border:0 !important; margin:0 3px;display:none;}
+
+
+.rHead {color:#808080; font-weight:bold; border-bottom:1px solid #ddd; margin-bottom:5px;}
+.srHead {color:#000; font-weight:bold; background:#ddd; margin-bottom:5px;}
+.aRow {background:#f3f3f3;}
+.hovRow:hover {background:#ffc !important;}
+.rows span.cols {float:left; padding-right:4px; overflow:hidden;}
+.rows span.Txt {padding-top:5px;text-align:left;}
+.upper {float:left; margin-bottom:5px;font:10px "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important; letter-spacing:0px;color: #c0c0c0; line-height: 20px !important;font-weight: bold !important;}
+.lower {float:left; margin-left:50px; padding-left:25px;clear:both;width:90%;text-align:left;}
+.lower1 {float:left;margin-left:50px; padding-left:25px;clear:both;width:90%;text-align:left;}
+
+.reqList {border-top:1px solid #82b63a;}
+.reqList span.cols {background:url(../images/seprator-right.png) no-repeat scroll left top; padding:0px 5px;}
+div.reqList span.noBdr {background:none !important;height:25px;}
+
+.buttons {border-top:1px solid #ddd; margin-top:5px;}
+.btn {margin-right:5px; background:#6dbe21; border:1px solid #56a70a; font-size:12px; font-weight:bold; color:#000; cursor:pointer;}
+.btn:hover {color:#fff;}
+
+input.plainBtn {background:none !important; border:0 !important; color:#13329B !important; font-size:11px !important; text-decoration:underline !important; cursor:pointer; padding:0 !important;}
+
+span.smLink {display:inline-block; padding:3px 5px;}
+span.smLink a {color:#0000FF; text-decoration: none;font-size:11px; font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+span.smLink a:hover{text-decoration: underline; color:#f08f46;font-size:11px; font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+a {color:#0000FF;}
+h3 {font-size:11px; color:#333; padding:0; margin:0; margin-bottom:10px; border-bottom:1px solid #91d850;}
+h4 {font-size:12px;padding:0; margin:0;font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;font-weight: bold;color:#f08f46;}
+
+.label {width:42%; padding-right:2%; float:left;}
+.field {width:54%; float:right;}
+.field span {display:inline-block;}
+
+.boxSty {border:1px solid #808080; display:block; border-bottom:none;}
+.boxSty p {border-bottom:1px solid #808080; padding:5px 10px 18px;}
+.boxSty p span {display:block; padding-bottom:5px; font-size: 22px;}
+.boxSty p span a {text-decoration:none;}
+
+.ctrBox {margin:0 auto; display:inline-block;}
+
+.clr {clear:both; height:1px !important; line-height:1px !important;}
+.ofHid {overflow:hidden;}
+.vMid, .vMid span, .vMid img, .vMid a, .vMid input, .vMid select, .vMid button {vertical-align:middle;}
+
+.ctr {text-align:center !important;}
+.lft {text-align:left !important;}
+.rgt {text-align:right !important;}
+
+.fl {float:left;}
+.fr {float:right;}
+.w30px {width:30px;}
+.w50px {width:50px;}
+.w60px {width:60px;}
+.w70px {width:70px;}
+.w65px {width:65px;}
+.w75px {width:75px;}
+.w80px {width:80px;}
+.w85px {width:85px;}
+.w90px {width:90px;}                     
+.w100px {width:100px;}
+.w110px {width:110px;}
+.w115px {width:115px;}
+.w120px {width:120px;}
+.w130px {width:130px;}
+.w140px {width:140px;}
+.w150px {width:150px;}
+.w160px {width:160px;}
+.w175px {width:175px;}
+.w155px {width:155px;}
+.w170px {width:170px;}
+.w180px {width:180px;}
+.w190px {width:190px;}
+.w200px {width:200px;}
+.w230px {width:230px;}
+.w250px {width:250px;}
+.w300px {width:300px;}
+.w400px {width:400px;}
+.w405px {width:405px;}
+.w412px {width:412px;}
+.w450px {width:450px;}
+.w500px {width:500px;}
+.w575px {width:575px;}
+.w600px {width:600px;}
+.w685px {width:685px;margin:10px !important;}
+.w685px1 {width:685px;}
+.w492px {width: 492px;}
+
+span.w50px input.w50px {width:44px !important;}
+span.w75px input.w75px {width:69px !important;}
+span.w80px input.w80px {width:74px !important;}
+span.w100px input.w100px {width:94px !important;}
+span.w150px input.w150px {width:142px !important;}
+span.w350px input.w350px {width:337px !important;margin-left:5px;}
+span.w400px input.w400px {width:394px !important;}
+span.w500px input.w500px {width:494px !important;}
+
+.cl1 {background:#e00}
+.cl2 {background:#0e0}
+.cl3 {background:#00e}
+
+/*Select box in header*/
+.dropdown dd, .dropdown dt, .dropdown ul { margin:0px; padding:0px; }
+.dropdown dd {position:relative; z-index:999;}
+.dropdown a, .dropdown a:visited { color:#F08F46; font-weight:bold; text-decoration:none; outline:none;}
+.dropdown dt a:hover, .dropdown dt a:focus { color:#F08F46;}
+.dropdown dt a{background:url(../images/select-box-bg.png) no-repeat scroll left center; display:block; padding-right:20px; padding-left:10px; width:220px; height:40px; line-height:34px;}
+.dropdown dt a span{cursor:pointer; display:block; font:bold 30px "Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif; color:#F08F46; padding:2px 8px 2px 0;}
+.dropdown dd ul{background:#707070; border:1px solid #ddd; color:#C5C0B0; display:none; left:0px; position:absolute; top:1px; width:auto; min-width:248px; list-style:none; height:126px; overflow:auto; overflow-x: hidden}
+.dropdown span.value{ display:none;}
+
+.dropdown dd ul li a{padding:5px; display:block; font:bold 30px/30px Lucida Sans, Lucida Sans Unicode, Lucida Grande,Verdana,Arial,Helvetica,sans-serif; color:#F08F46; background:url(../images/select-li-bg.png) repeat-x scroll left center; width:238px; height:30px; margin:1px 0;}
+
+.dropdown dd ul li a:hover{padding:5px;color:#F08F46; font:bold 30px/30px Lucida Sans, Lucida Sans Unicode, Lucida Grande,Verdana,Arial,Helvetica,sans-serif;  background:url(../images/select-li-bg-h.png) repeat-x scroll left center; width:238px; height:30px; margin:1px 0;}
+
+.dropdown img.flag { border:none; vertical-align:middle; margin-left:10px; }
+.flagvisibility { display:none;}
+.button_actor {width:auto !important;}
+/*=============================
+/*=============================
+/* FAQ formatting */
+
+.leftPanel #FAQ {
+	text-align: left !important;
+	padding-left: 10px !important;
+}
+
+.leftPanel #FAQ h1{
+	font-family: Georgia, sans-serif !important;
+	font-size: 18px !important;
+	text-align: left !important;
+	margin-bottom: 10px !important;
+    background: none;
+    padding-left: 0px;
+}
+
+.leftPanel #FAQ h2{                                                     
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+	font-size: 16px !important;
+	font-weight: bold !important;
+	margin-top: 10px !important;
+}
+
+.leftPanel #FAQ h3{
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	font-weight: bold !important;
+	margin-top: 10px !important;
+}
+
+.leftPanel #FAQ ol {
+	padding-left: 20px !important;
+	font-family: sans-serif !important;
+	font-size: 12px !important;
+}
+
+.leftPanel #FAQ p {
+	font-family: sans-serif !important;
+	font-size: 12px !important;
+}
+
+.leftPanel #FAQ a {
+	font-family: sans-serif !important;
+	font-size: 12px !important;
+}
+
+.leftPanel #FAQ h2 a{
+    font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    margin-top: 10px !important;
+	text-decoration: none;
+    color : #000;
+}

@@ -1,1 +1,6 @@
-$('#add_use_case').html('#{escape_javascript(render(:partial=>'use_cases/sort_usecase'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-else
+ :plain
+  $('#add_use_case').html('#{escape_javascript(render(:partial=>'use_cases/sort_usecase'))}');

@@ -1,0 +1,20 @@
+%div{:class=>"rows reqList",:id=>"span_images_#{@file_req.id}"}
+ %div{:class=>"upper"}
+  -if !@file_req.nil?
+   %span{:class=>"cols w30px noBdr actionItems1"}
+    -if @user.privilige!="Read" and @user.privilige!="Approve"
+     =add_requirement_file image_tag("edit.gif",:id=>"edit_images_#{@file_req.id}",:title=>"Edit Requirement attributes"),@file_req,@user
+   -first_name=find_user_name_email(@file_req)
+   -if !first_name.empty?
+    %span{:class=>"cols w180px noBdr"}=first_name
+   %span{:class=>"cols w100px"}=@file_req.category
+   %span{:class=>"cols w100px"}=@file_req.status
+   %span{:class=>"cols w100px"}=@file_req.type1
+   %span{:class=>"cols w50px noBdr actionItems1"}
+    -if @user.privilige!="Read" and @user.privilige!="Approve"
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@file_req.id}",:title=>"Unlink requirement"),delete_req_file_url(@file_req.id)     
+
+ %div{:class=>"lower"}
+  =@file_req.name
+%div{:id=>"edit_requirement_#{@file_req.id}"}
+

@@ -1,42 +1,83 @@
-%div{:align=>"left",:style=>"width:445px"}
-                      %hr{:style=>"width:350px;"}
-                      ="Req_" + req.id.to_s
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      ="Entered " + req.created_at.strftime("%d %B %Y")
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      -first_name=find_user_name(req)
-                      -if !first_name.empty?
-                                            ="By " + first_name 
-                      -form_tag edit_requirement_path(req.id) do |f|
-                                            %hr{:style=>"width:400px;"}
-                                            %br
-                                            =label_tag "Description"
-                                            =text_field_tag "description",req.name,:size=>"50"
-                                            %br
-                                            %br                      
-                                            %div{:style=>"display:inline-block;float:left;width:220px;"}
-                                                                  =label_tag "Status"
-                                                                  =select "status","",options_for_select(["Draft","Under Review","Reviewed","Approved","Rejected","To be modified"],req.status)
-                                                                  %br
-                                                                  =label_tag "Category"
-                                                                  =select "category","",options_for_select(["Configuration","Expenses","Invoicing","User admin"],req.category)
-                                                                  %br
-                                                                  =label_tag "Type"
-                                                                  =select "type1","",options_for_select(["Functional","Non Functional","Classified"],req.type1)
-                                            %div{:style=>"display:inline-block;float:right;width:185px;"}
-                                                                  =label_tag "Importance"
-                                                                  =select "importance","",options_for_select(["Essential","Useful","Interesting","Luxury"],req.importance)
-                                                                  %br
-                                                                  =label_tag "Priority"
-                                                                  =select "priority","",options_for_select(["High","Medium","Low"],req.priority)
-                                                                  %br
-                                                                  =label_tag "Verification"
-                                                                  =select "verification","",options_for_select(["Test","Demonstration","Simulation"],req.verification)
-                                            %br
-                                            %br
-                                            %br
-                                            %br                                                                  
-                                            =submit_tag "Save"
-                                            =remove_edit_field "Cancel",req
-                                            %br
+%div{:id=>"editDetails",:class=>"fullBox",:style=>"display:block;"}
+  %div{:class=>"rows aRow"}
+    %div{:class=>"rows srHead"}
+      %span{:class=>"cols w50px"}="Req_" + req.id.to_s
+      %span{:class=>"cols w180px"}="Entered " + req.created_at.strftime("%d %B %Y")
+      -first_name=find_user_name(req)
+      -if !first_name.empty?
+        %span{:class=>"cols w300px"}="By " + first_name 
+    -form_for req,:url=>edit_req_url(req.id) do |f|
+      %div{:class=>"rows"}
+        %span{:class=>"cols Txt w80px"}="Description"
+        -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read")) 
+          %span{:class=>"cols w550px"}=f.text_field :name,:size=>"50",:class=>"inpTxt w500px marL15",:disabled=>true
+        -else
+          %span{:class=>"cols w550px"}=f.text_field :name,:size=>"50",:class=>"inpTxt w500px marL15"
+      %div{:class=>"rows"}
+        -if @attr.req_status==true
+          %span{:class=>"cols Txt w80px"}="Status"
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:class=>"cols w150px"}=f.select :status,options_for_select(["Draft","For Review","Approved","Rejected","Cancelled","Implemented"],req.status),{},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:class=>"cols w150px"}=f.select :status,options_for_select(["Draft","For Review","Approved","Rejected","Cancelled","Implemented"],req.status),{},:class=>"inpSel w120px"
+        -if @attr.req_importance==true
+          %span{:class=>"cols Txt w80px"}="Importance"
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:class=>"cols w150px"}=f.select :importance,options_for_select(["Essential","Useful","Interesting","Luxury"],req.importance),{},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:class=>"cols w150px"}=f.select :importance,options_for_select(["Essential","Useful","Interesting","Luxury"],req.importance),{},:class=>"inpSel w120px"
+      %div{:class=>"rows"}  
+        -if @attr.req_category==true
+          %span{:class=>"cols Txt w80px"}="Category"
+          -categorized=show_category_list(session[:project_id])
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:id=>"rows_category_#{req.id}",:class=>"cols w150px"}=f.select :category,categorized.collect {|p| [p] },{:selected=>req.category},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:id=>"rows_category_#{req.id}",:class=>"cols w150px"}=f.select :category,categorized.collect {|p| [p] },{:selected=>req.category},:class=>"inpSel w120px"
+            %div{:id=>"category_popup",:style=>"display:none"}
+              %input{:id=>"category_input",:type=>"input"}
+              %input{:id=>"category_button",:type=>"button",:value=>"Save",:class=>"btn"}
+              %input{:id=>"cancel_button",:type=>"button",:value=>"Cancel",:class=>"btn"}
+
+        -if @attr.req_priority==true
+          %span{:class=>"cols Txt w80px"}="Priority"
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:class=>"cols w150px"}=f.select :priority,options_for_select(["High","Medium","Low"],req.priority),{},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:class=>"cols w150px"}=f.select :priority,options_for_select(["High","Medium","Low"],req.priority),{},:class=>"inpSel w120px"
+      %div{:class=>"rows"}
+        -if @attr.req_type==true
+          %span{:class=>"cols Txt w80px"}="Type"
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:class=>"cols w150px"}=f.select :type1,options_for_select(["Functional","Non Functional","Constraint"],req.type1),{},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:class=>"cols w150px"}=f.select :type1,options_for_select(["Functional","Non Functional","Constraint"],req.type1),{},:class=>"inpSel w120px"
+        -if @attr.req_verification==true
+          %span{:class=>"cols Txt w80px"}="Verification"
+          -if ((@user.privilige!="Admin" and req.status=="Approved") or (@user.privilige=="Read"))
+            %span{:class=>"cols w150px"}=f.select :verification,options_for_select(["Test","Demonstration","Simulation"],req.verification),{},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:class=>"cols w150px"}=f.select :verification,options_for_select(["Test","Demonstration","Simulation"],req.verification),{},:class=>"inpSel w120px"
+      %div{:class=>"rows"}
+        -if @attr.req_delivered==true
+          %span{:class=>"cols Txt w80px"}="Delivered in"
+          -deliveries=show_delivery_list(session[:project_id])
+          -if (deliveries.empty?)
+            %span{:id=>"rows_delivery_#{req.id}",:class=>"cols w150px"}=f.select :delivered,deliveries.collect {|p| [p] },{:prompt=>"--Select--",:selected=>req.delivered},:class=>"inpSel w120px",:disabled=>true
+          -elsif @user.privilige=="Read" and !deliveries.empty?
+            %span{:id=>"rows_delivery_#{req.id}",:class=>"cols w150px"}=f.select :delivered,deliveries.collect {|p| [p] },{:prompt=>"--Select--",:selected=>req.delivered},:class=>"inpSel w120px",:disabled=>true
+          -else
+            %span{:id=>"rows_delivery_#{req.id}",:class=>"cols w150px"}=f.select :delivered,deliveries.collect {|p| [p] },{:prompt=>"--Select--",:selected=>req.delivered},:class=>"inpSel w120px"
+            %div{:id=>"delivery_popup",:style=>"display:none"}
+              %input{:id=>"delivery_input",:type=>"input"}
+              %input{:id=>"delivery_button",:type=>"button",:value=>"Save",:class=>"btn"}
+              %input{:id=>"cancel_button",:type=>"button",:value=>"Cancel",:class=>"btn"}
+
+      %div{:class=>"buttons"}
+        -if @user.privilige=="Read"
+          =submit_tag "Save",:class=>"btn",:disabled=>true
+        -else
+          =submit_tag "Save",:class=>"btn"
+        =remove_edit_field submit_tag("Cancel",:class=>"btn"),req 
+
                                                                                 

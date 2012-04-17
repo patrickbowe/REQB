@@ -1,2 +1,17 @@
-$('#tracker_req_name').attr('value','');
-$('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker_req'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @req.nil?
+ :plain
+  window.location.replace("/requirements");
+
+-elsif session[:req_id].nil?
+ :plain
+  window.location.replace("/requirements");
+-elsif @tracker_req.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_tracker)}</div>');
+-else
+ :plain
+  $('#tracker_req_name').attr('value','');
+  $('#add_tracker').prepend('#{escape_javascript(render(:partial=>'trackers/create_tracker_req'))}');

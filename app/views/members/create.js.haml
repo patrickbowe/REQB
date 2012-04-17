@@ -1,16 +1,24 @@
-$('#add_member').prepend('#{escape_javascript(render(:partial=>'add_member'))}');
--if @flag_error=="false" and @flag=="true"
+$('.flash_error').remove();
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @flag_error=="false" and @flag=="true"
  :plain
   $('#member_name1').attr('value','');
-  $('#email_error').html('#{escape_javascript(render(:partial=>'form1'))}');
+  $('#flash_error_message').html('#{escape_javascript(render(:partial=>'form1'))}');
+  $('#add_member').prepend('#{escape_javascript(render(:partial=>'add_member'))}');
 -elsif @flag_error=="false" and @flag=="false"
  :plain
-  $('#email_error').html('#{escape_javascript(render(:partial=>'form1'))}');
+  $('#flash_error_message').html('#{escape_javascript(render(:partial=>'form1'))}');
+  $('#add_member').prepend('#{escape_javascript(render(:partial=>'add_member'))}');
   $('#member_name1').attr('value','<< Add new person email address');
   $('#member_name1').attr('disabled',true);
 -elsif @flag_error=="true" and @flag=="true"
  :plain
-  $('#email_error').html('#{escape_javascript(render(:partial=>'form1'))}');
-  $('#member_name1').attr('value','');  
+  $('#flash_error_message').html('#{escape_javascript(render(:partial=>'form1'))}');
+  $('#member_name1').attr('value','');
+-if !flash.now[:notice].nil?
+ :plain
+  $("#flash_error_message").html('#{escape_javascript(render(:partial=>'users/notification'))}');   
 
  

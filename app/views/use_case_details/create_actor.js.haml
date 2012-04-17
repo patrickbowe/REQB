@@ -1,1 +1,14 @@
-$('#add_use_case_detail').prepend('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:use_case_id].nil?
+ :plain
+  window.location.replace("/use_cases");
+-elsif @actor.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_actor)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#add_use_case_detail').prepend('#{escape_javascript(render(:partial=>'use_case_details/add_text_field'))}');
+  $('#actor').attr('value','');

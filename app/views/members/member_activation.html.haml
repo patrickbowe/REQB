@@ -1,20 +1,31 @@
-%h1="Enter your password."
--form_for @member, :url => member_activation_url do |f|
- -if !@member.nil?
-  -if @member.errors.any?
-   -@member.errors.full_messages.each do |error|
-    =error
-    %br
- %p
-  = f.label :email
-  %br
-  = f.email_field :email,:disabled=>true
- %p
-  = f.label :password
-  %br
-  = f.password_field :password
- %p
-  = f.label :password_confirmation
-  %br
-  = f.password_field :password_confirmation
- = f.submit "Submit password and Log in"
+%div{:id=>"signup_header"}
+ =link_to image_tag("requirementbox_small.png",:alt=>"requirementbox.com logo",:width=>"400px",:height=>"71px",:class=>"signup_header"),"/"
+%div{:id=>"signup_heading"}
+ %h1
+  Thanks for choosing <span="requirementbox">requirementbox
+ %h2="We just need you to enter password to get started."
+%div{:id=>"signup_form"}
+ -form_for @member, :url => member_activation_url do |f|
+  %fieldset
+   -if !@member.nil?
+    -if @member.errors.any?
+     -@member.errors.full_messages.each do |error|
+      %p=error
+   %h2="Enter your password"
+   =f.label "Email:"
+   %br
+   =f.email_field :email,:tabindex=>"1",:disable=>true
+   %br
+   =f.label "Password:"
+   %br
+   =f.password_field :password,:tabindex=>"2"
+   %div{:id=>"checkPassword",:class=>"signin_div"}
+   =f.label "Password Confirmation:"
+   %br
+   =f.password_field :password_confirmation,:tabindex=>"3"
+   %div{:id=>"checkPasswordCon",:class=>"signin_div"}
+   = f.submit "Submit password and Log in",:tabindex=>"4"
+ %div{:id=>"signin_logo"}
+  %ul{:class=>"signin_right"}
+   %li
+    =link_to image_tag("requirementbox_footer.png"),root_url

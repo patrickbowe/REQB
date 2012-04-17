@@ -1,0 +1,10 @@
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:file_id].nil?
+ :plain
+  window.location.replace("/trackers");
+-else
+ :plain
+  $('#file_requirement').attr('value','');
+  $('#add_req_file').prepend('#{escape_javascript(render(:partial=>'requirements/create_requirement_file'))}');

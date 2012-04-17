@@ -1,0 +1,24 @@
+-if current_user.nil? && current_member.nil?
+ %div{:id=>"signup_header"}
+  =link_to image_tag("requirementbox_small.png",:alt=>"requirementbox.com logo",:width=>"400px",:height=>"71px",:class=>"signup_header"),"/"
+ %div{:id=>"signup_heading"}
+  %h1
+   Thanks for choosing <span="requirementbox">requirementbox
+  %h2="We just need you to enter an email and password to get started."
+ %div{:id=>"signup_form"}
+  -form_for @user, :url => {:controller=>"users",:action=>"create"} do |f|
+   %fieldset
+    -if !flash[:notice].nil?
+     %p=flash[:notice]
+    -if @flag_error=="true"
+     %p="The email you entered already exists."
+    %p= f.error_messages
+    = render :partial => "form", :object => f 
+    = f.submit "Next Step",:tabindex=>"4"
+ %div{:id=>"signin_logo"}
+  %ul{:class=>"signin_left"}
+   %li
+    = link_to "Already have an account?  Sign in now",sign_in_url
+  %ul{:class=>"signin_right"}
+   %li
+    =link_to image_tag("requirementbox_footer.png"),root_url

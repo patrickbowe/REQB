@@ -1,0 +1,11 @@
+-form_tag update_category_url do
+ %div{:class=>"rows"}
+  =text_field_tag "category_#{@category.id}",@category.title,:size=>"50",:class=>"inpTxt rgt w300px"
+  =hidden_field_tag :id,@category.id
+  -if @user.privilige=="Admin"
+   %span.smLink=link_to "Delete",destroy_category_url(@category.id)
+  %span{:id=>"category_save_#{@category.id}",:style=>"display:none;"}
+   %span.smLink=submit_tag "Save",:class=>"cButton"
+   %span.smLink=link_to "Cancel","#",:id=>"category_cancel_#{@category.id}"
+
+

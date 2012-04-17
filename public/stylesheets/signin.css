@@ -1,0 +1,1157 @@
+/* CSS Reset */
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
+	padding: 0;
+	margin: 0;
+	font-size: 90%;
+	font-weight: normal;
+}
+
+ol {
+	margin-left: 1.4em;
+	list-style: decimal;
+}
+
+ul {
+	margin-left: 1.4em;
+	list-style: disc;
+}
+
+li {
+	color: black;
+}
+
+img {
+	border: 0;
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of Reset */
+
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* Make html 5 elements display as block level for consistent styling */
+header, nav, main, heading, article, section, footer, address {
+	display: block;
+}
+
+/* Generic HTML Tag Selectorss */
+body { /*Generic body settings, set align center to fix ie bug */
+	line-height: 25px;
+	text-align: center;
+	background: #F0EFE4;
+	width: 100%;
+	height: 100%;
+}
+
+a, a:link, a:visited { /*Standard link and visited link */
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+a:hover { /*Standard onmouseover link */
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-weight: normal;
+	text-decoration: underline;
+	color: rgb(240, 143, 70);
+}
+
+img { /*Standard image */
+	border: 0;
+}
+
+hr { /*Standard hr */
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 2px solid;
+	color: silver;
+}
+
+h1 { /*Standard h1 font */
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 44px;
+	font-weight: bold;
+	line-height: 48px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: #154272;
+	padding: 1px;
+}
+
+h2 { /*Standard h2 font */
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 1px;
+}
+
+p { /*Standard font */
+	font-family: "palatino linotype", "book antiqua", palatino, serif;
+	font-size: medium;
+	font-weight: normal;
+	/*text-align: left;*/
+	line-height: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+p.intro::first-letter { /*Capitalisation of first letter in a paragraph */
+	font-size: 22px;
+	font-weight: bold;
+	font-style: italic;
+	/*color: rgb(75, 174, 234);*/
+}
+
+.reqb { /*Styling used when ever requirementbox is used in the text*/
+	font-family: "palatino linotype", impact, charcoal, sans-serif;
+	font-size: medium;
+	font-weight: bold;
+	line-height: 20px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	/*color: green #154272*/
+}
+
+.benefit { /* Heading used to introduce each feature on index page*/
+	font-family: Lucida Console, Monaco, monospace;
+	font-weight: bold;
+	font-size: medium;
+	color: rgb(75, 174, 234);
+}
+
+.feature_list { /*used to format features in the offer block on the index page */
+	display: block;
+	background: rgb(225,225,225);
+	color: rgb(240, 143, 70);
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 30px;
+	padding: 1px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+	border-top: 1px solid white;
+}
+
+.signup { /*Used to format the sign up button on the main page */
+	display: block;
+	background: rgb(240, 143, 70);
+	width: 180px;
+	margin-left: 160px;
+	margin-right: 160px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+}
+
+ul { /*default unorderd list pattern */
+	list-style-type: square;
+	margin-top: 5px;
+	padding: 0;
+	color: black;
+}
+
+li { /*default list pattern*/
+	margin-bottom: 10px;
+	font-size: medium;
+	font-weight: normal;
+	color: black;
+	text-align: left;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+
+cite { /*default cite format */
+	display: block;
+	width: 400px;
+	margin-left: 180px;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: medium;
+	font-weight: bold;
+	font-style: oblique;
+	text-align: justify;
+	color: rgb(146,146,146);
+	text-align: left;
+	margin-top: 0px;
+}
+
+blockquote { /*default blockquote formatting */
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-style: italic;
+	/*	color: red;	*/
+	text-align: left;
+	line-height: 20px;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of HTML tag & formatting selectors */
+
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* Layout containers*/
+
+/* Container Block - used to enclose all divs.*/
+#container {
+  /*border: 10px solid black;*/
+ 	width: 760px;
+	margin: auto;
+	min-height: 100%;
+	text-align: left;
+}
+
+/* Header Block - Used to contain the REQB logo.  Upper left hand corner*/
+
+#header { /* The main blue header - relatively positioned so that NAV, HEADER and NOTE can float on top of it */
+  /*border: 5px solid black;*/
+	position: relative;
+	top: 0;
+	background: #154272;
+	width: 760px;
+	height: 150px;
+	z-index: 1;
+}
+
+#header img { /*formatting of the reqb logo in the main header */
+  /*border: 5px solid black;*/
+
+    height: 50px;
+    left: 40px;
+    position: absolute;
+    top: 50px;
+    width: 300px;
+    z-index: 20;
+
+}
+
+/* Note*/
+#note {
+    color: white;
+    left: 350px;
+    position: absolute;
+    top: 40px;
+    z-index: 40;
+}
+/* Sign up Header Block - Used to contain the REQB logo.  Upper left hand corner*/
+#signup_header {
+	display: block;
+	width: 760px;
+	/*background: url('header_bkg.png');*/
+	background: #154272;
+	height: 50px;
+}
+
+img.signup_header { /*used to format reqb logo on sign up pages */
+	margin-top: 7px;
+	width: 200px;
+	height: 35px;
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of header block */
+
+/* Nav Block - located upper right.  Used to access Pricing and Sign in page */
+nav {
+  position: absolute;
+	top: 0;
+	right: 0;
+	/*border: 5px solid black;*/
+	z-index: 30;
+}
+
+ul.nav { /* nav block - unordered list withing the nav block*/
+	list-style-type: none;
+	padding-top: 0;
+	margin-top: 0;
+	margin-right: 0px;
+}
+
+ul.nav a { /* nav block - unordered list hyperlink format */
+	color: white;
+	display: block;
+	width: 60px;
+	background: #DEDEDE;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	text-align: center;
+	margin: 1px;
+}
+
+ul.nav a:hover { /* nav block - unordered list onmouseover hyperlink format */
+	display: block;
+	width: 60px;
+	background: #DEDEDE;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: underline;
+	text-align: center;
+	color: rgb(240,143,70);
+	margin: 1px;
+}
+
+ul.nav li { /* nav block - unordered list list fomrat */
+	color: white;
+	float: right;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of nav block */
+
+
+/* Headline*/
+#headline {
+	padding-top: 80px;
+	width: 760px;
+	/*border: 1px solid #000000;*/
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of heading block */
+
+/* Main Block - Used for the main content, including the description of features and benefits*/
+#main {
+	margin-top: 20px;
+	/* border: 1px solid #000000; */
+	text-align: left;
+}
+
+#confirmation {
+	margin-top: 7em;
+}
+
+#confirmation h2{
+	display: block;
+	width: 550px;
+	border-bottom: 1px solid white;
+	border-top: 1px solid white;
+	padding: 10px;
+	color: rgb(21,66,114);
+	margin-left: 15px;
+	margin-top: 5%;
+	margin-bottom: 10px;
+	text-align:left;
+}
+
+#confirmation p {
+	margin-left:15px;
+	color: rgb(75,174,234);
+	font-weight: bold;
+}
+
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of main content block */
+
+/* Internal Links Block - top left, used to allow the user to skip to different parts of the page*/
+#links {
+	margin-top: 20px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 150px;
+	float: left;
+}
+
+.link_title {
+	margin-left: 0px;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of internal links block */
+
+/* Screenshot block - used to break up text by showing a screenshot of the application */
+#screenshots_right {
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 200px;
+	float: right;
+}
+
+#screenshots_left {
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 200px;
+	float: right;
+}
+
+.screenshot_title {
+	font-size: smaller;
+	margin-left: 25px;
+	font-style: italic;
+	color: rgb(146, 146, 146)
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of screenshots block */
+
+/* Tour */
+
+#tour {
+	margin-top: 20px;
+}
+
+#tour img {
+	width: 75%;
+	margin-left: 75px;
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of tour block */
+
+/* Offer Block - Bottom of page, used to outline the offer in terms of price to the customer.*/
+#offer {
+	display: block;
+	padding: 10px;
+	border: 3px solid #154272;
+	width: 500px;
+	margin-top: 20px;
+	margin-left: 120px;
+	text-align: justify;
+	float: left;
+}
+
+#offer h2 {
+	color: #F0EFE4;
+	display: block;
+	background: #154272;
+  width: 460px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
+	text-align: center;
+  padding: 10px;
+	font-size: 34px;
+}
+
+#offer hr {
+	margin-left: 10px;
+	margin-right: 10px;
+  width: 760px;
+}
+
+#feature_block {
+	display: block;
+	width:460px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of offer block */
+
+#features div{
+	margin-top: 20px;
+	/*border: 1px solid #000000;*/
+	float: left;
+}
+
+#features li {
+	font-family: "palatino linotype", "book antiqua", palatino, serif;
+	margin-bottom: 10px;
+	font-size: medium;
+	font-weight: normal;
+	color: black;
+	text-align: left;
+	line-height: 20px;
+	margin-bottom: 20px;
+	color:black;
+}
+
+#features h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* Column formatting */
+/* Column left (Requirements) */
+#col-left {
+	width: 250px;
+}
+
+/* End of left column */
+
+/* Column middle (Comments) */
+#col-middle {
+	margin-left:1px;
+	width: 250px;
+}
+
+/* End of middle column */
+
+/* Column Right (Trackers) */
+#col-right {
+	margin-left:1px;
+	width: 250px;
+}
+
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of columns */
+
+/* PS Block - Bottom of page, used to sign off sales page.*/
+#ps {
+	/*border: 1px solid #000000;*/
+  padding-top:20px;
+	padding-bottom: 20px;
+	float: left;
+}
+
+
+#ps p {
+	font-family: papyrus, "apple chancery";
+	font-size: 22px;
+	font-style: italic;
+	line-height:  24px;
+	color: black;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of PS block */
+
+/*======================================================================*/
+/*======================================================================*/
+/* End of ID & Div selectors */
+
+/* Pricing Block */
+
+#pricing div {
+  /*position: relative;*/
+	/*top: 380px;*/
+	border: 1px solid gray;
+	margin-bottom:50px;
+  	float: left;
+}
+
+#bronze {
+	display: block;
+	text-align: center;
+	width: 186px;
+	height: 450px;
+	background: #F0EFE4;
+}
+
+#bronze:hover {
+	position: relative;
+	bottom: 10px;
+	right: 10px;
+	width: 190px;
+	height: 455px;
+	box-shadow: 20px 20px 20px rgb(74,83,93);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	background: #F0EFE4;
+}
+
+#silver {
+	display: block;
+	text-align: center;
+	width: 186px;
+	height: 450px;
+	background: #F0EFE4;
+}
+
+#silver:hover {
+	position: relative;
+	bottom: 10px;`k
+	right: 10px;
+	width: 190px;
+	height: 455px;
+	box-shadow: 20px 20px 20px rgb(74,83,93);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	background: #F0EFE4;
+}
+
+#gold {
+	display: block;
+	text-align: center;
+	width: 186px;
+	height: 450px;
+	background: #F0EFE4;
+}
+
+#gold:hover {
+	position: relative;
+	bottom: 10px;
+	right: 10px;
+	width: 190px;
+	height: 455px;
+	box-shadow: 20px 20px 20px rgb(74,83,93);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	background: #F0EFE4;
+}
+
+#platinum {
+	display: block;
+	text-align: center;
+	width: 186px;
+	height: 450px;
+	background: #F0EFE4;
+}
+
+#platinum:hover {
+	position: relative;
+	bottom: 10px;
+	right: 10px;
+	width: 190px;
+	height: 455px;
+	box-shadow: 20px 20px 20px rgb(74,83,93);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	background: #F0EFE4;
+}
+
+#terms{/*used to format the pricing terms*/
+	border: 1 solid #F0EFE4;
+	padding-bottom: 10px;
+}
+
+#bronze h2 {
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	padding: 1px;
+	color: rgb(56,47,23);
+
+}
+
+#silver h2 {
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	padding: 1px;
+	color: rgb(155,155,155);
+
+}
+
+#gold h2 {
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	padding: 1px;
+	color: rgb(232,197,95);
+
+}
+
+#platinum h2 {
+	font-family: Impact, Impact, Charcoal, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+	padding: 1px;
+	color: rgb(219,215,218);
+
+}
+
+.pricing_list {
+	display: block;
+	background: rgb(225,225,225);
+	color: rgb(240, 143, 70);
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 30px;
+	padding: 1px;
+	margin-top: 0px;
+	margin-bottom: 1px;
+	border-top: 1px solid white;
+}
+
+.bronze_button {
+	display: block;
+	background: rgb(56,47,23);
+	width: 100px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left:43px;
+	margin-right:43px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+}
+
+.silver_button {
+	display: block;
+	background: rgb(155,155,155);
+	width: 100px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left:43px;
+	margin-right: 43px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+}
+
+.gold_button {
+	display: block;
+	background: rgb(232,197,95);
+	width: 100px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 43px;
+  margin-right: 43px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+}
+
+.platinum_button {
+	display: block;
+	background: rgb(219,215,218);
+	width: 100px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left:43px;
+	margin-right: 43px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of Pricing Block */
+
+/* Generic Form Formatting */
+
+
+#signup_heading {
+	display: block;
+	width: 600px;
+	margin-left: 80px !important;
+	margin-top: 20px;
+}
+
+#signup_heading h1 {
+	margin-top: 10px;
+	}
+
+#signup_heading h2 {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 16px;
+}
+
+
+form {
+	display: block;
+	width: 600px;
+	border: 1px solid black;
+	background:rgb(226,226,226);
+	margin-top: 10px;
+	margin-left: 80px;
+}
+
+#contact_form {
+  /*border: 10px solid black;*/
+	margin-top: 7em;
+	margin-bottom: 5em;
+}
+
+#signup_form {
+
+}
+
+#password_form {
+	margin-top: 15em;
+
+}
+
+#signin {
+	margin-top: 10em;
+}
+
+form p {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	marin-top: 2px;
+	margin-bottom: 2px;
+	font-size: 14px;
+	color: rgb(240,143,70);
+	font-weight: bold;
+	margin-left: 20px;
+}
+
+fieldset {
+	padding: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 0;
+}
+
+fieldset h2 {
+	display: block;
+	width: 550px;
+	border-bottom: 1px solid white;
+	border-top: 1px solid white;
+	padding: 10px;
+	color: rgb(21,66,114);
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+label {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	margin-left: 10px;
+	margin-top: 10px;
+	font-weight: bold;
+	margin-bottom: 0px;
+	font-size: 14px;
+	text-align: left;
+	color: rgb(21,66,114);
+}
+
+input{
+font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+color: rgb(21,66,114);
+font-size: 14px;
+margin-left: 10px;
+margin-top: 5px;
+margin-bottom: 20px;
+height: 25px;
+border: 1px solid gray;
+background: rgb(226,226,226);
+width: 250px;
+}
+
+input.url {
+  width: 275px;
+		margin-bottom:0;
+}
+
+input.address {
+	width: 546px;
+}
+
+input.cvv {
+	width: 70px;
+}
+
+textarea{
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: rgb(21,66,114);
+	font-size: 14px;
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	border: 2px solid gray;
+	background: rgb(226,226,226);
+	width: 250px;
+
+}
+
+.paypal {
+marin-left: 0;
+margin-right: 5px;
+margin-top: 0;
+}
+
+.submit {
+margin-top: 20px;
+}
+
+select{
+font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+font-size: 14px;
+background: rgb(226,226,226);
+color: rgb(21,66,114);
+height: 25px;
+border: 1px solid gray;
+width: 250px;
+margin-left: 10px;
+margin-top: 5px;
+margin-bottom: 10px;
+}
+
+
+.month {
+	width: 95px;
+}
+
+.year {
+	width: 70px;
+}
+
+.checkbox {
+	width: 15px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#url {
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	width: 500px;
+}
+
+input:hover {
+   border: 1px solid white;
+   }
+
+#form_col_left {
+	display: block;
+	width: 295px;
+	float: left;
+}
+
+#form_col_right {
+	display: block;
+	width: 295px;
+	float: right;
+}
+
+#guarantee {
+	display: block;
+	width: 210px;
+	height: 210px;
+	margin-left: 20px;
+	margin-top: 20px;
+	background: rgb(232,197,95);
+	padding: 10px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#signin_logo {
+	width: 600px;
+	margin-left: 80px;
+	float: left;
+}
+
+#password_logo {
+	position: relative;
+	top: 15em;
+	left: 0;
+	display: block;
+	width: 600px;
+	margin-left: 80px;
+}
+
+#signin_logo img {
+	float: right;
+}
+
+ul.signin_left {
+	list-style: none;
+	display: block;
+	margin-left: 0;
+	float: left;
+}
+
+ul.signin_right {
+	list-style: none;
+	margin-top: 0;
+	display: bloack;
+	float: right;
+}
+
+.signin_left a, a:link, a:visited {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	/*color: blue;*/
+	font-size: small;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.signin_left a:hover {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-weight: normal;
+	text-decoration: underline;
+	color: rgb(240, 143, 70);
+}
+
+#guarantee h3 {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	margin-bottom: 10px;
+	}
+
+#guarantee p{
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: white;
+	font-weight: bold;
+	text-align: left;
+	}
+
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of Form Formatting */
+
+
+/* Footer Block - Bottom of page, used to sign off sales page.*/
+#footer {
+  /*border: 10px solid black;*/
+	/*background: #154272;*/
+	/*border-top: 5px solid rgb(226,226,226);*/
+	width: 760px;
+	height: 150px;
+	clear: both;
+}
+
+#footer .fixed {
+	position:absolute;
+	bottom:0;
+	width: 760px;
+	height: 150px;
+}
+
+#footer img {
+	height: 35px;
+	width: 35px;
+}
+
+#footer a {
+	color: rgb(140,140,140);
+}
+
+#footer  a:visited{
+	color: rgb(140,140,140);
+	}
+
+#footer  a:hover {
+	color: rgb(240, 143, 70);
+	text-decoration: underline;
+}
+
+#footer li {
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: rgb(140,140,140);
+	line-height: 20px;
+	margin-top: 2px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	font-size: small;
+}
+
+ul.footer_left {
+	list-style-type: none;
+	margin-top: 2px;
+	margin-left; 5px;
+	display: block;
+	float: left;
+}
+
+ul.footer_right {
+	list-style-type: none;
+	margin-top: 2px;
+	margin-left: 5px;
+	display: block;
+	float: right;
+}
+
+li.right {
+	text-align: right;
+}
+/*============================================================================================================================================*/
+/*============================================================================================================================================*/
+/* End of footer block */
+
+.signin_div{
+	font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	margin-left: 10px;
+	margin-top: -11px;
+	margin-bottom: 5px;
+	background: rgb(226,226,226);
+	
+
+}
+#guarantee {
+display: block;
+width: 80%;
+height: 110px;
+margin-left: 60px;
+margin-top: 20px;
+margin-bottom: 20px;
+padding-top: 10px;
+padding-bottom: 10px;
+background: rgb(232,197,95);
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+

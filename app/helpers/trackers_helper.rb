@@ -11,7 +11,7 @@ module TrackersHelper
   end
 
   def find_user_name_tracker(tracker)
-    result=tracker.find_user_name
+    result=tracker.find_first_name_email(tracker)
   end
 
   def remove_edit_tracker_field(name,tracker)
@@ -51,12 +51,16 @@ module TrackersHelper
           end
     end
 
-   def add_comment_tracker_field(name,tracker,user)
-        link_to_function name,:title=>tracker.comments.count do |page|
+  def add_comment_tracker_field(name,tracker,user)
+    if tracker.comments.count==0
+        link_to_function name,:title=>"Modify Comments" do |page|
           page << "$('#comment_#{tracker.id}').html('#{escape_javascript(render('trackers/comment',:tracker => tracker,:user=>user))}');"
-
+        end
+    else
+      link_to_function name,:title=>"Linked comments - #{tracker.comments.count}" do |page|
+          page << "$('#comment_#{tracker.id}').html('#{escape_javascript(render('trackers/comment',:tracker => tracker,:user=>user))}');"
         end
     end
-
+  end
 
 end

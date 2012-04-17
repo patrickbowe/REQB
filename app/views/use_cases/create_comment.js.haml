@@ -1,2 +1,17 @@
-$('#use_comment_#{@use.id}').attr('value','');
-$('#comment_show_#{@use.id}').append('#{escape_javascript(render(:partial=>'use_cases/comment_field'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif @use.nil?
+ :plain
+  window.location.replace("/use_cases");
+-elsif @comment.id.nil?
+ :plain
+  $('#flash_error_message').html('').append('<div class="flash_error">#{t(:duplicate_comment)}</div>');
+-else
+ :plain
+  $('#flash_error_message').html('').append('');
+  $('#use_comment_#{@use.id}').attr('value','');
+  $('#comment_comment_#{@use.id}').show();
+  $('#comment_save_#{@use.id}').show();
+  $('#comment_cancel_#{@use.id}').show();
+  $('#comment_show_#{@use.id}').prepend('#{escape_javascript(render(:partial=>'use_cases/comment_field'))}');

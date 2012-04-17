@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user,:current_member_session,:current_member
-
 	  private
 	    def current_user_session
 	      logger.debug "ApplicationController::current_user_session"
@@ -19,12 +18,15 @@ class ApplicationController < ActionController::Base
 	      logger.debug "ApplicationController::current_user"
 	      return @current_user if defined?(@current_user)
           @current_user = current_user_session && current_user_session.user
+          
+          
         end
 
        def current_member
             logger.debug "ApplicationController::current_member"
             return @current_member if defined?(@current_member)
             @current_member = current_member_session && current_member_session.member
+
        end
 
 
@@ -33,7 +35,7 @@ class ApplicationController < ActionController::Base
 	      unless current_user and current_member
 	        store_location
 	        flash[:notice] = "You must be logged in to access this page"
-	        redirect_to new_user_session_url
+	        redirect_to sign_in_url
 	        return false
 	      end
 	    end
@@ -56,5 +58,6 @@ class ApplicationController < ActionController::Base
 	      redirect_to(session[:return_to] || default)
 	      session[:return_to] = nil
         end
+
 
 end

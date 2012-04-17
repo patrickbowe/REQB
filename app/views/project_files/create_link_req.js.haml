@@ -1,2 +1,10 @@
-$('#add_req_file').attr('value','');
-$('#add_file_name').prepend('#{escape_javascript(render(:partial=>'project_files/create_link_req'))}');
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif !@req.nil?
+ :plain
+  window.location.replace("/project_files");
+-else
+ :plain
+  $('#add_req_file').attr('value','');
+  $('#add_req_name').prepend('#{escape_javascript(render(:partial=>'project_files/create_link_req'))}');

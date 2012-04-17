@@ -1,103 +1,98 @@
 -if !@pre.nil?
  -form_tag edit_pre_url(@pre.id) do
-  =text_field_tag "pre_condition_#{@pre.id}",@pre.title
-  %div{:id=>"show_save_cancel_#{@pre.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",use_case_details_path(:id=>session[:use_case_id])
-  =link_to "Delete",delete_pre_url(@pre.id)
-  %br
-  %br
+  %div{:class=>"rows ctr"}
+   =text_area_tag "pre_condition_#{@pre.id}",@pre.title,:cols=>"50",:class=>"inpTxt rgt w400px marL38"
+   %span{:id=>"show_save_cancel_#{@pre.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",use_case_details_path(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_pre_url(@pre.id)
 -elsif !@post.nil?
  -form_tag edit_post_url(@post.id) do
-  =text_field_tag "post_condition_#{@post.id}",@post.title
-  %div{:id=>"show_save_cancel_#{@post.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",post_conditions_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_post_url(@post.id)
- %br
- %br
+  %div{:class=>"rows ctr"}
+   =text_area_tag "post_condition_#{@post.id}",@post.title,:cols=>"50",:class=>"inpTxt rgt w400px marL38 "
+   %span{:id=>"show_save_cancel_#{@post.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",post_conditions_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_post_url(@post.id)
 -elsif !@succ.nil?
  -form_tag edit_succ_url(@succ.id) do
-  =text_field_tag "succ_condition_#{@succ.id}",@succ.title
-  %div{:id=>"show_save_cancel_#{@succ.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",success_conditions_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_success_url(@succ)
- %br
- %br
+  %div{:class=>"rows ctr"}
+   =text_area_tag "succ_condition_#{@succ.id}",@succ.title,:cols=>"50",:class=>"inpTxt rgt w400px marL38 "
+   %span{:id=>"show_save_cancel_#{@succ.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",success_conditions_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_success_url(@succ)
 -elsif !@trigger.nil?
  -form_tag edit_trigger_url(@trigger.id) do
-  =text_field_tag "trigger_#{@trigger.id}",@trigger.title
-  %div{:id=>"show_save_cancel_#{@trigger.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",triggers_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_trigger_url(@trigger)
- %br
- %br
+  %div{:class=>"rows ctr"}
+   =text_area_tag "trigger_#{@trigger.id}",@trigger.title,:cols=>"50",:class=>"inpTxt rgt w400px marL38"
+   %span{:id=>"show_save_cancel_#{@trigger.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",triggers_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_trigger_url(@trigger)
 -elsif !@actor.nil?
- =button_to "#{@actor.title}",delete_actor_url(@actor)
- %br
- %br
+ %div{:class=>"rows ctr"}
+  =button_to "#{@actor.title}",edit_actor_url(@actor.id),:class=>"button_actor"
 -elsif !@rule.nil?
  -form_tag edit_business_url(@rule.id) do
-  ="BR-#{@use_case.id}-#{@rule.id}"
-  =text_field_tag "business_rule_#{@rule.id}",@rule.title
-  %div{:id=>"show_save_cancel_#{@rule.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",business_rules_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_business_rule_url(@rule.id)
- %br
- %br
+  %div{:class=>"rows ctr"}
+   %span{:class=>"smLink marR7"}="BR-#{@use_case.id}-#{@rule.id}"
+   =text_area_tag "business_rule_#{@rule.id}",@rule.title,:cols=>"50",:class=>"inpTxt rgt w400px"
+   %span{:id=>"show_save_cancel_#{@rule.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",business_rules_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_business_rule_url(@rule.id)
 -elsif !@message.nil?
- -form_tag edit_url(@message.id) do
-  ="MSG-#{@use_case.id}-#{@message.id}"
-  =text_field_tag "message_#{@message.id}",@message.title
-  =text_field_tag :content,@message.content
-  %div{:id=>"show_save_cancel_#{@message.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",message_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_message_url(@message.id)
- %br
- %br
+ -form_tag edit_message_url(@message.id) do
+  %div{:class=>"rows ctr"}
+   %span{:class=>"smLink marR7"}="MSG-#{@use_case.id}-#{@message.id}"
+   =text_area_tag "message_#{@message.id}",@message.title,:cols=>"50",:class=>"inpTxt rgt w200px "
+   =text_area_tag "message_content_#{@message.id}",@message.content,:cols=>"50",:class=>"inpTxt rgt w200px "
+   %span{:id=>"show_save_cancel_#{@message.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",message_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Delete",delete_message_url(@message.id)
 -elsif !@basic_flow.nil?
- -form_tag edit_basic_flow_url(@basic_flow.id) do
-  ="Step #{@basic_flow_count}"
-  =text_area_tag "basic_action_#{@basic_flow.id}",@basic_flow.action,:readonly=>true
-  =text_area_tag "basic_response_#{@basic_flow.id}",@basic_flow.response,:readonly=>true
-  =link_to "Edit",'#',:id=>"add_save_cancel_#{@basic_flow.id}"
-  =link_to "Alt(0)",alternate_flow_url(:id=>@basic_flow.id)
-  %div{:id=>"show_save_cancel_#{@basic_flow.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",basic_flow_url(:id=>session[:use_case_id])
-  =link_to "Delete",delete_basic_flow_url(@basic_flow)
- %br
- %br
+ %li{:id=>"li_#{@basic_flow.id}"}
+  -form_tag edit_basic_flow_url(@basic_flow.id) do
+   %span{:id=>"step_#{@basic_flow.id}"}
+    =link_to "Step #{@basic_flow_count}","#",:title=>"Click and drag to change step sequence"
+   =text_area_tag "basic_action_#{@basic_flow.id}",@basic_flow.action,:cols=>"50",:class=>"inpTxt lft w200px "
+   =text_area_tag "basic_response_#{@basic_flow.id}",@basic_flow.response,:cols=>"50",:class=>"inpTxt lft w200px "
+   %span{:id=>"show_save_cancel_#{@basic_flow.id}",:style => "display:none;"}
+    %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+    %span{:class=>"smLink"}=link_to "Cancel",basic_flow_url(:id=>session[:use_case_id])
+   %span{:class=>"smLink"}=link_to "Alt(0)",alternate_flow_url(:id=>@basic_flow.id),:title=>"Click to add or modify an alternate flow for this step"
+   %span{:class=>"smLink"}=link_to "Delete",delete_basic_flow_url(@basic_flow)
 -elsif !@alternate_flow.nil?
- %div{:id=>"add_use_case_detail",:align=>"middle"}
+ %div{:class=>"rows ctr reqList"}
   -form_tag edit_alternate_url(@alternate_flow.id) do
-   =text_field_tag "alternate_flow_#{@alternate_flow.id}",@alternate_flow.title
-   =link_to "Edit",'#',:id=>"alter_save_cancel_#{@alternate_flow.id}"
-   =link_to "Delete",delete_alternate_url(@alternate_flow.id)
-   %div{:id=>"show_alter_#{@alternate_flow.id}",:style => "display:none;"}
-    =submit_tag "Save"
-    =link_to "Cancel",'#',:id=>"alter_hide_save_cancel_#{@alternate_flow.id}"
+   =text_field_tag "alternate_flow_#{@alternate_flow.id}",@alternate_flow.title,:class=>"inpTxt rgt w400px marT2",:title=>"Click to add or view alternate flow steps"
+   %br
+   %br
+   %span{:id=>"add_alternate_#{@alternate_flow.id}",:style => "display:none;"}
+    =text_area_tag "alter_use_basic_action_#{@alternate_flow.id}","<< Add a user action",:cols=>"50",:class=>"inpTxt rgt w200px "
+    =text_area_tag "alter_use_basic_response_#{@alternate_flow.id}","<< Add a system response",:cols=>"50",:class=>"inpTxt rgt w200px "
+    %span{:id=>"loading1"}=image_tag "spinner.gif"
     %br
-    %div{:id=>"add_alternate",:align=>"middle"}
-     =text_area_tag "use_alter_basic_action_#{@alternate_flow.id}","<< Add an user action",:size=>"50",:style=>"text-align:right"
-     =text_area_tag "use_alter_basic_response_#{@alternate_flow.id}","<< Add an user response",:size=>"50",:style=>"text-align:right"
-  %div{:id=>"edit_alternate_#{@alternate_flow.id}",:align=>"middle",:style => "display:none;"}
-  %hr{:style=>"width:400px;color:green;"}
-  %br
-  %br
+   %span{:id=>"edit_alternate_#{@alternate_flow.id}",:style => "display:none;"}
+    -i=1
+    %div{:class=>"rows_alter ctr"}
+     %ul{:class=>"sortable",:id=>"add_alternate_#{@alternate_flow.id}"}
+   %div{:class=>"clear"}
+    %span{:class=>"smLink"}=link_to "Delete",delete_alternate_url(@alternate_flow.id)
+    %span{:id=>"show_alter_#{@alternate_flow.id}",:style => "display:none;"}
+     %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+     %span{:class=>"smLink"}=link_to "Cancel",'#',:id=>"alter_hide_save_cancel_#{@alternate_flow.id}"
+
 -elsif !@alter_basic.nil?
- -form_tag edit_alter_basic_flow_url(@alter_basic.id) do
-  ="Step #{@alter_flow_count}"
-  =text_area_tag "alter_basic_action_#{@alter_basic.id}",@alter_basic.action,:readonly=>true
-  =text_area_tag "alter_basic_response_#{@alter_basic.id}",@alter_basic.response,:readonly=>true
-  =link_to "Edit",'#',:id=>"alter_basic_edit_#{@alter_basic.id}"
-  =link_to "Delete",delete_alter_basic_flow_url(@alter_basic.id)
-  %div{:id=>"show_alter_basic_#{@alter_basic.id}",:style => "display:none;"}
-   =submit_tag "Save"
-   =link_to "Cancel",'#',:id=>"alter_basic_hide_#{@alter_basic.id}"
- %br
- %br 
+ %li{:id=>"li_#{@alter_basic.id}"}
+  %span{:id=>"step1_alter_#{@alter_basic.id}"}
+   =link_to "Step #{@alter_flow_count}","#",:title=>"Click and drag to change step sequence"
+  =text_area_tag "alter_basic_action_#{@alter_basic.id}",@alter_basic.action,:cols=>"50",:class=>"inpTxt lft w190px "
+  =text_area_tag "alter_basic_response_#{@alter_basic.id}",@alter_basic.response,:cols=>"50",:class=>"inpTxt lft w190px "
+  %span{:class=>"smLink"}=link_to "Delete",delete_alter_basic_flow_url(@alter_basic.id)
+  -i=@alter_flow_count.to_i + 1
+  %span{:id=>"show_alter_basic_#{@alter_basic.id}",:style => "display:none;"}
+   %span{:class=>"smLink"}=link_to "Save",'#',:id=>"save_alter_basic_flow1_#{@alter_basic.id}"
+   %span{:class=>"smLink"}=link_to "Cancel",'#',:id=>"alter_basic_hide_#{@alter_basic.id}"

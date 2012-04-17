@@ -10,13 +10,17 @@ class Member < ActiveRecord::Base
   has_many :definitions, :dependent=>:destroy
   has_many :project_files,:dependent=>:destroy
   has_many :help_requests,:dependent=>:destroy
+  has_many :notifications,:dependent => :destroy
+  has_many :notification_message,:dependent => :destroy
   acts_as_authentic do |c|
         c.login_field = :email
-        c.merge_validates_length_of_password_field_options :minimum => 8
-        c.merge_validates_length_of_password_confirmation_field_options :minimum => 8
+        c.merge_validates_length_of_password_field_options :minimum => 6
+        c.merge_validates_length_of_password_confirmation_field_options :minimum => 6
         
    end
   attr_accessor :old_password
+
+
   def deliver_member_activation_instructions!
       reset_perishable_token!
       UserMailer.member_activation(self).deliver

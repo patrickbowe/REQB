@@ -1,47 +1,67 @@
+-@section = 'definitions'
 %div{:class=>"container"}
  %div{:id=>"require",:class=>"leftPanel"}
   %h1="Definitions"
-  %div{:class=>"fcontainer"}
-   %div{:id=>"add_term"}
-    =text_field_tag "term","<< Add term",:size=>"50",:style=>"text-align:right"
-    =text_field_tag "definition","<< Add definition",:size=>"50",:style=>"text-align:right"
-    %br
-    %br
-   %div{:id=>"alphabetic",:align=>"middle"}
+  %div{:class=>"fl w685px"}
+   %div{:class=>"tabFormat"}
+    %div{:id=>"add_term",:class=>"rows aRow ctr"}
+     -if !session[:project_id].nil?
+      =text_field_tag "term1","<< Add term",:size=>"50",:class=>"inpTxt_ad w155px rgt"
+      =text_field_tag "definition1","<< Add definition",:size=>"50",:class=>"inpTxt_ad w405px rgt"
+      %span{:id=>"loading"}=image_tag "spinner.gif"
+     -else
+      =text_field_tag "term1","<< Add term",:size=>"50",:class=>"inpTxt_ad w155px rgt",:disabled=>true
+      =text_field_tag "definition1","<< Add definition",:size=>"50",:class=>"inpTxt_ad w405px rgt",:disabled=>true
+    %div{:class=>"gap"}
+   %div{:id=>"alphabetic",:class=>"rows ctr",:align=>"center"}
     =render "alphabetic"
-   %div{:id=>"add_definition",:align=>"middle"}
+   %div{:class=>"gap"} 
+   %div{:id=>"add_definition",:class=>"rows w650px ctr"}
     -if !@defs.nil?
      -@defs.each do |d|
       -form_tag edit_def_url(d.id) do
-       %div{:class=>"Row wid660"}
-        =text_field_tag "term_#{d.id}",d.term
-        =text_field_tag "definition_#{d.id}",d.definition
+       %div{:id=>"definition",:class=>"rows w650px ctr"}
+        %span{:class=>"noBdr actionItems",:id=>"save_def1_#{d.id}"}
+         =text_area_tag "term_#{d.id}",d.term,:cols=>"50",:class=>"inpTxt w150px rgt"
+         =text_area_tag "definition_#{d.id}",d.definition,:cols=>"50",:class=>"inpTxt w250px rgt"
         -#=link_to "Edit","#",:id=>"edit_def_#{d.id}"
-        %div{:id=>"save_def_#{d.id}",:style => "display:none;"}
-         =submit_tag "Save"
-         =link_to "Cancel","#",:id=>"cancel_def_#{d.id}"
-        -if @user.privilige=="Admin" or @user.id==d.user_id
-         =link_to "Delete",delete_def_url(d.id)
-        -else
-         =link_to "Delete",delete_def_url(d.id),:href=>"#"
-        %br
-        %br
-      %br
-      %hr{:style=>"width:400px;color:green;"}
+        %span{:class=>"noBdr actionItems"}
+         -if @user.privilige!="Read"
+          %span{:id=>"save_def_#{d.id}",:style => "display:none;"}
+           %span{:class=>"smLink"}=submit_tag "Save",:class=>"cButton"
+           %span{:class=>"smLink"}=link_to "Cancel",definitions_path
+         -if @user.privilige=="Admin"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+         -elsif !current_user.nil? and @user.id==d.user_id and @user.privilige!="Read"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+         -elsif !current_member.nil? and @user.id==d.member_id and @user.privilige!="Read"
+          %span{:class=>"smLink"}=link_to "Delete",delete_def_url(d.id)
+         -elsif !current_user.nil? and @user.id==d.user_id and @user.privilige=="Read"
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+         -elsif !current_member.nil? and @user.id==d.member_id and @user.privilige=="Read"
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_message_with_out_permisson)
+         -else
+          %span{:class=>"smLink"}=link_to "Delete","#",:confirm => t(:def_no_user)
  %div{:class=>"rightPanel"}
   %div{:id=>"sort_definition"}
-   %h1="Sort Definition"
-   =radio_button_tag :sort,"term"
-   =label_tag "Term"
-   %br
-   =radio_button_tag :sort,"definition"
-   =label_tag "Definition"
-   %br
-   =radio_button_tag :sort,"created_at"
-   =label_tag "Date Entered"
+   %h1="Sort Definitions"
+   %div{:class=>"rightPanel_show"}
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"term",false,:class=>"check_box"
+     =label_tag "Term"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"definition",false,:class=>"check_box"
+     =label_tag "Definition"
+    %div{:style=>"float:left;width:246px;"}
+     =radio_button_tag :sort,"created_at",false,:class=>"check_box"
+     =label_tag "Date Entered"
+    %div{:class=>"clear"}  
    %div{:id=>"storage"}
    %h1="Storage"
-   =find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + " used"
+   %div{:class=>"rightPanel_show"}=find_storage_use(@user).to_s + "mb from " + find_total_storage_use(@user) + "mb used"
+  %div{:id=>"report"}
+   %h1="Reports"
+   %div{:class=>"rightPanel_show"}=link_to "Definition List",def_list_report_url(:format=>"pdf"),:target=>"_blank"
 
         
 

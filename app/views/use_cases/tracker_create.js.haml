@@ -1,0 +1,10 @@
+-if current_user.nil? and current_member.nil?
+ :plain
+  window.location.replace("/sign-in");
+-elsif session[:tracker_id].nil?
+ :plain
+  window.location.replace("/trackers");
+-else
+ :plain
+  $('#tracker_use_case_name').attr('value','');
+  $('#add_tracker_use_case').prepend('#{escape_javascript(render(:partial=>'use_cases/create_use_case_tracker'))}');

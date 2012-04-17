@@ -1,0 +1,48 @@
+-if !@tracker_reqs.nil?
+      -@tracker_reqs.each do |tracker|
+            %div{:class=>"rows reqList",:id=>"span_images_track_req_#{tracker.id}"}
+                  %div{:class=>"upper"}
+                        %span{:class=>"cols w50px noBdr actionItems1"}
+                              -if @user.privilige=="Read"
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{tracker.id}",:title=>"Delete tracker"),"#",:confirm => t(:tracker_remove_message_with_out_permisson)
+                              -elsif @user.privilige=="Admin"
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{tracker.id}",:title=>"Delete tracker"),delete_tracker_req_url(tracker.id)
+                              -elsif !current_user.nil? and tracker.user_id==@user.id
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{tracker.id}",:title=>"Delete tracker"),delete_tracker_req_url(tracker.id)
+                              -elsif !current_member.nil? and tracker.member_id==@user.id
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{tracker.id}",:title=>"Delete tracker"),delete_tracker_req_url(tracker.id)
+                              -else
+                                    =link_to image_tag("delete.gif",:id=>"delete_images_#{tracker.id}",:title=>"Delete tracker"),"#",:confirm => t(:tracker_no_user)
+                              =add_edit_tracker_req_field image_tag("edit.gif",:id=>"edit_images_#{tracker.id}",:title=>"Edit Tracker Attributes"),tracker
+                        -if tracker.assigned.nil?
+                              %span{:class=>"cols w150px noBdr"}="Unassigned"
+                        -elsif tracker.assigned.empty?
+                              %span{:class=>"cols w150px noBdr"}="Unassigned"
+                        -else
+                              %span{:class=>"cols w150px noBdr"}=tracker.assigned
+                        %span{:class=>"cols w150px"}=tracker.category
+                        -if tracker.due.nil?
+                              %span{:class=>"cols w120px"}="Due"
+                        -else
+                              %span{:class=>"cols w120px"}=tracker.due.strftime("%d-%m-%Y")
+                        %span{:class=>"cols w50px noBdr actionItems1"}
+                              -if @user.privilige=="Read"
+                                    -if tracker.flag_tracker==true
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",true,:disabled=>true,:title=>"Completed",:style=>"display:none;"
+                                    -else
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",false,:disabled=>true,:title=>"Mark complete",:style=>"display:none;"
+                              -elsif @user.privilige=="Admin"
+                                    -if tracker.flag_tracker==true
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",true,:title=>"Completed",:style=>"display:none;"
+                                    -else
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",false,:title=>"Mark complete",:style=>"display:none;"
+                              -else
+                                    -if tracker.flag_tracker==true
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",true,:disabled=>true,:title=>"Completed",:style=>"display:none;"
+                                    -else
+                                          =check_box_tag "track_req_flag_#{tracker.id}","",false,:title=>"Mark complete",:style=>"display:none;"
+                  %div{:class=>"lower1"}
+                        =tracker.title
+
+            %div{:id=>"edit_#{tracker.id}"}
+

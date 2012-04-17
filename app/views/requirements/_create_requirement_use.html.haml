@@ -1,16 +1,19 @@
--if !@usecase_req.nil?
- =@usecase_req.name
- |
- =@usecase_req.category
- |
- =@usecase_req.status
- |
- =@usecase_req.type1
- -if @user.privilige!="Read" and @user.privilige!="Approve"
-  =add_requirement_usecase "Edit",@usecase_req,@user
-  =link_to "Delete",delete_req_use_url(@usecase_req.id)
- %br
- %div{:id=>"edit_requirement_#{@usecase_req.id}"}
- %br
- %hr{:style=>"width:400px;color:green;"}
+%div{:class=>"rows reqList",:id=>"span_images_#{@usecase_req.id}"}
+ %div{:class=>"upper"}
+  %span{:class=>"cols w30px noBdr actionItems1"}
+   =add_requirement_usecase image_tag("edit.gif",:id=>"edit_images_#{@usecase_req.id}",:title=>"Edit Requirement attributes"),@usecase_req,@user
+  -if !@usecase_req.nil?
+   -first_name=find_user_name_email(@usecase_req)
+   -if !first_name.empty?
+    %span{:class=>"cols w180px noBdr"}=first_name
+   %span{:class=>"cols w100px"}=@usecase_req.category
+   %span{:class=>"cols w100px"}=@usecase_req.status
+   %span{:class=>"cols w100px"}=@usecase_req.type1
+   %span{:class=>"cols w50px noBdr actionItems1"}
+    -if @user.privilige!="Read"
+     =link_to image_tag("delete.gif",:id=>"delete_images_#{@usecase_req.id}",:title=>"Unlink requirement"),delete_req_use_url(@usecase_req.id)
+
+ %div{:class=>"lower1"}
+  =@usecase_req.name  
+%div{:id=>"edit_requirement_#{@usecase_req.id}"}
 

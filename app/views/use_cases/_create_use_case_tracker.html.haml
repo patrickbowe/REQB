@@ -1,0 +1,18 @@
+%div{:class=>"rows reqList",:id=>"span_images_use_#{@project_use.id}"}
+ %div{:class=>"w600px upper"}
+  -if !@project_use.nil?
+   %span{:class=>"cols w30px noBdr actionItems1"}
+    =add_use_tracker_edit_field image_tag("edit.gif",:id=>"edit_images_#{@project_use.id}",:title=>"Edit Use Case attributes"),@project_use
+
+   -first_name=find_user_name_use_email(@project_use)
+   -if !first_name.empty?
+    %span{:class=>"cols w180px noBdr"}=first_name
+   -if @project_use.category.nil?
+    %span{:class=>"cols w100px"}="Category"
+   -else
+    %span{:class=>"cols w100px"}=@project_use.category
+   %span{:class=>"cols w100px"}=@project_use.status
+   %span{:class=>"cols w50px noBdr actionItems1"}=link_to image_tag("delete.gif",:id=>"delete_images_#{@project_use.id}",:title=>"Unlink use case"),:controller => "use_cases", :action => "destroy_tracker_usecase", :id => @project_use.id
+ %div{:class=>"lower"}
+  =@project_use.name
+%div{:id=>"edit_#{@project_use.id}"}

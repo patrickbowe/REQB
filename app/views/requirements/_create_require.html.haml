@@ -1,26 +1,22 @@
--#find_user_name_use(@project_req)
--#=find_user_name(@project_req)
-=@project_req.name
-|
-=@project_req.category
-|
-=@project_req.status
-|
-=@project_req.type1
-=add_edit_field "Edit",@project_req
--att_flag=check_attachment_req(@project_req)
--if att_flag=="true"
- =link_to "Delete",delete_req_url(@project_req.id)
--else
- =link_to "Delete",delete_req_url(@project_req.id),:confirm => 'Are you sure you want to delete?'
-=link_to "Add/Show Usecase",show_usecases_url(:req=>@project_req.id),:title=>@project_req.use_cases.count
-=link_to "Add/Show Tracker",show_trackers_url(:req=>@project_req.id),:title=>@project_req.trackers.count
-=add_comment_req_field "Add Comments",@project_req,@user
-%br
--#%div{:style=>"width:350px;text-align:left;",:align=>"center"}
- -#=@project_req.name
+%div{:class=>"rows reqList",:id=>"span_images_#{@project_req.id}"}
+ %div{:class=>"upper"}
+  %span{:class=>"cols w30px noBdr actionItems1"}
+   =add_edit_field image_tag("edit.gif",:id=>"edit_images_#{@project_req.id}",:title=>"Edit Requirement attributes"),@project_req
+  -first_name=find_user_name_email(@project_req)
+  -if !first_name.empty?
+   %span{:class=>"cols w170px noBdr"}=first_name
+  %span{:class=>"cols w85px"}=@project_req.category
+  %span{:class=>"cols w70px"}=@project_req.status
+  %span{:class=>"cols w70px"}=@project_req.type1
+  %span{:class=>"cols w150px noBdr actionItems1"}
+   =link_to image_tag("link.gif",:id=>"link_images_#{@project_req.id}",:alt=>"Add / show use cases"),show_usecases_url(:req=>@project_req.id),:title=>"Link a use case"
+   =link_to image_tag("trackers.gif",:id=>"tracker_images_#{@project_req.id}",:alt=>"Add / show trackers"),show_trackers_url(:req=>@project_req.id),:title=>"Link a tracker"
+   =add_comment_req_field image_tag("comments.gif",:id=>"comment_images_#{@project_req.id}",:alt=>"Add / show comments"),@project_req,@user
+   =link_to image_tag("upload.gif",:id=>"upload_images_#{@project_req.id}",:alt=>"Add / show uploaded files"),show_files_url(:req=>@project_req.id),:title=>"Upload a file"
+   =link_to image_tag("delete.gif",:id=>"delete_images_#{@project_req.id}",:title=>"Delete requirement"),delete_req_url(@project_req.id),:title=>"Delete"
+ %div{:class=>"lower"}
+  =@project_req.name
 %div{:id=>"edit_#{@project_req.id}"}
-%br
 %div{:id=>"comment_#{@project_req.id}"}
-%hr{:style=>"width:400px;color:green;"}
+
 
